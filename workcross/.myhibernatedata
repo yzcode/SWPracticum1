@@ -1,0 +1,17 @@
+#MyEclipse Hibernate Properties
+#Sun Nov 16 20:29:22 CST 2014
+genVersionTag=false
+sessionFactoryName=workcross.model.HibernateSessionFactory
+genAnnotations=false
+configFile=/workcross/src/hibernate.cfg.xml
+reStrategyClass=
+sessionFactoryId=
+profile=
+detectM2M=false
+genBasicCompId=false
+keyGenerator=
+createConfigFile=true
+basePersistenceClass=
+detectO2O=false
+useJavaTypes=true
+reSettingsFile=
