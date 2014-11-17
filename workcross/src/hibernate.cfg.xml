@@ -22,6 +22,7 @@
 		</property>
 		<mapping resource="workcross/model/WxUser.hbm.xml" />
 		<mapping resource="workcross/model/User.hbm.xml" />
+		<mapping resource="workcross/model/Team.hbm.xml" />
 
 	</session-factory>
 
