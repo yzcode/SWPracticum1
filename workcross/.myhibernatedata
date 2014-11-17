@@ -1,17 +1,20 @@
 #MyEclipse Hibernate Properties
-#Sun Nov 16 20:29:22 CST 2014
-genVersionTag=false
-sessionFactoryName=workcross.model.HibernateSessionFactory
-genAnnotations=false
-configFile=/workcross/src/hibernate.cfg.xml
-reStrategyClass=
-sessionFactoryId=
-profile=
-detectM2M=false
+#Mon Nov 17 14:14:16 CST 2014
 genBasicCompId=false
-keyGenerator=
-createConfigFile=true
-basePersistenceClass=
+sessionFactoryName=workcross.model.HibernateSessionFactory
+profile=
+daoSFId=
+jndiPath=
+detectM2M=false
+reStrategyClass=
 detectO2O=false
+springDaoFile=
 useJavaTypes=true
+keyGenerator=native
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=false
 reSettingsFile=
+configFile=/workcross/src/hibernate.cfg.xml
+createConfigFile=true
