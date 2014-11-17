@@ -1,0 +1,20 @@
+#MyEclipse Hibernate Properties
+#Mon Nov 17 14:14:16 CST 2014
+genBasicCompId=false
+sessionFactoryName=workcross.model.HibernateSessionFactory
+profile=
+daoSFId=
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=
+useJavaTypes=true
+keyGenerator=native
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/workcross/src/hibernate.cfg.xml
+createConfigFile=true
