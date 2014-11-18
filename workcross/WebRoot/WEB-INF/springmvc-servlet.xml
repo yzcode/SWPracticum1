@@ -17,6 +17,10 @@
 	<!-- 启动注解驱动 SpringMVC 功能 -->
 	<mvc:annotation-driven />
 
+	<!-- 静态资源 -->
+	<mvc:resources mapping="/" location="/index.html" />
+	<mvc:resources mapping="*.html" location="/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/views/" />
