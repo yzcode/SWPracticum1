@@ -44,25 +44,32 @@
             border: 2px solid #fff;
             transition: .15s all ease;
         }
-
-        body {
-            background: url("./static/images/main.jpg");
-            background-repeat: no-repeat;
+        .main-container{
+            background:url("./static/images/main.jpg");
+            background-repeat:no-repeat;
+            background-size: cover;
+            padding-bottom: 70px;
         }
-
-        #description {
+        #description{
+            padding-top: 70px;
+            font-size: 75px;
         }
 
         .desc_font {
             font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
             color: #ffffff;
-            margin-top: 70px;
+            font-size: 75px;
+        }
+        .desc_small{
+            font-family: "微软雅黑","Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            font-size: 27px;
         }
 
         #wel_title {
             text-align: center;
-            font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            padding-top: 30px;
+            font-family: "微软雅黑","Helvetica Neue", Helvetica, Arial, sans-serif;
+            /*padding-top: 30px;*/
         }
 
         #des-main1 {
@@ -83,6 +90,11 @@
 
         .hpicon {
             font-size: 40px;
+        }
+        @media (max-width: 992px) {
+            .des-container{
+                display: none;
+            }
         }
     </style>
 </head>
@@ -107,18 +119,11 @@
         </div>
     </div>
 </div>
-<div class="container main-container">
-    <div class="row">
-        <div class="col-md-8" id="description">
-            <h1 class="desc_font text-left">快捷</h1>
-
-            <h1 class="desc_font text-left">高效</h1>
-
-            <h1 class="desc_font text-left">合作</h1>
-        </div>
-        <div class="col-md-3">
-
-        </div>
+<div class="main-container">
+    <div class="" id="description">
+        <p class="desc_font text-center">Work&nbsp;X</p>
+        <p class="desc_small text-center">欢迎使用WorkX团队协作工工具,这是一个友好的</p>
+        <p class="desc_small text-center">易于使用且没有学习成本的团队协作平台，在这里可以享受到合作的乐趣。</p>
     </div>
 </div>
 <div class="des-container">
