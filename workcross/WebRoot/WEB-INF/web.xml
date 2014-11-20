@@ -4,17 +4,27 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>workcross</display-name>
+	
+	<!-- 加载所有的配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:workcross/config/spring/spring-*.xml</param-value>
+	</context-param>
+	<!-- <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param> -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext.xml</param-value>
-	</context-param>
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:workcross/config/spring/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
@@ -22,4 +32,32 @@
 		<!-- 监听所有请求 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<!-- 配置字符集 -->  
+  <filter>  
+    <filter-name>encodingFilter</filter-name>  
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+    <init-param>  
+        <param-name>encoding</param-name>  
+        <param-value>UTF-8</param-value>  
+    </init-param>  
+    <init-param>  
+         <param-name>forceEncoding</param-name>  
+         <param-value>true</param-value>  
+     </init-param>  
+   </filter>  
+   <filter-mapping>  
+     <filter-name>encodingFilter</filter-name>  
+     <url-pattern>/*</url-pattern>  
+   </filter-mapping>  
+     
+   <!-- 配置Session -->  
+   <filter>  
+     <filter-name>openSession</filter-name>  
+     <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+   </filter>  
+   <filter-mapping>  
+     <filter-name>openSession</filter-name>  
+     <url-pattern>/*</url-pattern>  
+   </filter-mapping>  
+	
 </web-app>
