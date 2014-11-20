@@ -63,6 +63,14 @@ public class User implements java.io.Serializable {
 		return this.password;
 	}
 
+	public void setRawPassword(String password) {
+		this.password = UserManager.passwordEncoder.encode(password);
+	}
+
+	public boolean matchPassword(String password) {
+		return UserManager.passwordEncoder.matches(password, this.password);
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}

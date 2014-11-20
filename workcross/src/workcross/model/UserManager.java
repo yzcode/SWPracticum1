@@ -6,12 +6,14 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import workcross.model.*;
-
+import org.springframework.security.crypto.password.*;
 public class UserManager {
 
-	
+	private static final String SITE_WIDE_SECRET = "my-secret-key";
+	public static final PasswordEncoder passwordEncoder = new StandardPasswordEncoder(
+			SITE_WIDE_SECRET);
 	private SessionFactory sessionFactory;
-	
+
 	@Resource(name = "sessionFactory")
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -21,7 +23,7 @@ public class UserManager {
 			String nickname) {
 		User user = new User();
 		user.setUsername(username);
-		user.setPassword(raw_password);
+		user.setRawPassword(raw_password);
 		user.setNickname(nickname);
 		user.setEmail(email);
 		sessionFactory.getCurrentSession().save(user);
