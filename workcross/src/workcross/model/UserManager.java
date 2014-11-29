@@ -28,4 +28,11 @@ public class UserManager {
 		user.setEmail(email);
 		sessionFactory.getCurrentSession().save(user);
 	}
+	public User getUserByUsername(String username)
+	{
+		String hql = "from User where username = ? ";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter(0, username);
+		return  (User)query.uniqueResult();
+	}
 }
