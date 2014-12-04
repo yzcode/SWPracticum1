@@ -1,23 +1,26 @@
-package workcross.model;
+package workcross.service;
 
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
 
 import workcross.model.*;
+import workcross.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.*;
-public class UserManager {
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class UserService {
 
 	private static final String SITE_WIDE_SECRET = "my-secret-key";
 	public static final PasswordEncoder passwordEncoder = new StandardPasswordEncoder(
 			SITE_WIDE_SECRET);
-	private SessionFactory sessionFactory;
-
-	@Resource(name = "sessionFactory")
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+	@Autowired
+	private UserRepository userRepository;
 
 	public void addUser(String username, String raw_password, String email,
 			String nickname) {
@@ -26,13 +29,10 @@ public class UserManager {
 		user.setRawPassword(raw_password);
 		user.setNickname(nickname);
 		user.setEmail(email);
-		sessionFactory.getCurrentSession().save(user);
+		userRepository.save(user);
 	}
-	public User getUserByUsername(String username)
-	{
-		String hql = "from User where username = ? ";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		query.setParameter(0, username);
-		return  (User)query.uniqueResult();
+
+	public User getUserByUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 }
