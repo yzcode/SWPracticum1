@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/cache
+			http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+			http://www.springframework.org/schema/data/jpa
+   			http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<!-- Data Source for Development -->
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/workcross" />
+		<property name="username" value="workcross" />
+		<property name="password" value="workcross" />
+	</bean>
+
+
+	<!-- Data Source for Production -->
+<!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close"
+		p:driverClass="com.mysql.jdbc.Driver"
+		p:jdbcUrl="jdbc:mysql://localhost/workcross"
+		p:user="workcross"
+		p:password="workcross"
+		p:initialPoolSize="5"
+		p:maxPoolSize="100"
+		p:minPoolSize="10"
+		p:maxStatements="50"
+		p:acquireIncrement="5"
+		p:idleConnectionTestPeriod="60"
+	/>
+ -->
+
+	<!-- JPA Entity Manager Factory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:packagesToScan="workcross.model" p:dataSource-ref="dataSource"
+		p:jpaVendorAdapter-ref="hibernateVendor" p:jpaPropertyMap-ref="jpaPropertyMap" />
+
+	<bean id="hibernateVendor"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+		p:database="MYSQL" p:showSql="true" p:generateDdl="true"
+		p:databasePlatform="org.hibernate.dialect.MySQLDialect" />
+
+	<util:map id="jpaPropertyMap">
+		<entry key="hibernate.hbm2ddl.auto" value="update" />
+		<entry key="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+
+		<!-- To enable Hibernate's second level cache and query cache settings -->
+		<entry key="hibernate.max_fetch_depth" value="4" />
+		<entry key="hibernate.cache.use_second_level_cache" value="true" />
+		<entry key="hibernate.cache.use_query_cache" value="true" />
+		<!-- NOTE: if using net.sf.ehcache.hibernate.EhCacheRegionFactory for Hibernate 4+, probrems happen -->
+		<entry key="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+	</util:map>
+
+
+	<!-- EhCache Configuration -->
+	<cache:annotation-driven />
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+		p:cacheManager-ref="ehcache" />
+
+	<!-- NOTE: make sure p:share="true", or problems happen -->
+	<bean id="ehcache"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="/WEB-INF/ehcache.xml" p:shared="true" />
+
+
+	<!-- Transaction Config -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory">
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+
+
+	<!-- User declarative transaction management -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<!-- This will ensure that Hibernate or JPA exceptions are automatically
+		translated into Spring's generic DataAccessException hierarchy for those
+		classes annotated with Repository. -->
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+
+	<!-- Activate Spring Data JPA repository support -->
+	<jpa:repositories base-package="workcross.repository" />
+
+</beans>

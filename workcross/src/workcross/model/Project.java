@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Project implements Serializable {
 
 	@Id
-	private int id;
+	private Integer id;
 
 	@Column(name = "name")
 	private String name;

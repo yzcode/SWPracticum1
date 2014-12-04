@@ -8,7 +8,7 @@
 	<!-- 加载所有的配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:workcross/config/spring/spring-*.xml</param-value>
+		<param-value>classpath*:workcross/config/spring/spring-common.xml</param-value>
 	</context-param>
 	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>

@@ -2,21 +2,42 @@ package workcross.model;
 
 import java.sql.Timestamp;
 
+import workcross.service.UserService;
+
+import javax.persistence.*;
+
+import net.sf.ehcache.config.CacheConfiguration;
+
 /**
  * User entity. @author MyEclipse Persistence Tools
  */
 
+@Entity
+@Table(name = "user")
 public class User implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5925559784139229711L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	@Column(name = "username")
 	private String username;
+
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "nickname")
 	private String nickname;
+
+	@Column(name = "email")
 	private String email;
-	private Timestamp createTime;
-	private Timestamp updateTime;
 
 	// Constructors
 
@@ -30,15 +51,14 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	/** full constructor */
-	public User(String username, String password, String nickname,
-			String email, Timestamp createTime, Timestamp updateTime) {
+	public User(Integer id, String username, String password, String nickname,
+			String email) {
+		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.nickname = nickname;
 		this.email = email;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
 	}
 
 	// Property accessors
@@ -64,11 +84,11 @@ public class User implements java.io.Serializable {
 	}
 
 	public void setRawPassword(String password) {
-		this.password = UserManager.passwordEncoder.encode(password);
+		this.password = UserService.passwordEncoder.encode(password);
 	}
 
 	public boolean matchPassword(String password) {
-		return UserManager.passwordEncoder.matches(password, this.password);
+		return UserService.passwordEncoder.matches(password, this.password);
 	}
 
 	public void setPassword(String password) {
@@ -90,21 +110,4 @@ public class User implements java.io.Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Timestamp getCreateTime() {
-		return this.createTime;
-	}
-
-	public void setCreateTime(Timestamp createTime) {
-		this.createTime = createTime;
-	}
-
-	public Timestamp getUpdateTime() {
-		return this.updateTime;
-	}
-
-	public void setUpdateTime(Timestamp updateTime) {
-		this.updateTime = updateTime;
-	}
-
 }
