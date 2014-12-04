@@ -3,7 +3,6 @@ package workcross.service;
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
 
 import workcross.model.*;
 import workcross.repository.UserRepository;
@@ -22,7 +21,7 @@ public class UserService {
 			SITE_WIDE_SECRET);
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public void addUser(String username, String raw_password, String email,
 			String nickname) {
 		User user = new User();
