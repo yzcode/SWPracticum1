@@ -69,5 +69,9 @@ public class TeamService {
 			userIds.add(tm.getUserId());
 		return userRepository.findByIdIn(userIds);
 	}
+	public Team getTeamById(long id)
+	{
+		return teamRepository.findById(id);
+	}
 	
 }
