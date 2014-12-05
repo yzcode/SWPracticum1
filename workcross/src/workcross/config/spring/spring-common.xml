@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+
+
+	<!-- Activates the Spring infrastructure for various annotations to be detected 
+		in bean classes: Spring's @Required and @Autowired, as well as JSR 250's 
+		@PostConstruct, @PreDestroy and @Resource (if available), and JPA's @PersistenceContext 
+		and @PersistenceUnit (if available). Alternatively, you can choose to activate 
+		the individual BeanPostProcessors for those annotations explictly. -->
+	<context:annotation-config />
+
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- Scans within the base package of the application for @Components to 
+		configure as beans -->
+	<!-- @Controller, @Service, @Repository, @Configuration, etc -->
+	<context:component-scan base-package="workcross" />
+
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<mvc:default-servlet-handler />
+
+
+	<import resource="spring-data.xml" />
+	<import resource="spring-mvc.xml" />
+
+</beans>
