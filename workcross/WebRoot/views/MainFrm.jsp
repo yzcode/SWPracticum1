@@ -1,3 +1,9 @@
+<%@ page language="java" import="java.util.*,workcross.model.*"  pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html>
 <html ng-app="workx">
 <head>
@@ -91,7 +97,7 @@
                     <!--</div>-->
                     <!--<button type="submit" class="btn btn-default">Submit</button>-->
                 <!--</form>-->
-                <ul class="nav navbar-nav navbar-right" id="nav-right">
+                <ul class="nav navs navbar-nav navbar-right" id="nav-right">
                     <li class="dropdown">
                         <a  class="dropdown-toggle font-set-fm" data-toggle="dropdown">新建<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
