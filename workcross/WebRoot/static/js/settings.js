@@ -4,7 +4,6 @@
 
 var settings = new Object();
 
-settings.j2ee = true;
-if(!settings.j2ee) settings.webroot = '/SWPracticum1/workcross/WebRoot/';
+settings.j2ee = false;
+if(!settings.j2ee) settings.webroot = '/workcross/WebRoot/';
 else settings.webroot = '/workcross/';
-

@@ -4,7 +4,9 @@
 'use strict';
 var workx = angular.module('workx', [
     'ngRoute',
-    'workxControllers'
+    'workxControllers',
+    'globel',
+    'serverRes'
 ]);
 
 workx.config(['$routeProvider',
@@ -17,6 +19,10 @@ workx.config(['$routeProvider',
             when('/projects', {
                 templateUrl: settings.webroot+'static/template/project.html',
                 controller: 'projects'
+            }).
+            when('/teams/:teamId', {
+                templateUrl: settings.webroot+'static/template/teams.html',
+                controller: 'teamctr'
             }).
             otherwise({
                 redirectTo: '/dashboard'
