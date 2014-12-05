@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache
+		maxElementsInMemory ="10000"
+		eternal="false"
+		timeToIdleSeconds="120"
+		timeToLiveSeconds="120"
+		overflowToDisk="true"
+		maxElementsOnDisk ="10000000"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"
+	/>
+
+	<cache name="org.hibernate.cache.UpdateTimestampsCache"
+		maxElementsInMemory="5000"
+		eternal="true"
+		overflowToDisk="true"
+	/>
+
+	<cache name="org.hibernate.cache.StandardQueryCache"
+		maxElementsInMemory ="5000"
+		eternal="false"
+		timeToIdleSeconds="120"
+		timeToLiveSeconds="120"
+		overflowToDisk="true"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"/>
+
+	<cache name="workcross.model.User"
+		maxElementsInMemory ="50"
+		eternal="false"
+		timeToIdleSeconds="300"
+		timeToLiveSeconds="600"
+		overflowToDisk="true"
+	/>
+
+
+</ehcache>

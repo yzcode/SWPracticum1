@@ -2,19 +2,27 @@ package workcross.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Team entity. @author MyEclipse Persistence Tools
  */
-
+@Entity
+@Table(name = "team")
 public class Team implements java.io.Serializable {
 
 	// Fields
 
+	@Id
 	private Integer id;
+
+	@Column(name = "teamname")
 	private String teamname;
+	@Column(name = "description")
 	private String description;
-	private Timestamp createTime;
-	private Timestamp updateTime;
 
 	// Constructors
 
@@ -27,13 +35,11 @@ public class Team implements java.io.Serializable {
 		this.teamname = teamname;
 	}
 
-	/** full constructor */
-	public Team(String teamname, String description, Timestamp createTime,
-			Timestamp updateTime) {
+	public Team(Integer id, String teamname, String description) {
+		super();
+		this.id = id;
 		this.teamname = teamname;
 		this.description = description;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
 	}
 
 	// Property accessors
@@ -60,22 +66,6 @@ public class Team implements java.io.Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Timestamp getCreateTime() {
-		return this.createTime;
-	}
-
-	public void setCreateTime(Timestamp createTime) {
-		this.createTime = createTime;
-	}
-
-	public Timestamp getUpdateTime() {
-		return this.updateTime;
-	}
-
-	public void setUpdateTime(Timestamp updateTime) {
-		this.updateTime = updateTime;
 	}
 
 }
