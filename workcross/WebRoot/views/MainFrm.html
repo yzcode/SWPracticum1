@@ -39,7 +39,6 @@
             background-color: #393939;
             border-color: #393939;
             border-right: 1px;
-            border: 1px solid transparent;
             overflow: hidden;
         }
         #main-server{
@@ -127,8 +126,20 @@
                 <div class="divider"></div>
                 <div>
                     <ul id="left-panel-teams" class="left-panel-ul" ng-repeat="team in teams">
-                        <li>
-                            <a href="#/teams/1" class="listitem font-hui"><span class="glyphicon glyphicon-th-list left-panel-icon"></span>{{team.teamname}}</a>
+                        <li style="position: relative;">
+                            <a href="#/teams/{{team.id}}" class="listitem" ng-click="show_project($event,team.id)">
+                                <span class="glyphicon glyphicon-th-list left-panel-icon"></span>
+                                {{team.teamname}}
+                                <span class="left-panel-icon-sw glyphicon glyphicon-chevron-right" ng-class="{true:'glyphicon-chevron-down',false:'glyphicon-chevron-right'}[team.expand == true]"></span>
+                            </a>
+                            <ul class="left-panel-ul left-panel-ul-2" id="team{{team.id}}-project" style="display: none">
+                                <li ng-repeat="project in team.projects.projects">
+                                    <a href="#/project/{{project.id}}" class="listitem">
+                                        <span class="glyphicon glyphicon-tasks left-panel-icon"></span>
+                                        {{project.name}}
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

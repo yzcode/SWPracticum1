@@ -17,8 +17,12 @@ workx.config(['$routeProvider',
                 controller: 'dashboard'
             }).
             when('/projects', {
-                templateUrl: settings.webroot+'static/template/project.html',
+                templateUrl: settings.webroot+'static/template/projects.html',
                 controller: 'projects'
+            }).
+            when('/project/:projectId', {
+                templateUrl: settings.webroot+'static/template/project.html',
+                controller: 'project'
             }).
             when('/teams/:teamId', {
                 templateUrl: settings.webroot+'static/template/teams.html',
