@@ -12,20 +12,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--For IE-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>WorkCross</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet/less" href="../static/css/main.less">
-    <script src="../static/js/settings.js"></script>
-    <script src="../static/js/less-1.3.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/workcross/static/css/bootstrap.min.css">
+    <link rel="stylesheet/less" href="/workcross/static/css/main.less">
+    <script src="/workcross/static/js/settings.js"></script>
+    <script src="/workcross/static/js/less-1.3.1.min.js" type="text/javascript"></script>
 
-    <script src="../static/js/jquery-1.11.0.js"></script>
+    <script src="/workcross/static/js/jquery-1.11.0.js"></script>
     <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/angular.js"></script>
-    <script src="../static/js/angular-route.js"></script>
-    <script src="../static/js/angular-resource.js"></script>
-    <script src="../static/js/app.js"></script>
-    <script src="../static/js/controllers.js"></script>
-    <script src="../static/js/sscr.js"></script>
+    <script src="/workcross/static/js/bootstrap.min.js"></script>
+    <script src="/workcross/static/js/angular.js"></script>
+    <script src="/workcross/static/js/angular-route.js"></script>
+    <script src="/workcross/static/js/angular-resource.js"></script>
+    <script src="/workcross/static/js/app.js"></script>
+    <script src="/workcross/static/js/controllers.js"></script>
+    <script src="/workcross/static/js/sscr.js"></script>
 
     <style>
 

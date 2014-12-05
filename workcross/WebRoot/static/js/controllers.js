@@ -6,7 +6,7 @@ var workxControllers = angular.module('workxControllers', []);
 
 workxControllers.controller('userMain', ['$scope', '$http',
     function($scope, $http) {
-        $http.get('../static/json/testjson/user.json').success(
+        $http.get('/workcross/api/user/currentuser').success(
             function(data){
                 $scope.user= data;
                 $scope.nowpage = 'dashboard';
