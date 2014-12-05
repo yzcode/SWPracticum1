@@ -42,8 +42,10 @@ public class TeamService {
 		
 	}
 	
-	public TeamMember addUserToTeam(User user ,Team team)
+	public TeamMember addUserToTeam(User user ,Team team) throws Exception 
 	{
+		if (user == null || team == null)
+			throw new Exception("User or Team is null");
 		TeamMember teamMember = new TeamMember();
 		teamMember.setUserId(user.getId());
 		teamMember.setTeamId(team.getId());
@@ -66,6 +68,10 @@ public class TeamService {
 		for (TeamMember tm:teamMembers)
 			userIds.add(tm.getUserId());
 		return userRepository.findByIdIn(userIds);
+	}
+	public Team getTeamById(long id)
+	{
+		return teamRepository.findById(id);
 	}
 	
 }
