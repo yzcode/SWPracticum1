@@ -2,25 +2,26 @@ package workcross.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Team entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "team")
-public class Team implements java.io.Serializable {
+public class Team extends BaseModel {
 
 	// Fields
 
-	@Id
-	private Integer id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3545568025433385025L;
 
-	@Column(name = "teamname")
+	@Column(name = "teamname", nullable = false, length = 45)
 	private String teamname;
+
+	@Lob 
 	@Column(name = "description")
 	private String description;
 
@@ -43,14 +44,6 @@ public class Team implements java.io.Serializable {
 	}
 
 	// Property accessors
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getTeamname() {
 		return this.teamname;

@@ -14,7 +14,7 @@ import net.sf.ehcache.config.CacheConfiguration;
 
 @Entity
 @Table(name = "user")
-public class User implements java.io.Serializable {
+public class User extends BaseModel {
 
 	// Fields
 
@@ -23,11 +23,7 @@ public class User implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 5925559784139229711L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-
-	@Column(name = "username")
+	@Column(name = "username",nullable = false)
 	private String username;
 
 	@Column(name = "password")
@@ -62,14 +58,6 @@ public class User implements java.io.Serializable {
 	}
 
 	// Property accessors
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return this.username;
