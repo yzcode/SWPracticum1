@@ -18,6 +18,6 @@ public class DashBoardController {
 		if (httpSession.getAttribute("user") == null)
 			return new ModelAndView("redirect:/");
 		else
-			return new ModelAndView("index");
+			return new ModelAndView("MainFrm");
 	}
 }

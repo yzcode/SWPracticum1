@@ -33,4 +33,10 @@ public class TeamController {
 	List<Team> getCurrentTeam(HttpSession httpSession) {
 		return teamService.getUserTeams((User)httpSession.getAttribute("user"));
 	}
+	
+	@RequestMapping(value = "/api/teams/{teamId}", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Team> getTeamInfo(HttpSession httpSession) {
+		return teamService.getUserTeams((User)httpSession.getAttribute("user"));
+	}
 }
