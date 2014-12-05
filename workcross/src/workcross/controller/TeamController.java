@@ -17,13 +17,14 @@ public class TeamController {
 
 	@Autowired
 	private TeamService teamService;
-	
-	
-	@RequestMapping(value = "/api/team/", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/api/teams/", method = RequestMethod.POST)
 	public @ResponseBody
-	Team createTeam(HttpSession httpSession, String teamName, String description) {
-		User user = (User)httpSession.getAttribute("user");
-		Team team= teamService.addTeam(teamName, description);
+	Team createTeam(HttpSession httpSession,
+			@RequestParam("name") String teamName,
+			@RequestParam("desc") String description) {
+		User user = (User) httpSession.getAttribute("user");
+		Team team = teamService.addTeam(teamName, description);
 		teamService.addUserToTeam(user, team);
 		return team;
 	}
@@ -31,12 +32,14 @@ public class TeamController {
 	@RequestMapping(value = "/api/teams/", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Team> getCurrentTeam(HttpSession httpSession) {
-		return teamService.getUserTeams((User)httpSession.getAttribute("user"));
+		return teamService
+				.getUserTeams((User) httpSession.getAttribute("user"));
 	}
-	
+
 	@RequestMapping(value = "/api/teams/{teamId}", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Team> getTeamInfo(HttpSession httpSession) {
-		return teamService.getUserTeams((User)httpSession.getAttribute("user"));
+		return teamService
+				.getUserTeams((User) httpSession.getAttribute("user"));
 	}
 }
