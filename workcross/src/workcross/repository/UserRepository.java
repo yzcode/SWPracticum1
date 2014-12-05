@@ -1,5 +1,7 @@
 package workcross.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import workcross.model.User;
@@ -7,5 +9,7 @@ import workcross.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 	User findByUsername(String username);
-	User findById(Integer id);
+
+	User findById(long id);
+	List<User> findByIdIn(List<Long> ids);
 }

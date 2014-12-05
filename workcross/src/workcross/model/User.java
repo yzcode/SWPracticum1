@@ -6,6 +6,9 @@ import workcross.service.UserService;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import net.sf.ehcache.config.CacheConfiguration;
 
 /**
@@ -26,6 +29,7 @@ public class User extends BaseModel {
 	@Column(name = "username",nullable = false)
 	private String username;
 
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 
