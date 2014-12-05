@@ -11,8 +11,12 @@ workx.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/dashboard', {
-                templateUrl: 'partials/dashboard.html',
+                templateUrl: settings.webroot+'/static/template/dashboard.html',
                 controller: 'dashboard'
+            }).
+            when('/projects', {
+                templateUrl: settings.webroot+'static/template/project.html',
+                controller: 'projects'
             }).
             otherwise({
                 redirectTo: '/dashboard'

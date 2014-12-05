@@ -1,9 +1,11 @@
 @nav-height:58px;
 @nav-color:#393939;
 @main-padding:60px;
+@nav-padding:4px;
+@li-hover:#424242;
 #mainheader{
   height: @nav-height ;
-  padding-top: 3px;
+  padding-top: @nav-padding;
   background-color: @nav-color;
   border: solid 0px #bec1c4;
   border-radius: 0px;
@@ -29,9 +31,66 @@
 .fontcolor-red{
   background-color:#f37a54;
 }
-.font-set-fam{
+.font-set-fm{
   font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Segoe UI', 'Microsoft Yahei', Tahoma, Arial, STHeiti, sans-serif;
+}
+.font-set-fam{
+  .font-set-fm;
   font-weight: 100;
   font-size: 20px;
 }
+.mainnav{
+  height: @nav-height;
+  box-shadow: none;
+}
+ul.navs>li>a{
+  padding-top: @nav-padding+15px;
+  height: @nav-height;
 
+}
+ul.navs>li:hover{
+  background-color: @li-hover;
+}
+.maindiv{
+  width: 100%;
+  height: 100%;
+}
+li{
+  list-style-type: none;
+  .font-set-fm;
+  font-size: 14px;
+}
+ul.left-panel-ul>li>a.listitem{
+  display: block;
+  padding: 15px 20px;
+  padding-left: 30px;
+  white-space: nowrap;
+}
+ul.left-panel-ul>li>a:link{
+  text-decoration: none;
+  color: #9d9d9d;
+}
+ul.left-panel-ul>li>a:visited{
+  text-decoration: none;
+  color: #9d9d9d;
+}
+ul.left-panel-ul>li>a:hover , li>a.active{
+  text-decoration: none;
+  color:#ffffff;
+  background: @li-hover;
+}
+ul.left-panel-ul>li>a:active{
+  text-decoration: none;
+  color: #ffffff;
+  background: @li-hover;
+}
+ul.left-panel-ul>li>a{
+  padding-left: 20px;
+}
+.left-panel-icon{
+  margin-right: 10px;
+}
+div.divider{
+  border-top: solid 1px #111415;
+  border-bottom: solid 1px #646668;
+}
