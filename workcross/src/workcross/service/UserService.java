@@ -22,14 +22,14 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public void addUser(String username, String raw_password, String email,
+	public User addUser(String username, String raw_password, String email,
 			String nickname) {
 		User user = new User();
 		user.setUsername(username);
 		user.setRawPassword(raw_password);
 		user.setNickname(nickname);
 		user.setEmail(email);
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	public User getUserByUsername(String username) {
