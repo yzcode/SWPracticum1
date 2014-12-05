@@ -17,17 +17,24 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping(value="/Login",method = RequestMethod.POST)
-	public String Login(String username, String password,HttpSession httpSession) {
-		//if (username == null || password == null)
-			
-		User user =  userService.getUserByUsername(username);
-		if (user != null)
-		{
-			if(user.matchPassword(password))
+
+	@RequestMapping(value = "/Login", method = RequestMethod.POST)
+	public String Login(String username, String password,
+			HttpSession httpSession) {
+		// if (username == null || password == null)
+
+		User user = userService.getUserByUsername(username);
+		if (user != null) {
+			if (user.matchPassword(password))
 				httpSession.setAttribute("user", user);
 		}
 		return "index";
+	}
+
+	@RequestMapping(value = "/Logout", method = RequestMethod.GET)
+	public ModelAndView Login(HttpSession httpSession) {
+
+		httpSession.removeAttribute("user");
+		return new ModelAndView("redirect:/");
 	}
 }
