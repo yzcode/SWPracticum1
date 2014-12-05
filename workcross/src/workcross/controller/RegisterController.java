@@ -27,7 +27,7 @@ public class RegisterController {
 	public ModelAndView RegisterForm(String username, String email,
 			String nickname, String password, String password_rep) {
 		userService.addUser(username, password, email, nickname);
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView("redirect:/dashboard");
 		return mv;
 
 	}
