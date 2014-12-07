@@ -122,7 +122,27 @@ workxControllers.controller('dashboard', ['$scope', '$http','globel_settings',
 
 workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams',
     function($scope,globel_settings,$routeParams,Teams) {
-        $scope.teams=Teams.get({teamId: $routeParams.teamId}, function(Teams) {
+        $scope.team=Teams.get({teamId: $routeParams.teamId}, function(Teams) {
             globel_settings.chgpage('teams');
+            var linkto = $routeParams.path;
+            if(linkto=='team_pro'){
+                $scope.team_curpage='team_pro';
+            }else if(linkto=='team_tas'){
+                $scope.team_curpage='team_tas';
+            }else if(linkto=='team_set'){
+                $scope.team_curpage='team_set';
+            }
+            else $scope.team_curpage='team_mem';
         });
+        $scope.setcurpage=function(linkto){
+            if(linkto=='team_pro'){
+                $scope.team_curpage='team_pro';
+            }else if(linkto=='team_tas'){
+                $scope.team_curpage='team_tas';
+            }else if(linkto=='team_set'){
+                $scope.team_curpage='team_set';
+            }
+            else $scope.team_curpage='team_mem';
+        };
+
     }]);

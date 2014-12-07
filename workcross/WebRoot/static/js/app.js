@@ -9,8 +9,8 @@ var workx = angular.module('workx', [
     'serverRes'
 ]);
 
-workx.config(['$routeProvider',
-    function($routeProvider) {
+workx.config(['$routeProvider','$locationProvider',
+    function($routeProvider,$locationProvider) {
         $routeProvider.
             when('/dashboard', {
                 templateUrl: settings.webroot+'/static/template/dashboard.html',
@@ -25,7 +25,7 @@ workx.config(['$routeProvider',
                 controller: 'project'
             }).
             when('/teams/:teamId', {
-                templateUrl: settings.webroot+'static/template/teams.html',
+                templateUrl: settings.webroot+'static/template/team.html',
                 controller: 'teamctr'
             }).
             otherwise({
