@@ -3,6 +3,20 @@
 @main-padding:60px;
 @nav-padding:4px;
 @li-hover:#424242;
+@li-panel-2-down:#282823;
+@li-a-link-color: #9d9d9d;
+@avatar-ngcolor:#e7e7df;
+@avatar-color:#d84c31;
+@avatar-hover-color:#f5f5ef;
+@mod-bar-board-color:#e1e1e1;
+@server-panel-bgcolor:#f9f9f7;
+@server-panel-maincolor:#fbfbfb;
+@mod-navbar-li-color:#8a959e;
+@board-server:1px solid @mod-bar-board-color;
+@board-server-shadow:1px 0 3px #eee,inset 0 0 3px #fff;
+@server-main-panel-color:#646b75;
+@server-main-panel-color-b:#323a45;
+//static-value-define-by-yangz
 #mainheader{
   height: @nav-height ;
   padding-top: @nav-padding;
@@ -68,11 +82,11 @@ ul.left-panel-ul>li>a.listitem{
 }
 a.listitem:link{
   text-decoration: none;
-  color: #9d9d9d;
+  color: @li-a-link-color;
 }
 a.listitem:visited{
   text-decoration: none;
-  color: #9d9d9d;
+  color: @li-a-link-color;
 }
 a.listitem:hover , a.listitem.active{
   text-decoration: none;
@@ -89,3 +103,313 @@ div.divider{
   border-top: solid 1px #111415;
   border-bottom: solid 1px #646668;
 }
+div.verdivider{
+  border-left: solid 1px #111415;
+  border-right: solid 1px #646668;
+}
+li.divider-v{
+  border-style: solid;
+  border-width: 1px;
+  opacity: .5;
+  height: 58px;
+  border-left-color: #111415;
+  border-right-color: #646668;
+}
+.left-panel-icon-sw{
+  position: absolute;
+  top:17px;
+  left: 180px;
+}
+.left-panel-ul-2{
+  padding-left: 0px;
+  background-color: #282823;
+}
+.a-link{
+  cursor: pointer;
+}
+//global css
+body{
+  .font-set-fm
+}
+.full-size{
+  margin:0;
+}
+.static-a{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
+.static-a:link{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
+.static-a:visited{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
+.static-a:hover{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
+//global css end
+
+//mod-nav
+
+.mod-navbar{
+  border-bottom:@board-server;
+  box-shadow: @board-server-shadow;
+  padding: 0 15px;
+  position: relative;
+  background-color: @server-panel-bgcolor;
+}
+
+.mod-navbar .title{
+  display: inline;
+}
+
+.mod-navbar .title h3 {
+  display: inline;
+  min-width: 100px;
+  margin: 0;
+  line-height: 59px;
+  font-size: 20px;
+  color: #5c6371;
+}
+h3 span {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.mod-navbar-main a{
+  color: @mod-navbar-li-color;
+}
+.mod-navbar-main li.active a{
+  background-color: @server-panel-bgcolor;
+}
+.mod-navbar-main {
+  margin-top: 9px;
+}
+.mod-navbar-main li{
+  width: 25%;
+  text-align: center;
+}
+.mod-navbar-main ul a{
+  padding: 10px 30px;
+}
+//mod-nav-end
+
+//avatar-define
+.avatar{
+  position: relative;
+  display: inline-block;
+  zoom: 1;
+}
+.avatar .avatar-face{
+  display: inline-block;
+  position: relative;
+  zoom: 1;
+}
+.avatar .avatar-face .avatar-text {
+  text-align: center;
+  overflow: hidden;
+  display: inline-block;
+  zoom: 1;
+  vertical-align: middle;
+  background: @avatar-ngcolor;
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: @avatar-color;
+  text-shadow: transparent 0 0 0;
+}
+.avatar.avatar-30 .avatar-text {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+.avatar.avatar-56 .avatar-text {
+  width: 56px;
+  height: 56px;
+  line-height: 56px !important;
+  font-size: 25px;
+}
+.avatar-name{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 50px;
+}
+//avatar-define-end
+
+//css for team.html
+.server-team-main{
+  left: 0;
+  top:60px;
+  right: 0;
+  bottom: 0;
+  margin: 15px;
+  margin-bottom: 17px;
+  position: absolute;
+  overflow: hidden;
+}
+.team-mem-left-wrap{
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  margin-left: -360px;
+  padding-left: 360px;
+  padding-bottom: 15px;
+}
+.team-mem-left{
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  display: inline-block;
+  border: @board-server;
+  box-shadow: @board-server-shadow;
+  background-color: @server-panel-maincolor;
+  overflow: hidden;
+}
+.team-mem-right{
+  border: @board-server;
+  box-shadow: @board-server-shadow;
+  display: inline;
+  width: 345px;
+  height: 185px;
+  padding: 10px;
+}
+.team-title{
+  padding: 10px;
+  padding-left: 14px;
+  padding-bottom: 18px;
+  font-size: 18px;
+  border-bottom: @board-server;
+  color: @server-main-panel-color;
+}
+.team-mem-left .title{
+  .team-title;
+}
+.team-mem-right .title{
+  .team-title;
+  padding-bottom: 5px;
+}
+.team-mem-right .title .teamname{
+  color: @server-main-panel-color-b;
+}
+.team-mem-right .title .createtime{
+  font-size: 14px;
+  color: @mod-navbar-li-color;
+}
+.user-ul{
+  padding-left: 0%;
+}
+.user-li{
+  display: inline-block;
+  width: 116px;
+  overflow: hidden;
+  text-align: center;
+  padding: 5px;
+  float: left;
+  position: relative;
+}
+.user-li a{
+  padding: 5px;
+  border-radius: 5px;
+}
+.user-li a:link{
+  .static-a
+}
+.user-li a:visited{
+  .static-a
+}
+.user-li a:hover{
+  background-color: @avatar-hover-color;
+  .static-a
+}
+.user-li a span{
+  text-transform: capitalize;
+}
+.project-list{
+  padding: 0;
+}
+table.project-list{
+  border-top: 0;
+}
+table.table.project-list tbody tr td{
+  padding: 0;
+  border-top: 0;
+  border-bottom: 1px solid #ddd;
+}
+table.table.project-list tbody tr td p{
+  margin: 0;
+  padding: 20px;
+}
+.project-a span.icon-task{
+  margin-left: 5%;
+  color: #3c8cad;
+}
+.project-a:hover span.icon-task{
+  color: lighten(#3c8cad,30%);
+}
+.project-a span.proname{
+  margin-left: 5%;
+  font-size: 16px;
+  color: @server-main-panel-color-b;
+}
+.project-a:hover span.proname{
+  color: lighten(@server-main-panel-color-b,30%);
+}
+.project-a span.pronum{
+  float: right;
+  margin-right: 30px;
+  color: @server-main-panel-color;
+}
+.project-a:hover span.pronum{
+  color: lighten(@server-main-panel-color,30%);
+}
+.team-set-main{
+  .team-mem-left;
+}
+.team-set{
+  .team-mem-left-wrap;
+  margin:0;
+  padding: 0;
+}
+.team-set-main .title{
+  .team-title;
+}
+.set-warn{
+  margin-right: 50%;
+}
+.team-set-main .main-panel{
+  padding: 15px;
+}
+.btn-big-padding{
+  margin-bottom: 20px;
+  padding: 10px 25px;
+}
+.team-tas-left-wrap{
+  .team-mem-left-wrap;
+}
+.team-tas-left{
+  .team-mem-left;
+}
+.team-tas-left .title{
+  .team-title;
+}
+.team-tas-right{
+  .team-mem-right;
+  height: auto;
+}
+.team-tas-right .title{
+  .team-mem-right .title;
+}
+.team-tas-right .user-ul{
+  padding: 0;
+}
+.team-tas-right .user-li{
+  padding: 15px;
+  width: 100%;
+  text-align: left;
+}
+//css for team.html end
