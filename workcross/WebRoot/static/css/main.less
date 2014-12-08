@@ -15,6 +15,7 @@
 @board-server:1px solid @mod-bar-board-color;
 @board-server-shadow:1px 0 3px #eee,inset 0 0 3px #fff;
 @server-main-panel-color:#646b75;
+@server-main-panel-color-b:#323a45;
 //static-value-define-by-yangz
 #mainheader{
   height: @nav-height ;
@@ -137,6 +138,18 @@ body{
   text-decoration: none;
   color: @server-main-panel-color;
 }
+.static-a:link{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
+.static-a:visited{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
+.static-a:hover{
+  text-decoration: none;
+  color: @server-main-panel-color;
+}
 //global css end
 
 //mod-nav
@@ -220,7 +233,12 @@ h3 span {
   line-height: 56px !important;
   font-size: 25px;
 }
-
+.avatar-name{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: 50px;
+}
 //avatar-define-end
 
 //css for team.html
@@ -250,6 +268,7 @@ h3 span {
   border: @board-server;
   box-shadow: @board-server-shadow;
   background-color: @server-panel-maincolor;
+  overflow: hidden;
 }
 .team-mem-right{
   border: @board-server;
@@ -257,14 +276,29 @@ h3 span {
   display: inline;
   width: 345px;
   height: 185px;
+  padding: 10px;
 }
-.team-mem-left .title{
+.team-title{
   padding: 10px;
   padding-left: 14px;
   padding-bottom: 18px;
   font-size: 18px;
   border-bottom: @board-server;
   color: @server-main-panel-color;
+}
+.team-mem-left .title{
+  .team-title;
+}
+.team-mem-right .title{
+  .team-title;
+  padding-bottom: 5px;
+}
+.team-mem-right .title .teamname{
+  color: @server-main-panel-color-b;
+}
+.team-mem-right .title .createtime{
+  font-size: 14px;
+  color: @mod-navbar-li-color;
 }
 .user-ul{
   padding-left: 0%;
@@ -280,7 +314,6 @@ h3 span {
 }
 .user-li a{
   padding: 5px;
-  margin: 15px;
   border-radius: 5px;
 }
 .user-li a:link{
@@ -295,5 +328,88 @@ h3 span {
 }
 .user-li a span{
   text-transform: capitalize;
+}
+.project-list{
+  padding: 0;
+}
+table.project-list{
+  border-top: 0;
+}
+table.table.project-list tbody tr td{
+  padding: 0;
+  border-top: 0;
+  border-bottom: 1px solid #ddd;
+}
+table.table.project-list tbody tr td p{
+  margin: 0;
+  padding: 20px;
+}
+.project-a span.icon-task{
+  margin-left: 5%;
+  color: #3c8cad;
+}
+.project-a:hover span.icon-task{
+  color: lighten(#3c8cad,30%);
+}
+.project-a span.proname{
+  margin-left: 5%;
+  font-size: 16px;
+  color: @server-main-panel-color-b;
+}
+.project-a:hover span.proname{
+  color: lighten(@server-main-panel-color-b,30%);
+}
+.project-a span.pronum{
+  float: right;
+  margin-right: 30px;
+  color: @server-main-panel-color;
+}
+.project-a:hover span.pronum{
+  color: lighten(@server-main-panel-color,30%);
+}
+.team-set-main{
+  .team-mem-left;
+}
+.team-set{
+  .team-mem-left-wrap;
+  margin:0;
+  padding: 0;
+}
+.team-set-main .title{
+  .team-title;
+}
+.set-warn{
+  margin-right: 50%;
+}
+.team-set-main .main-panel{
+  padding: 15px;
+}
+.btn-big-padding{
+  margin-bottom: 20px;
+  padding: 10px 25px;
+}
+.team-tas-left-wrap{
+  .team-mem-left-wrap;
+}
+.team-tas-left{
+  .team-mem-left;
+}
+.team-tas-left .title{
+  .team-title;
+}
+.team-tas-right{
+  .team-mem-right;
+  height: auto;
+}
+.team-tas-right .title{
+  .team-mem-right .title;
+}
+.team-tas-right .user-ul{
+  padding: 0;
+}
+.team-tas-right .user-li{
+  padding: 15px;
+  width: 100%;
+  text-align: left;
 }
 //css for team.html end

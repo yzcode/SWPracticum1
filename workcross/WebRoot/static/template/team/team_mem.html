@@ -11,7 +11,7 @@
                             <span class="avatar-face">
                                 <span class="avatar-text">{{user.nickname[0]}}</span>
                             </span>
-                        {{user.nickname}}
+                        <p class="avatar-name">{{user.nickname | longname}}</p>
                         </a>
                     </li>
                 </ul>
@@ -19,6 +19,9 @@
         </div>
     </div>
     <div class="team-mem-right pull-right">
-        123
+        <div class="title">
+            <p class="teamname">{{team.team.teamname}}</p>
+            <p class="createtime">创建于{{team.team.dateCreated | timeformat}}</p>
+        </div>
     </div>
 </div>

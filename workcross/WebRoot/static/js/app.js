@@ -6,7 +6,8 @@ var workx = angular.module('workx', [
     'ngRoute',
     'workxControllers',
     'globel',
-    'serverRes'
+    'serverRes',
+    'workxfilter'
 ]);
 
 workx.config(['$routeProvider','$locationProvider',
@@ -32,3 +33,31 @@ workx.config(['$routeProvider','$locationProvider',
                 redirectTo: '/dashboard'
             });
     }]);
+
+var workxfilter = angular.module('workxfilter', []);
+
+workxfilter.filter('longname', function() {
+    return function(input) {
+        var overlong = 10;
+        var strReg=/[^\x00-\xff]/g;
+        var _str = input.replace(strReg,'**');
+        if(_str.length>overlong+1){
+            var res=input.substr(0,overlong/2);
+            var i = overlong/2;
+            while(res.replace(strReg,'**').length<overlong){
+                res = res + input[i];
+                i++;
+            }
+            return res+'...';
+        }
+        else return input;
+    };
+});
+
+workxfilter.filter('timeformat',function(){
+    return function(timestamp){
+        var nowt = new Date();
+        nowt.setTime(timestamp);
+        return nowt.getFullYear()+'年'+nowt.getMonth()+'月'+nowt.getDay()+'日' ;
+    };
+})

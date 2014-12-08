@@ -1,1 +1,30 @@
-team_tas
+<div class="server-team-main">
+    <div class="team-tas-left-wrap">
+        <div class="team-tas-left">
+            <div class="title">
+                团队任务
+            </div>
+            <div class="main-panel">
+            </div>
+        </div>
+    </div>
+    <div class="team-tas-right pull-right">
+        <div class="title">
+            <p class="teamname"><span class="glyphicon glyphicon-filter"></span> 任务筛选</p>
+        </div>
+        <div class="user-list">
+            <ul class="user-ul">
+                <li ng-repeat="team_user in team.users" class="user-li">
+                    <span class="avatar avatar-30">
+                        <span class="avatar-face">
+                            <span class="avatar-text">
+                            {{team_user.username[0]}}
+                            </span>
+                            {{team_user.username}}
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

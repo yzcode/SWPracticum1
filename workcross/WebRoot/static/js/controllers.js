@@ -16,14 +16,15 @@ module.service( 'globel_settings', [ '$rootScope',function( $rootScope ) {
 
 var workxControllers = angular.module('workxControllers', []);
 
-workxControllers.controller('userMain', ['$scope', '$http','globel_settings',
-    function($scope, $http,globel_settings) {
+workxControllers.controller('userMain', ['$scope', '$http','globel_settings','$rootScope',
+    function($scope, $http,globel_settings,$rootScope) {
         var url = '';
         if (settings.j2ee) url='/workcross/api/user/currentuser';
         else url = '../static/json/testjson/user.json';
         $http.get(url).success(
             function(data){
                 $scope.user= data;
+                $rootScope.user=data;
             }
         )
     }]);
@@ -85,7 +86,6 @@ workxControllers.controller('left-panel', ['$scope', '$http','globel_settings','
                 //    height:'hide'
                 //});
             }
-
         }
     }]);
 
@@ -120,8 +120,8 @@ workxControllers.controller('dashboard', ['$scope', '$http','globel_settings',
     }]);
 
 
-workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams',
-    function($scope,globel_settings,$routeParams,Teams) {
+workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams','$rootScope',
+    function($scope,globel_settings,$routeParams,Teams,$rootScope) {
         $scope.team=Teams.get({teamId: $routeParams.teamId}, function(Teams) {
             globel_settings.chgpage('teams');
             var linkto = $routeParams.path;
@@ -143,6 +143,16 @@ workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams
                 $scope.team_curpage='team_set';
             }
             else $scope.team_curpage='team_mem';
+            var stateObject = {};
+            var title = 'workx team '+$scope.team_curpage;
+            var newUrl = "#/teams/"+$routeParams.teamId+"?path="+$scope.team_curpage;
+            console.log(newUrl);
+            history.pushState(stateObject,title,newUrl);
         };
-
+        $scope.isCreator=function(){
+            var cuser = $scope.team.teamcrate;
+            if(cuser==undefined) cuser='administrator';
+            console.log($rootScope.user.username+'  '+cuser);
+            return cuser==$rootScope.user.username;
+        }
     }]);

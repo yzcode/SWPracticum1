@@ -1,1 +1,16 @@
-team_set
+<div class="server-team-main">
+    <div class="team-set">
+        <div class="team-set-main">
+            <div class="title">
+                团队设置
+            </div>
+            <div class="main-panel">
+                <div class="alert alert-danger set-warn" role="alert"><span class="glyphicon glyphicon-info-sign"></span> 操作无法撤销&nbsp谨慎操作</div>
+                <div><button type="button" class="btn btn-danger btn-big-padding">退出当前团队</button></div>
+                <div ng-if="isCreator()">
+                    <div><button type="button" class="btn btn-danger btn-big-padding">删除当前团队</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
