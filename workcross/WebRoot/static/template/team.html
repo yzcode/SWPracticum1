@@ -1,0 +1,32 @@
+<div class="div-team-main">
+    <div class="mod-navbar">
+        <div class="title">
+            <h3>
+                <span class="glyphicon glyphicon-th-list"></span>
+                {{team.team.teamname}}
+            </h3>
+        </div>
+        <div class="mod-navbar-main pull-right">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-class="{'active':team_curpage == 'team_mem'}"><a ng-click="setcurpage('team_mem')" class="a-link">成员</a></li>
+                <li role="presentation" ng-class="{'active':team_curpage == 'team_pro'}"><a ng-click="setcurpage('team_pro')" class="a-link">项目</a></li>
+                <li role="presentation" ng-class="{'active':team_curpage == 'team_tas'}"><a ng-click="setcurpage('team_tas')" class="a-link">任务</a></li>
+                <li role="presentation" ng-class="{'active':team_curpage == 'team_set'}"><a ng-click="setcurpage('team_set')" class="a-link">设置</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-switch on="team_curpage">
+        <div ng-switch-when="team_mem" >
+            <div ng-include src="'/workcross/static/template/team/team_mem.html'"></div>
+        </div>
+        <div ng-switch-when="team_pro" >
+            <div ng-include src="'/workcross/static/template/team/team_pro.html'"></div>
+        </div>
+        <div ng-switch-when="team_tas" >
+            <div ng-include src="'/workcross/static/template/team/team_tas.html'"></div>
+        </div>
+        <div ng-switch-when="team_set" >
+            <div ng-include src="'/workcross/static/template/team/team_set.html'"></div>
+        </div>
+    </div>
+</div>

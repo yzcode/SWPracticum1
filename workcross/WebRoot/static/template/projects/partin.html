@@ -1,0 +1,19 @@
+<div class="server-projects-main server-main">
+    <div ng-repeat="team in teams" class="projects-team-list" >
+        <div class="teamname-projects">
+            <a class="static-a" ng-href="#/teams/{{team.id}}">
+                <span class="glyphicon glyphicon-th-list projects-team-icon"></span>
+                <span class="projects-team-name">{{team.teamname}}</span>
+                <span class="badge">{{team.projects.projects.length}}</span>
+            </a>
+        </div>
+        <div class="projects-projects-list" ng-class="{true:'last'}[team.isLast]">
+            <a href="#/project/{{project.id}}" class="static-a"ng-repeat="project in team.projects.projects">
+                <div class="projects-project-wrap" >
+                    <h1 class="glyphicon glyphicon-tasks"></h1>
+                    <p>{{project.name}}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
