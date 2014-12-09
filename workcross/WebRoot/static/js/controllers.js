@@ -30,7 +30,7 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
         $scope.master_new_menu = function ($event) {
             $popbox.popbox({
                 target: $event,
-                templateUrl: settings.j2ee ? "/workcross/static/template/master_new.html" : "../static/template/master_new.html",
+                templateUrl: "/workcross/static/template/master_new.html",
                 controller: ['$scope', 'popbox', '$http', function ($scope, popbox, $http) {
                     $scope.popbox = popbox;
                     $scope.currentStep = 'master_new';
