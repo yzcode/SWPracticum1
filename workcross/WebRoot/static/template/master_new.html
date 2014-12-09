@@ -1,18 +1,19 @@
-<div style="width: 100%">{{user}}</div>
-<div > hhhhhhhhhhhhhhhhh</div>
 <ul class="popbox-step" ng-switch on="currentStep" wt-stop-propagation="">
-
-    <li ng-switch-when="1" class="popbox-step-li w_360">
+    <style>
+        /*.popbox-step-li { width: 800px !important;}*/
+    </style>
+    <li ng-switch-when="master_new" class="popbox-step-li w_360">
         <div class="popbox-header">
-            <button class="back icon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
-            <button class="cancel icon-remove" ng-click="js_close()"></button>
+            <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep=='master_new'"></button>
+            <button type="button" class="close" ng-click="js_close()"><span aria-hidden="true">×</span><span
+                    class="sr-only">Close</span></button>
             <h3>新建</h3>
         </div>
         <div class="popbox-body">
             <ul class="popbox-menu">
                 <li id="global_create_project">
                     <a href="javascript:;" ng-click='show_new_project_dialog($event)'>
-                        <i class="icon-inbox"></i> 新建项目
+                        <i class="glyphicon glyphicon-inbox"></i> 新建项目
                         <br>
                         <span class="text-muted">
                             项目是一组成员和一组任务、文件、话题、文档、日程的集合。
@@ -22,7 +23,7 @@
                 <li class="divider"></li>
                 <li id="global_create_team">
                     <a href="javascript:;" ng-click='show_new_team_dialog($event)'>
-                        <i class="icon-sitemap"></i> 新建团队
+                        <i class="icon-group"></i> 新建团队
                         <br>
                         <span class="text-muted">
                             团队可以是一个公司或者一个部门，使用团队组织项目和成员。
@@ -32,11 +33,12 @@
             </ul>
         </div>
     </li>
-    <li ng-switch-when="2" class="popbox-step-li w_360">
+    <li ng-switch-when="new_project" class="popbox-step-li w_360">
         <div id="project">
             <div class="popbox-header">
-                <button class="back icon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
-                <button class="cancel icon-remove" ng-click="js_close()"></button>
+                <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep=='master_new'"></button>
+                <button type="button" class="close" ng-click="js_close()"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
                 <h3>新建项目</h3>
             </div>
             <div class="popbox-body">
@@ -45,13 +47,15 @@
                         <label class="control-label">
                             <strong>项目名称：</strong>
                         </label>
-                        <input name="prj_name" ng-model="data.prjName" placeholder="项目名称" class="form-control" type="text" wt-focus="projectNameInputFocus" required/>
+                        <input name="prj_name" ng-model="data.prjName" placeholder="项目名称" class="form-control"
+                               type="text" wt-focus="projectNameInputFocus" required/>
                     </div>
                     <div class="form-group">
                         <label class="control-label pt_0">
                             <strong>所有者：</strong>
                         </label>
-                        <a href="javascript:;" class=" help-block plr_5" ng-model="data.current_team" ng-click="show_select_team_dialog($event)">
+                        <a href="javascript:;" class=" help-block plr_5" ng-model="data.current_team"
+                           ng-click="show_select_team_dialog($event)">
                             <i class="icon-user" ng-show="data.current_team.team_id == -1"></i>
                             <i class="icon-sitemap" ng-show="data.current_team.team_id != -1"></i>
                             {{data.current_team.name}}
@@ -73,7 +77,9 @@
                         </div>
                     </div>
                     <div>
-                        <button wt-form-submit="js_add_prj(add_prj_form, data.current_team.team_id, data.prjName, desc, data.visibility.visibility)" class="btn btn-success mr_15" data-loading-text="保存中..." loading-status="is_saving_project">创建
+                        <button wt-form-submit="js_add_prj(add_prj_form, data.current_team.team_id, data.prjName, desc, data.visibility.visibility)"
+                                class="btn btn-success mr_15" data-loading-text="保存中..."
+                                loading-status="is_saving_project">创建
                         </button>
                         <button ng-click="js_close()" class="btn float_left">取消</button>
                     </div>
@@ -82,11 +88,12 @@
             </div>
         </div>
     </li>
-    <li ng-switch-when="3" class="popbox-step-li w_360">
+    <li ng-switch-when="new_team" class="popbox-step-li w_360">
         <div id="team" class="">
             <div class="popbox-header">
-                <button class="back icon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
-                <button class="cancel icon-remove" ng-click="js_close()"></button>
+                <button class="back glyphicon glyphglyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep=='master_new'"></button>
+                <button type="button" class="close" ng-click="js_close()"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
                 <h3>新建团队</h3>
             </div>
             <div class="popbox-body">
@@ -95,14 +102,15 @@
                         <label class="control-label">团队名称：</label>
 
                         <div class="">
-                            <input name="team_name" ng-model="name" placeholder="团队名称" class="form-control" type="text" wt-focus="teamNameInputFocus" required/>
+                            <input name="team_name" ng-model="name" placeholder="团队名称" class="form-control" type="text"
+                                   wt-focus="teamNameInputFocus" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">团队描述：</label>
 
                         <div class="">
-                            <textarea ng-model="desc" placeholder="为团队添加简短描述（可选）" rows="4" class="form-control" />
+                            <textarea ng-model="desc" placeholder="为团队添加简短描述（可选）" rows="4" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group" ng-if="add_team_form.$errors.length > 0">
@@ -111,7 +119,8 @@
                         </div>
                     </div>
                     <div>
-                        <button wt-form-submit="js_add_team(add_team_form, name, desc)" class="btn btn-success mr_15" data-loading-text="保存中..." loading-status="is_saving_team">创建
+                        <button ng-click="js_add_team(add_team_form, name, desc)" class="btn btn-success mr_15"
+                                data-loading-text="保存中..." loading-status="is_saving_team">创建
                         </button>
                         <button ng-click="js_close()" class="btn float_left">取消</button>
                     </div>
@@ -122,7 +131,7 @@
     </li>
     <li ng-switch-when="4" class="popbox-step-li w_360">
         <div class="popbox-header">
-            <button class="back icon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
+            <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
             <button class="cancel icon-remove" ng-click="js_close()"></button>
             <h3>项目公开性</h3>
         </div>
@@ -164,7 +173,7 @@
     </li>
     <li ng-switch-when="5" class="popbox-step-li w_360">
         <div class="popbox-header">
-            <button class="back icon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
+            <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
             <button class="cancel icon-remove" ng-click="js_close()"></button>
             <h3>选择所有者</h3>
         </div>

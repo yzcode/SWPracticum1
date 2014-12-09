@@ -4,6 +4,8 @@
 
 var settings = new Object();
 
-settings.j2ee = false;
+settings.j2ee = true;
+if (window.location.href.indexOf(".html")!=-1)
+	settings.j2ee = false;
 if(!settings.j2ee) settings.webroot = '/workcross/WebRoot/';
 else settings.webroot = '/workcross/';
