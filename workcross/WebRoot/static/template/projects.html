@@ -1,1 +1,20 @@
-项目
+<div class="div-projects-main">
+    <div class="mod-navbar">
+        <div class="title">
+            <h3>
+                <span class="glyphicon glyphicon-tasks projects-icon"></span>
+                项目
+            </h3>
+        </div>
+        <div class="mod-navbar-main pull-right">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-class="{'active':projects_curpage == 'projects_partin'}"><a ng-click="" class="a-link">参与的项目</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-switch on="projects_curpage">
+        <div ng-switch-when="projects_partin" >
+            <div ng-include src="'../static/template/projects/partin.html'"></div>
+        </div>
+    </div>
+</div>

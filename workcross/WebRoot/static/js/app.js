@@ -29,6 +29,9 @@ workx.config(['$routeProvider','$locationProvider',
                 templateUrl: settings.webroot+'static/template/team.html',
                 controller: 'teamctr'
             }).
+            //when('/teams/:teamId/team_pro', {
+            //    action:"team.team_pro"
+            //}).
             otherwise({
                 redirectTo: '/dashboard'
             });

@@ -8,6 +8,7 @@
 @avatar-ngcolor:#e7e7df;
 @avatar-color:#d84c31;
 @avatar-hover-color:#f5f5ef;
+@avatar-hover-color-b:#F2F2EA;
 @mod-bar-board-color:#e1e1e1;
 @server-panel-bgcolor:#f9f9f7;
 @server-panel-maincolor:#fbfbfb;
@@ -128,6 +129,9 @@ li.divider-v{
   cursor: pointer;
 }
 //global css
+.withscroll{
+  overflow-y: scroll;
+}
 body{
   .font-set-fm
 }
@@ -148,7 +152,28 @@ body{
 }
 .static-a:hover{
   text-decoration: none;
-  color: @server-main-panel-color;
+  color: lighten(@server-main-panel-color,30%);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 15px
+}
+::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment,::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border: solid 1px #bec1c4
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #fff
+}
+.server-main{
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding-bottom: 15px;
 }
 //global css end
 
@@ -188,8 +213,19 @@ h3 span {
   margin-top: 9px;
 }
 .mod-navbar-main li{
-  width: 25%;
   text-align: center;
+}
+.mod-navbar-main li.oneul{
+  width: 100%;
+}
+.mod-navbar-main li.twoul{
+  width: 50%;
+}
+.mod-navbar-main li.threeul{
+  width: 33.333%;
+}
+.mod-navbar-main li.fourul{
+  width: 25%;
 }
 .mod-navbar-main ul a{
   padding: 10px 30px;
@@ -390,9 +426,13 @@ table.table.project-list tbody tr td p{
 }
 .team-tas-left-wrap{
   .team-mem-left-wrap;
+  overflow-y: visible;
 }
 .team-tas-left{
   .team-mem-left;
+  overflow-y: auto;
+  height: auto;
+  min-height: 100%;
 }
 .team-tas-left .title{
   .team-title;
@@ -400,6 +440,9 @@ table.table.project-list tbody tr td p{
 .team-tas-right{
   .team-mem-right;
   height: auto;
+  margin-right: 15px;
+  margin-left: 10px;
+  width: 330px;
 }
 .team-tas-right .title{
   .team-mem-right .title;
@@ -411,5 +454,61 @@ table.table.project-list tbody tr td p{
   padding: 15px;
   width: 100%;
   text-align: left;
+  border-radius: 5px;
+}
+.team-tas-right .user-li:hover {
+  background-color: @avatar-hover-color-b;
+}
+.team-tas-right li .username{
+  margin-left: 15px;
+}
+#server-team-tas-main{
+  overflow-y: auto;
+  margin-right: 0px;
+}
+.projects-icon{
+  font-size: 16px;
 }
 //css for team.html end
+//css for projects.html
+.server-projects-main{
+  padding: 20px;
+  overflow-y: auto;
+  height: auto;
+  min-height: 100%;
+}
+.teamname-projects{
+  .team-title;
+  border: 0;
+  display: block;
+  padding-bottom: 0px;
+}
+.projects-team-icon{
+  margin-right: 15px;
+}
+.projects-team-list{
+  display: block;
+}
+.teamname-projects .badge{
+  vertical-align: middle;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+.projects-team-name{
+  font-size: 20px;
+}
+.projects-projects-list{
+  padding-left: 30px;
+}
+.projects-project-wrap{
+  width: 212px;
+  margin: 15px 0 15px 15px;
+  display: inline-block;
+  border: solid 1px #e1e1e1;
+  text-align: center;
+  padding: 15px 10px;
+}
+.projects-projects-list.last{
+  margin-bottom: 50px;
+}
+//css for projects.html end

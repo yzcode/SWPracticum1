@@ -9,7 +9,7 @@ module.service( 'globel_settings', [ '$rootScope',function( $rootScope ) {
             service.curpage=page;
             $rootScope.$broadcast( 'curpage.update' );
         }
-    }
+    };
     return service;
 }]);
 /* Controllers */
@@ -89,12 +89,21 @@ workxControllers.controller('left-panel', ['$scope', '$http','globel_settings','
         }
     }]);
 
-workxControllers.controller('projects', ['$scope', '$http','globel_settings',
-    function($scope, $http,globel_settings) {
-        $http.get(settings.webroot+'static/json/testjson/project.json').success(
+workxControllers.controller('projects', ['$scope', '$http','globel_settings','Teams',
+    function($scope, $http,globel_settings,Teams) {
+        var url = '';
+        if (settings.j2ee) url='/workcross/api/teams/';
+        else url = '../static/json/testjson/teams.json';
+        $http.get(url).success(
             function(data){
-               globel_settings.chgpage('projects');
-                $scope.projects= data;
+                $scope.projects_curpage='projects_partin';
+                globel_settings.chgpage('projects');
+                $scope.teams= data;
+                $scope.teams[$scope.teams.length-1].isLast = true;
+                var index;
+                for(index in $scope.teams){
+                    $scope.teams[index].projects=Teams.get({teamId: $scope.teams[index].id} );
+                }
             }
         )
     }]);
@@ -120,9 +129,10 @@ workxControllers.controller('dashboard', ['$scope', '$http','globel_settings',
     }]);
 
 
-workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams','$rootScope',
-    function($scope,globel_settings,$routeParams,Teams,$rootScope) {
+workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams','$rootScope','$route',
+    function($scope,globel_settings,$routeParams,Teams,$rootScope,$route) {
         $scope.team=Teams.get({teamId: $routeParams.teamId}, function(Teams) {
+            console.log('loading page teams');
             globel_settings.chgpage('teams');
             var linkto = $routeParams.path;
             if(linkto=='team_pro'){
@@ -145,14 +155,29 @@ workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams
             else $scope.team_curpage='team_mem';
             var stateObject = {};
             var title = 'workx team '+$scope.team_curpage;
-            var newUrl = "#/teams/"+$routeParams.teamId+"?path="+$scope.team_curpage;
-            console.log(newUrl);
-            history.pushState(stateObject,title,newUrl);
+            var newUrl = "/teams/"+$routeParams.teamId+"?path="+$scope.team_curpage;
+            if(settings.debug) console.log(newUrl);
+            //$location.url(newUrl);
         };
+        //var render = function(){
+        //    var actions = $route.current.action;
+        //    console.log(actions);
+        //    var routeaction = actions.split('.');
+        //    $scope.team_curpage=actions[1];
+        //}
         $scope.isCreator=function(){
             var cuser = $scope.team.teamcrate;
             if(cuser==undefined) cuser='administrator';
-            console.log($rootScope.user.username+'  '+cuser);
+            if(settings.debug) console.log($rootScope.user.username+'  '+cuser);
             return cuser==$rootScope.user.username;
         }
+        //$scope.$on(
+        //    "$routeChangeSuccess",
+        //    function( $currentRoute, $previousRoute ){
+        //
+        //        // 刷新显示内容
+        //        render();
+        //
+        //    }
+        //);
     }]);
