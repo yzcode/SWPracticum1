@@ -12,13 +12,16 @@
 
     <script src="../static/js/jquery-1.11.0.js"></script>
     <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
-    <script src="../static/js/bootstrap.min.js"></script>
+
     <script src="../static/js/angular.js"></script>
+    <script src="../static/js/bootstrap.js"></script>
     <script src="../static/js/angular-route.js"></script>
     <script src="../static/js/angular-resource.js"></script>
     <script src="../static/js/app.js"></script>
-    <script src="../static/js/controllers.js"></script>
+    <script src="../static/js/ui-bootstrap-tpls-0.12.0.js"></script>
+    <script src="../static/js/angular.ui.popbox.js"></script>
     <script src="../static/js/services.js"></script>
+    <script src="../static/js/controllers.js"></script>
     <script src="../static/js/sscr.js"></script>
 
     <link rel="stylesheet/less" href="../static/css/main.less">
@@ -77,6 +80,35 @@
         #nav-icon{
             padding-top: 19px;
         }
+        .popbox {
+            position: absolute;
+            z-index: 1229;
+            display: none;
+            min-width: 240px;
+            max-width: 400px;
+            padding: 1px;
+            text-align: left;
+            background-color: #fbfbfb;
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            border: 1px solid #e1e1e1;
+            *border: 1px solid #e1e1e1;
+            font-size: 14px;
+            -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-clip: padding-box;
+            outline: none
+        }
+
+        .popbox.fade {
+            -webkit-transition: opacity .3s linear, top .3s ease-out;
+            -o-transition: opacity .3s linear, top .3s ease-out;
+            transition: opacity .3s linear, top .3s ease-out;
+            top: -25%
+        }
+        .popbox.fade.in {
+            top: 10%
+        }
     </style>
 </head>
 <body>
@@ -96,12 +128,7 @@
                 <ul class="nav navs navbar-nav navbar-right" id="nav-right" ng-controller="userMain">
                     <li class="divider-v"></li>
                     <li class="dropdown">
-                        <a  href="javascript:;" class="dropdown-toggle font-set-fm" data-toggle="dropdown">新建<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" class="font-set-fm">新建项目</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#" class="font-set-fm">新建团队</a></li>
-                        </ul>
+                        <a  href="" class="font-set-fm js-popbox"  id="master_new_menu" ng-click="master_new_menu($event)">新建<span class="caret"></span></a>
                     </li>
                     <li class="divider-v"></li>
                     <li><a href="#"><span class="glyphicon glyphicon-bell" style="font-size: 16px"></span> <span class="badge">3</span></a></li>
