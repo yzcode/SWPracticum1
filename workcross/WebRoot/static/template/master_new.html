@@ -1,0 +1,200 @@
+<ul class="popbox-step" ng-switch on="currentStep" wt-stop-propagation="">
+    <style>
+        /*.popbox-step-li { width: 800px !important;}*/
+    </style>
+    <li ng-switch-when="master_new" class="popbox-step-li w_360">
+        <div class="popbox-header">
+            <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep=='master_new'"></button>
+            <button type="button" class="close" ng-click="js_close()"><span aria-hidden="true">×</span><span
+                    class="sr-only">Close</span></button>
+            <h3>新建</h3>
+        </div>
+        <div class="popbox-body">
+            <ul class="popbox-menu">
+                <li id="global_create_project">
+                    <a href="javascript:;" ng-click='show_new_project_dialog($event)'>
+                        <i class="glyphicon glyphicon-inbox"></i> 新建项目
+                        <br>
+                        <span class="text-muted">
+                            项目是一组成员和一组任务、文件、话题、文档、日程的集合。
+                        </span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li id="global_create_team">
+                    <a href="javascript:;" ng-click='show_new_team_dialog($event)'>
+                        <i class="icon-group"></i> 新建团队
+                        <br>
+                        <span class="text-muted">
+                            团队可以是一个公司或者一个部门，使用团队组织项目和成员。
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li ng-switch-when="new_project" class="popbox-step-li w_360">
+        <div id="project">
+            <div class="popbox-header">
+                <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep=='master_new'"></button>
+                <button type="button" class="close" ng-click="js_close()"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h3>新建项目</h3>
+            </div>
+            <div class="popbox-body">
+                <form name="add_prj_form" wt-form-validate="{blurTrig:false,showMsg:false}" class="wt-form" novalidate>
+                    <div class="form-group">
+                        <label class="control-label">
+                            <strong>项目名称：</strong>
+                        </label>
+                        <input name="prj_name" ng-model="data.prjName" placeholder="项目名称" class="form-control"
+                               type="text" wt-focus="projectNameInputFocus" required/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label pt_0">
+                            <strong>所有者：</strong>
+                        </label>
+                        <a href="javascript:;" class=" help-block plr_5" ng-model="data.current_team"
+                           ng-click="show_select_team_dialog($event)">
+                            <i class="icon-user" ng-show="data.current_team.team_id == -1"></i>
+                            <i class="icon-sitemap" ng-show="data.current_team.team_id != -1"></i>
+                            {{data.current_team.name}}
+                            <i class="pull-right icon-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            <strong>公开性：</strong>
+                        </label>
+                        <a href="javascript:;" class="help-block plr_5" ng-click="show_visibility_dialog($event)">
+                            <i class="{{data.visibility.icon}} mr_5"></i> {{data.visibility.desc}}
+                            <i class="pull-right icon-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="form-group" ng-if="add_prj_form.$errors.length > 0">
+                        <div class="alert alert-danger">
+                            <i class="icon-remove-sign"></i> {{add_prj_form.$errors[0]}}
+                        </div>
+                    </div>
+                    <div>
+                        <button wt-form-submit="js_add_prj(add_prj_form, data.current_team.team_id, data.prjName, desc, data.visibility.visibility)"
+                                class="btn btn-success mr_15" data-loading-text="保存中..."
+                                loading-status="is_saving_project">创建
+                        </button>
+                        <button ng-click="js_close()" class="btn float_left">取消</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </li>
+    <li ng-switch-when="new_team" class="popbox-step-li w_360">
+        <div id="team" class="">
+            <div class="popbox-header">
+                <button class="back glyphicon glyphglyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep=='master_new'"></button>
+                <button type="button" class="close" ng-click="js_close()"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h3>新建团队</h3>
+            </div>
+            <div class="popbox-body">
+                <form name="add_team_form" wt-form-validate="{blurTrig:false,showMsg:false}" class="wt-form" novalidate>
+                    <div class="form-group">
+                        <label class="control-label">团队名称：</label>
+
+                        <div class="">
+                            <input name="team_name" ng-model="name" placeholder="团队名称" class="form-control" type="text"
+                                   wt-focus="teamNameInputFocus" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">团队描述：</label>
+
+                        <div class="">
+                            <textarea ng-model="desc" placeholder="为团队添加简短描述（可选）" rows="4" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="add_team_form.$errors.length > 0">
+                        <div class="alert alert-danger">
+                            <i class="icon-remove-sign"></i> {{add_team_form.$errors[0]}}
+                        </div>
+                    </div>
+                    <div>
+                        <button ng-click="js_add_team(add_team_form, name, desc)" class="btn btn-success mr_15"
+                                data-loading-text="保存中..." loading-status="is_saving_team">创建
+                        </button>
+                        <button ng-click="js_close()" class="btn float_left">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end of #team -->
+    </li>
+    <li ng-switch-when="4" class="popbox-step-li w_360">
+        <div class="popbox-header">
+            <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
+            <button class="cancel icon-remove" ng-click="js_close()"></button>
+            <h3>项目公开性</h3>
+        </div>
+        <div class="popbox-body">
+            <ul class="popbox-menu">
+                <li>
+                    <a href="javascript:;" ng-click="set_private($event)"> <i class="icon-private mr_5"></i>
+                        <strong>{{visibilityArr[0].desc}}</strong>
+                        <i class="icon-ok p_5 text-muted pull-right" ng-if="data.visibility.visibility==1"></i>
+                        <br>
+                        <span class="text-muted">
+                            {{visibilityArr[0].intro}}
+                        </span>
+                    </a>
+                </li>
+                <li class="divider" ng-hide="data.current_team.team_id == -1"></li>
+                <li ng-hide="data.current_team.team_id == -1">
+                    <a href="javascript:;" ng-click="set_protected($event)">
+                        <i class="icon-protected mr_5"></i>
+                        <strong>{{visibilityArr[1].desc}}</strong>
+                        <i class="icon-ok p_5 text-muted pull-right" ng-if="data.visibility.visibility==2"></i>
+                        <br>
+                        <span class="text-muted">
+                            {{visibilityArr[1].intro}}
+                        </span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="javascript:;" ng-click="set_public($event)"><i class="icon-public mr_5"></i>
+                    <strong>{{visibilityArr[2].desc}}</strong>
+                    <i class="icon-ok p_5 text-muted pull-right" ng-if="data.visibility.visibility==3"></i>
+                    <br>
+                    <span class="text-muted">
+                    {{visibilityArr[2].intro}}
+                    </span></a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li ng-switch-when="5" class="popbox-step-li w_360">
+        <div class="popbox-header">
+            <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
+            <button class="cancel icon-remove" ng-click="js_close()"></button>
+            <h3>选择所有者</h3>
+        </div>
+        <div class="popbox-body">
+            <ul class="popbox-menu max-h360" wt-scroll>
+                <li ng-repeat="team in owner_teams">
+                    <a ng-click="select_team($event, owner_teams[$index])">
+                        <i class="icon-user" ng-show="team.team_id == -1"></i>
+                        <i class="icon-sitemap" ng-show="team.team_id != -1"></i>
+                        {{team.name}}
+                        <i class="icon-ok p_5 text-muted pull-right" ng-if="data.current_team==owner_teams[$index]"></i>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="javascript:;" ng-click="show_new_team_dialog($event)">
+                        <i class="icon-plus-sign-alt"></i>
+                        新建团队
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
