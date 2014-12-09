@@ -20,7 +20,7 @@ workxControllers.controller('userMain', ['$scope', '$http','globel_settings','$r
     function($scope, $http,globel_settings,$rootScope) {
         var url = '';
         if (settings.j2ee) url='/workcross/api/user/currentuser';
-        else url = '../static/json/testjson/user.json';
+        else url = '/workcross/static/json/testjson/user.json';
         $http.get(url).success(
             function(data){
                 $scope.user= data;
@@ -33,7 +33,7 @@ workxControllers.controller('left-panel', ['$scope', '$http','globel_settings','
     function($scope, $http,globel_settings,Teams) {
         var url = '';
         if (settings.j2ee) url='/workcross/api/teams/';
-        else url = '../static/json/testjson/teams.json';
+        else url = '/workcross/static/json/testjson/teams.json';
         $http.get(url).success(
             function(data){
                 $scope.teams= data;
@@ -93,7 +93,7 @@ workxControllers.controller('projects', ['$scope', '$http','globel_settings','Te
     function($scope, $http,globel_settings,Teams) {
         var url = '';
         if (settings.j2ee) url='/workcross/api/teams/';
-        else url = '../static/json/testjson/teams.json';
+        else url = '/workcross/static/json/testjson/teams.json';
         $http.get(url).success(
             function(data){
                 $scope.projects_curpage='projects_partin';
@@ -119,7 +119,7 @@ workxControllers.controller('dashboard', ['$scope', '$http','globel_settings',
     function($scope, $http,globel_settings) {
         var url = '';
         if (settings.j2ee) url='/workcross/api/user/currentuser';
-        else url = '../static/json/testjson/user.json';
+        else url = '/workcross/static/json/testjson/user.json';
         $http.get(url).success(
             function(data){
                 globel_settings.chgpage('dashboard');

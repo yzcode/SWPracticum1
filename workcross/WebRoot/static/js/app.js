@@ -14,7 +14,7 @@ workx.config(['$routeProvider','$locationProvider',
     function($routeProvider,$locationProvider) {
         $routeProvider.
             when('/dashboard', {
-                templateUrl: settings.webroot+'/static/template/dashboard.html',
+                templateUrl: settings.webroot+'static/template/dashboard.html',
                 controller: 'dashboard'
             }).
             when('/projects', {

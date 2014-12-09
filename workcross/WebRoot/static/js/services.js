@@ -8,7 +8,7 @@ serverRes.factory('Teams', ['$resource',
     function($resource){
         var url="";
         if(settings.j2ee) url = "/workcross/api/teams/:teamId/";
-        else url = '../static/json/testjson/team:teamId.json';
+        else url = '/workcross/static/json/testjson/team:teamId.json';
         return $resource(url, {}, {
             query: {method:'GET', params:{teamId:'-1'}, isArray:true}
         });
@@ -18,7 +18,7 @@ serverRes.factory('projectRes', ['$resource',
     function($resource){
         var url="";
         if(settings.j2ee) url = "/workcross/api/project/:projectId/";
-        else url = '../static/json/testjson/project1.json';
+        else url = '/workcross/static/json/testjson/project1.json';
         return $resource(url, {}, {
             query: {method:'GET', params:{projectId:'-1'}, isArray:true}
         });
