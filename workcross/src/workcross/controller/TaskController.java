@@ -37,6 +37,7 @@ public class TaskController {
 		Project project = projectService.getProjectById(projectId);
 		List<Entry> entries = taskService.getProjectEntries(project);
 		List<Task> tasks = taskService.getProjectTasks(project);
+		data.put("project", project);
 		data.put("entries", entries);
 		data.put("tasks", tasks);
 		return data;
