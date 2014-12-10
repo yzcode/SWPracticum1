@@ -1,0 +1,42 @@
+<div class="div-project-main">
+    <div class="mod-navbar">
+        <div class="title">
+            <h3>
+                <span class="glyphicon glyphicon-tasks" style="font-size: 16px"></span>
+                {{project.project.name}}
+            </h3>
+        </div>
+        <div class="mod-navbar-main pull-right">
+            <ul class="nav nav-tabs" role="tablist">
+            </ul>
+        </div>
+    </div>
+    <div class="server-project-main server-main">
+        <div class="server-project-task">
+            <div class="server-project-task-ul" ng-repeat="entry in project.entries | orderBy:'pos'" >
+                <div class="task-ul-header">
+                    {{entry.entryName}}
+                </div>
+                <div class="hr"></div>
+                <div class="task-ul-li">
+                    <div class="task-ul-li-task" ng-repeat="task in project.tasks |filter:{entryId:entry.id}:true| orderBy:'pos'">
+                        <div class="task-ul-li-task-title">
+                            <a class="static-a" href="javascript:;">
+                                <span ng-class="{true:'icon-check task-finish',false:'icon-check-empty'}[task.completed]" ng-click="taskcomplete(task);"></span>
+                            </a>
+                            <span class="taskname">{{task.taskName}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-ul-footer">
+                    <a class="static-a" href="javascript:;">
+                        新建任务
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div-project-right">
+        <ng-include src="'/workcross/static/template/project/project_right.html'"></ng-include>
+    </div>
+</div>

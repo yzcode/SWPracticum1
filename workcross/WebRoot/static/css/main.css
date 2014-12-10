@@ -133,6 +133,10 @@ body {
   text-decoration: none;
   color: #b4b8be;
 }
+.hr {
+  border-top: solid 1px #e5e5e5;
+  border-bottom: solid 1px #fff;
+}
 ::-webkit-scrollbar {
   width: 10px;
   height: 15px;
@@ -144,7 +148,7 @@ body {
   border: solid 1px #bec1c4;
 }
 ::-webkit-scrollbar-track-piece {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 ul,
 ol {
@@ -721,13 +725,12 @@ h3 span {
   color: #646b75;
 }
 .server-main {
-  overflow-y: auto;
   position: absolute;
   left: 0;
   top: 60px;
   right: 0;
   bottom: 0;
-  overflow: hidden;
+  overflow: auto;
   margin: 15px;
   margin-bottom: 17px;
 }
@@ -1078,4 +1081,99 @@ table.table.project-list tbody tr td p {
 }
 .dashboard-right-wrap .title {
   padding-bottom: 10px;
+}
+.project-right-wrap {
+  height: 100%;
+  position: relative;
+  background-color: #f9f9f7;
+}
+.project-right-wrap .title {
+  font-size: 14px;
+  color: #989ea7;
+}
+.project-right-app {
+  padding: 10px 15px;
+}
+.project-right-mem {
+  padding: 10px 15px;
+}
+.project-right-header {
+  padding: 20px 25px;
+  color: #646b75;
+  font-size: 16px;
+}
+.div-project-main {
+  margin-right: 240px;
+}
+.div-project-right {
+  width: 239px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-left: solid 1px #e1e1e1;
+  -webkit-box-shadow: 0 0 3px #eee,inset 0 0 3px #fff;
+  box-shadow: 0 0 3px #eee,inset 0 0 3px #fff;
+}
+.server-project-main {
+  position: absolute;
+  top: 59px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.server-project-task {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  max-width: 100%;
+}
+.server-project-task-ul {
+  position: relative;
+  min-height: 60px;
+  vertical-align: top;
+  display: inline-block;
+  zoom: 1;
+  -webkit-box-shadow: 0 1px 3px #eee, inset 0 0 3px #fff;
+  box-shadow: 0 1px 3px #eee, inset 0 0 3px #fff;
+  background: #fbfbfb;
+  width: 280px;
+  margin: 15px 0 0 15px;
+  border: solid 1px #e1e1e1;
+}
+.task-ul-header {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f9f9f7;
+}
+.task-ul-li {
+  min-height: 40px;
+}
+.task-ul-footer {
+  position: relative;
+  z-index: 2;
+  padding: 5px;
+  padding-left: 15px;
+  line-height: 28px;
+}
+.task-ul-li-task {
+  position: relative;
+  padding: 10px 10px 5px 10px;
+  border-bottom: solid 1px #e1e1e1;
+  border-top: solid 1px #fff;
+  background: #fbfbfb;
+  min-height: 20px;
+  line-height: 20px;
+  cursor: pointer;
+}
+.task-ul-li-task-title {
+  position: relative;
+  padding: 3px 0;
+}
+.task-ul-li-task-title .taskname {
+  color: #646b75;
+  margin-left: 5px;
+}
+.task-finish {
+  text-decoration: line-through;
 }

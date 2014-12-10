@@ -21,9 +21,12 @@ workx.config(['$routeProvider','$locationProvider',
                 templateUrl: settings.webroot+'static/template/projects.html',
                 controller: 'projects'
             }).
-            when('/project/:projectId', {
-                templateUrl: settings.webroot+'static/template/project.html',
-                controller: 'project'
+            when('/project/:projectId/task', {
+                templateUrl: settings.webroot+'static/template/project/project_task.html',
+                controller: 'project_taskctr'
+            }).
+            when('/project/:projectId/', {
+                redirectTo: '/project/:projectId/task'
             }).
             when('/teams/:teamId', {
                 templateUrl: settings.webroot+'static/template/team.html',
@@ -70,5 +73,15 @@ workxfilter.filter('timeformat',function(){
         var nowt = new Date();
         nowt.setTime(timestamp);
         return nowt.getFullYear()+'年'+nowt.getMonth()+'月'+nowt.getDay()+'日' ;
+    };
+})
+
+workxfilter.filter('taskInEntry',function(){
+    return function(task,id){
+        var res = [];
+        for(var i in task){
+            if(task[i].entryId == id) res.push(task[i]);
+        }
+        return res;
     };
 })

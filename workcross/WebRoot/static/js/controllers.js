@@ -236,9 +236,16 @@ workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams
 
     }]);
 
-workxControllers.controller('project', ['$scope', 'projectRes', 'globel_settings', '$routeParams',
+
+workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams',
     function ($scope, projectRes, globel_settings, $routeParams) {
         $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
             globel_settings.chgpage('project');
+            $scope.project_curpage = 'project_task';
         })
+        $scope.taskcomplete = function(task){
+            if(settings.debug) console.log(task);
+            if(task.completed) task.completed = false;
+            else task.completed = true;
+        }
     }]);
