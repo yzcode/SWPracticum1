@@ -1,1 +1,24 @@
-dashboard
+<div class="div-dashboard-main">
+    <div class="mod-navbar">
+        <div class="title">
+            <h3>
+                <span class="glyphicon glyphicon-dashboard"></span>
+                工作台
+            </h3>
+        </div>
+        <div class="mod-navbar-main pull-right">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-class="{'active':dashboard_curpage == 'dashboard_new'}"><a ng-click="setcurpage('dashboard_new')" class="a-link">最新动态</a></li>
+                <li role="presentation" ng-class="{'active':dashboard_curpage == 'dashboard_task'}"><a ng-click="setcurpage('dashboard_task')" class="a-link">我的任务</a></li>
+            </ul>
+        </div>
+    </div>
+    <div ng-switch on="dashboard_curpage">
+        <div ng-switch-when="dashboard_new" >
+            <div ng-include src="'/workcross/static/template/dashboard/dashboard_new.html'"></div>
+        </div>
+        <div ng-switch-when="dashboard_task" >
+            <div ng-include src="'/workcross/static/template/dashboard/dashboard_task.html'"></div>
+        </div>
+    </div>
+</div>
