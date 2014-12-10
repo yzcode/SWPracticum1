@@ -165,16 +165,7 @@ body{
 ::-webkit-scrollbar-track-piece {
   background-color: #fff
 }
-.server-main{
-  overflow-y: auto;
-  position: absolute;
-  left: 0;
-  top: 60px;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  padding-bottom: 15px;
-}
+
 ul,ol{padding:0;}
 .w_12{width:12px}
 .w_25{width:25px}
@@ -369,19 +360,85 @@ h3 span {
   height: 30px;
   line-height: 30px;
 }
+.avatar.avatar-50 .avatar-text {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+}
 .avatar.avatar-56 .avatar-text {
   width: 56px;
   height: 56px;
   line-height: 56px !important;
   font-size: 25px;
 }
+.avatar-text{
+  text-transform: capitalize;
+  margin-top: 1px;
+}
 .avatar-name{
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   min-width: 50px;
+  margin-top: 5px;
 }
 //avatar-define-end
+
+//server-main
+.team-title{
+  padding: 10px;
+  padding-left: 14px;
+  padding-bottom: 18px;
+  font-size: 18px;
+  border-bottom: @board-server;
+  color: @server-main-panel-color;
+}
+.server-main{
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  margin: 15px;
+  margin-bottom: 17px;
+
+}
+.server-left-wrap{
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  margin-left: -360px;
+  padding-left: 360px;
+  padding-bottom: 15px;
+}
+.server-left{
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  display: inline-block;
+  border: @board-server;
+  box-shadow: @board-server-shadow;
+  background-color: @server-panel-maincolor;
+  overflow: hidden;
+}
+.server-left .title{
+  .team-title;
+}
+.server-right{
+  border: @board-server;
+  box-shadow: @board-server-shadow;
+  display: inline;
+  width: 345px;
+  height: 185px;
+  padding: 10px;
+}
+.server-right .title{
+  .team-title;
+  padding-bottom: 5px;
+}
+//server-main end
 
 //css for team.html
 .server-team-main{
@@ -395,39 +452,15 @@ h3 span {
   overflow: hidden;
 }
 .team-mem-left-wrap{
-  height: 100%;
-  width: 100%;
-  display: inline-block;
-  margin-left: -360px;
-  padding-left: 360px;
-  padding-bottom: 15px;
+  .server-left-wrap;
 }
 .team-mem-left{
-  height: 100%;
-  width: 100%;
-  padding: 15px;
-  display: inline-block;
-  border: @board-server;
-  box-shadow: @board-server-shadow;
-  background-color: @server-panel-maincolor;
-  overflow: hidden;
+  .server-left;
 }
 .team-mem-right{
-  border: @board-server;
-  box-shadow: @board-server-shadow;
-  display: inline;
-  width: 345px;
-  height: 185px;
-  padding: 10px;
+  .server-right;
 }
-.team-title{
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
-  font-size: 18px;
-  border-bottom: @board-server;
-  color: @server-main-panel-color;
-}
+
 .team-mem-left .title{
   .team-title;
 }
@@ -469,7 +502,7 @@ h3 span {
   .static-a
 }
 .user-li a span{
-  text-transform: capitalize;
+//  text-transform: capitalize;
 }
 .project-list{
   padding: 0;
@@ -486,11 +519,11 @@ table.table.project-list tbody tr td p{
   margin: 0;
   padding: 20px;
 }
-.project-a span.icon-task{
+.project-a span.icon-tasks{
   margin-left: 5%;
   color: #3c8cad;
 }
-.project-a:hover span.icon-task{
+.project-a:hover span.icon-tasks{
   color: lighten(#3c8cad,30%);
 }
 .project-a span.proname{
@@ -614,7 +647,31 @@ table.table.project-list tbody tr td p{
   text-align: center;
   padding: 15px 10px;
 }
+.projects-project-wrap p{
+  font-size: 16px;
+}
 .projects-projects-list.last{
   margin-bottom: 50px;
 }
 //css for projects.html end
+
+//css for dashboard.html
+.server-dashboard-main{
+  margin-right: 0;
+  padding-right: 10px;
+  overflow: auto;
+}
+.dashboard-right-wrap{
+  display: initial;
+}
+.dashboard-new-left{
+  min-height: 100%;
+  height: auto;
+}
+.dashboard-task-left{
+  .dashboard-new-left
+}
+.dashboard-right-wrap .title{
+  padding-bottom: 10px;
+}
+//css for dashboard.html end

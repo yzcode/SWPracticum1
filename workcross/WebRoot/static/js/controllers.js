@@ -131,6 +131,52 @@ workxControllers.controller('left-panel', ['$scope', '$http', 'globel_settings',
         }
     }]);
 
+
+
+
+
+workxControllers.controller('dashboard', ['$scope', '$http', 'globel_settings','$rootScope',
+    function ($scope, $http, globel_settings,$rootScope) {
+        $scope.user = $rootScope.user;
+        var url = '';
+        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        else url = '/workcross/static/json/testjson/user.json';
+        $http.get(url).success(
+            function (data) {
+                globel_settings.chgpage('dashboard');
+
+                $scope.dashboard_curpage = 'dashboard_new'
+            }
+        )
+        $scope.setcurpage = function (linkto) {
+            if (linkto == 'dashboard_task') {
+                $scope.dashboard_curpage = 'dashboard_task';
+            }
+            else $scope.dashboard_curpage = 'dashboard_new';
+            //var stateObject = {};
+            //var title = 'workx team '+$scope.team_curpage;
+            //var newUrl = "/teams/"+$routeParams.teamId+"?path="+$scope.team_curpage;
+            //if(settings.debug) console.log(newUrl);
+            //$location.url(newUrl);
+        };
+    }]);
+
+workxControllers.controller('calenderctr', ['$scope', '$http', 'globel_settings',
+    function ($scope, $http, globel_settings) {
+        var url = '';
+        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        else url = '/workcross/static/json/testjson/user.json';
+        globel_settings.chgpage('calender');
+    }]);
+
+workxControllers.controller('discoveryctr', ['$scope', '$http', 'globel_settings',
+    function ($scope, $http, globel_settings) {
+        var url = '';
+        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        else url = '/workcross/static/json/testjson/user.json';
+        globel_settings.chgpage('discovery');
+    }]);
+
 workxControllers.controller('projects', ['$scope', '$http','globel_settings','Teams',
     function($scope, $http,globel_settings,Teams) {
         var url = '';
@@ -149,27 +195,6 @@ workxControllers.controller('projects', ['$scope', '$http','globel_settings','Te
             }
         )
     }]);
-
-workxControllers.controller('project', ['$scope', 'projectRes', 'globel_settings', '$routeParams',
-    function ($scope, projectRes, globel_settings, $routeParams) {
-        $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
-            globel_settings.chgpage('project');
-        })
-    }]);
-
-workxControllers.controller('dashboard', ['$scope', '$http', 'globel_settings',
-    function ($scope, $http, globel_settings) {
-        var url = '';
-        if (settings.j2ee) url='/workcross/api/user/currentuser';
-        else url = '/workcross/static/json/testjson/user.json';
-        $http.get(url).success(
-            function (data) {
-                globel_settings.chgpage('dashboard');
-                $scope.projects = data;
-            }
-        )
-    }]);
-
 
 workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams','$rootScope','$route',
     function($scope,globel_settings,$routeParams,Teams,$rootScope,$route) {
@@ -201,25 +226,19 @@ workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams
             if(settings.debug) console.log(newUrl);
             //$location.url(newUrl);
         };
-        //var render = function(){
-        //    var actions = $route.current.action;
-        //    console.log(actions);
-        //    var routeaction = actions.split('.');
-        //    $scope.team_curpage=actions[1];
-        //}
+
         $scope.isCreator=function(){
             var cuser = $scope.team.teamcrate;
             if(cuser==undefined) cuser='administrator';
             if(settings.debug) console.log($rootScope.user.username+'  '+cuser);
             return cuser==$rootScope.user.username;
         }
-        //$scope.$on(
-        //    "$routeChangeSuccess",
-        //    function( $currentRoute, $previousRoute ){
-        //
-        //        // 刷新显示内容
-        //        render();
-        //
-        //    }
-        //);
+
+    }]);
+
+workxControllers.controller('project', ['$scope', 'projectRes', 'globel_settings', '$routeParams',
+    function ($scope, projectRes, globel_settings, $routeParams) {
+        $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
+            globel_settings.chgpage('project');
+        })
     }]);

@@ -13,11 +13,11 @@ var workx = angular.module('workx', [
 workx.config(['$routeProvider','$locationProvider',
     function($routeProvider,$locationProvider) {
         $routeProvider.
-            when('/dashboard', {
+            when('/dashboard/', {
                 templateUrl: settings.webroot+'static/template/dashboard.html',
                 controller: 'dashboard'
             }).
-            when('/projects', {
+            when('/projects/', {
                 templateUrl: settings.webroot+'static/template/projects.html',
                 controller: 'projects'
             }).
@@ -28,6 +28,14 @@ workx.config(['$routeProvider','$locationProvider',
             when('/teams/:teamId', {
                 templateUrl: settings.webroot+'static/template/team.html',
                 controller: 'teamctr'
+            }).
+            when('/calender/',{
+                templateUrl: settings.webroot+'static/template/calender.html',
+                controller: 'calenderctr'
+            }).
+            when('/discovery/',{
+                templateUrl: settings.webroot+'static/template/discovery.html',
+                controller: 'discoveryctr'
             }).
             //when('/teams/:teamId/team_pro', {
             //    action:"team.team_pro"
