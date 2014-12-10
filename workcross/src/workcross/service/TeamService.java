@@ -51,6 +51,16 @@ public class TeamService {
 		teamMember.setTeamId(team.getId());
 		return teamMemberRepository.save(teamMember);
 	}
+	public TeamMember addUserToTeam(User user ,Team team,String role) throws Exception 
+	{
+		if (user == null || team == null)
+			throw new Exception("User or Team is null");
+		TeamMember teamMember = new TeamMember();
+		teamMember.setUserId(user.getId());
+		teamMember.setTeamId(team.getId());
+		teamMember.setRole(role);
+		return teamMemberRepository.save(teamMember);
+	}
 	
 	public List<Team> getUserTeams(User user)
 	{

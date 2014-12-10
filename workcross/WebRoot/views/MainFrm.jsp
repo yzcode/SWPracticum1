@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" import="java.io.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" import="java.io.*"  pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -18,10 +18,11 @@
 		PrintWriter printWriter = response.getWriter();
 		while ((line=br.readLine()) != null)
 		{
-			line = line.replaceAll("../static/", "/workcross/static/");
+			//line = line.replaceAll("../static/", "/workcross/static/");
 			printWriter.write(line + "\n");
 		}
 		br.close();
 		isr.close();
 	}
+	
 %>
