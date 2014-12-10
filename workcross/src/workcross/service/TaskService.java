@@ -65,7 +65,7 @@ public class TaskService {
 		return taskRepository.findByProjectId(project.getId());
 	}
 
-	public List<Entry> getProjectEntrys(Project project) {
+	public List<Entry> getProjectEntries(Project project) {
 		return entryRepository.findByProjectId(project.getId());
 	}
 }
