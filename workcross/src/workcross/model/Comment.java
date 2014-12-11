@@ -5,6 +5,11 @@ import javax.persistence.*;
 @Table(name = "Comment")
 public class Comment extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7068922228506847618L;
+
 	@Column(name = "objectType",nullable = false)
 	private String objectType;
 	
