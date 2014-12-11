@@ -13,36 +13,22 @@ var workx = angular.module('workx', [
 workx.config(['$routeProvider','$locationProvider',
     function($routeProvider,$locationProvider) {
         $routeProvider.
-            when('/dashboard/', {
-                templateUrl: settings.webroot+'static/template/dashboard.html',
+            when('/dashboard', {
+                templateUrl: settings.webroot+'/static/template/dashboard.html',
                 controller: 'dashboard'
             }).
-            when('/projects/', {
+            when('/projects', {
                 templateUrl: settings.webroot+'static/template/projects.html',
                 controller: 'projects'
             }).
-            when('/project/:projectId/task', {
-                templateUrl: settings.webroot+'static/template/project/project_task.html',
-                controller: 'project_taskctr'
-            }).
-            when('/project/:projectId/', {
-                redirectTo: '/project/:projectId/task'
+            when('/project/:projectId', {
+                templateUrl: settings.webroot+'static/template/project.html',
+                controller: 'project'
             }).
             when('/teams/:teamId', {
                 templateUrl: settings.webroot+'static/template/team.html',
                 controller: 'teamctr'
             }).
-            when('/calender/',{
-                templateUrl: settings.webroot+'static/template/calender.html',
-                controller: 'calenderctr'
-            }).
-            when('/discovery/',{
-                templateUrl: settings.webroot+'static/template/discovery.html',
-                controller: 'discoveryctr'
-            }).
-            //when('/teams/:teamId/team_pro', {
-            //    action:"team.team_pro"
-            //}).
             otherwise({
                 redirectTo: '/dashboard'
             });
@@ -73,15 +59,5 @@ workxfilter.filter('timeformat',function(){
         var nowt = new Date();
         nowt.setTime(timestamp);
         return nowt.getFullYear()+'年'+nowt.getMonth()+'月'+nowt.getDay()+'日' ;
-    };
-})
-
-workxfilter.filter('taskInEntry',function(){
-    return function(task,id){
-        var res = [];
-        for(var i in task){
-            if(task[i].entryId == id) res.push(task[i]);
-        }
-        return res;
     };
 })

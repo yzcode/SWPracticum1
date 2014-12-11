@@ -26,7 +26,7 @@ public class User extends BaseModel {
 	 */
 	private static final long serialVersionUID = 5925559784139229711L;
 
-	@Column(name = "username",nullable = false,unique = true)
+	@Column(name = "username",nullable = false)
 	private String username;
 
 	@JsonIgnore

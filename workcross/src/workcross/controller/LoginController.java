@@ -23,19 +23,16 @@ public class LoginController {
 	private UserService userService;
 
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
-	public ModelAndView login(String username, String password,
+	public String login(String username, String password,
 			HttpSession httpSession) {
 		// if (username == null || password == null)
 
 		User user = userService.getUserByUsername(username);
 		if (user != null) {
 			if (user.matchPassword(password))
-			{
 				httpSession.setAttribute("user", user);
-				return new ModelAndView("redirect:/dashboard");
-			}
 		}
-		return new ModelAndView("redirect:/");
+		return "index";
 	}
 
 	@RequestMapping(value = "/Logout", method = RequestMethod.GET)
