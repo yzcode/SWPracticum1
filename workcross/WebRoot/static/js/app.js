@@ -70,9 +70,19 @@ workxfilter.filter('longname', function() {
 
 workxfilter.filter('timeformat',function(){
     return function(timestamp){
+        if(timestamp==null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
         return nowt.getFullYear()+'年'+nowt.getMonth()+'月'+nowt.getDay()+'日' ;
+    };
+})
+
+workxfilter.filter('timeformatYM',function(){
+    return function(timestamp){
+        if(timestamp==null) return "";
+        var nowt = new Date();
+        nowt.setTime(timestamp);
+        return nowt.getMonth()+'月'+nowt.getDay()+'日' ;
     };
 })
 

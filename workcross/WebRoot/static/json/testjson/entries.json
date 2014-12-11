@@ -43,11 +43,26 @@
       "taskName": "惠大神快不行了",
       "completed": false,
       "archive": false,
-      "expireDdate": null,
+      "expireDdate": 1418201075000,
       "description": "这是一个风险",
       "pos": 65535.0,
       "members": [
         {
+          "id": 1,
+          "lastModified": 1418129025000,
+          "dateCreated": 1418129025000,
+          "username": "comzyh",
+          "nickname": "comzyh",
+          "email": "comzyh@163.com"
+        },
+        {
+          "id": 1,
+          "lastModified": 1418129025000,
+          "dateCreated": 1418129025000,
+          "username": "comzyh",
+          "nickname": "comzyh",
+          "email": "comzyh@163.com"
+        },{
           "id": 1,
           "lastModified": 1418129025000,
           "dateCreated": 1418129025000,
@@ -82,7 +97,7 @@
       "taskName": "医院关门了",
       "completed": false,
       "archive": false,
-      "expireDdate": null,
+      "expireDdate": 1418201138000,
       "description": "起义",
       "pos": 262144.0,
       "members": [

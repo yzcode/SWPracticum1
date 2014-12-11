@@ -28,7 +28,23 @@
                             </div>
                             <a class="taskname static-a" ng-class="{true:'task-finish',false:''}[task.completed]">{{task.taskName}}</a>
                         </div>
-                        <div class="task-ul-li-task-mem">
+                        <div class="task-ul-li-task-footer">
+                            <div class="task-ul-li-task-time disinline">
+                                <span class="label label-danger" ng-if="task.expireDdate"><span class="icon-time"></span> {{task.expireDdate | timeformatYM}}</span>
+                            </div>
+                            <div class="task-ul-li-task-mem disinline pull-right">
+                                <ul class="">
+                                    <li ng-repeat="member in task.members" class="disinline">
+                                        <a class="static-a" href="javascript:;">
+                                            <span class="avatar avatar-30">
+                                                <span class="avatar-face">
+                                                    <span class="avatar-text">{{member.nickname[0]}}</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

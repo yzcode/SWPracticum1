@@ -143,6 +143,9 @@ body {
 .width-25 {
   width: 25%;
 }
+.disinline {
+  display: inline-block;
+}
 ::-webkit-scrollbar {
   width: 10px;
   height: 15px;
@@ -1227,6 +1230,7 @@ table.table.project-list tbody tr td p {
 }
 .task-ul-li-task-mem {
   text-align: right;
+  padding-top: 5px;
 }
 .newtask-text {
   border: solid 1px #66afe9;
@@ -1265,4 +1269,25 @@ table.table.project-list tbody tr td p {
   border: solid 1px #e1e1e1;
   padding: 15px 10px;
   background: #f9f9f7;
+}
+.task-ul-li-task-mem ul {
+  padding-top: 3px;
+  margin-bottom: 0px;
+  float: right;
+  text-align: right;
+}
+.task-ul-li-task-mem ul li {
+  margin-left: 5px;
+  margin-bottom: 5px;
+  float: right;
+}
+.task-ul-li-task-footer {
+  min-height: 40px;
+  overflow: hidden;
+}
+.task-ul-li-task-time {
+  padding-top: 13px;
+}
+.label {
+  padding: 0.4em .6em .3em;
 }
