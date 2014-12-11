@@ -6,12 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-import org.hibernate.Query;
+import javax.persistence.*;
 
 import workcross.model.*;
 import workcross.repository.EntryRepository;
 import workcross.repository.ProjectRepository;
+import workcross.repository.TaskMemberRepository;
 import workcross.repository.TaskRepository;
 import workcross.repository.TeamMemberRepository;
 import workcross.repository.TeamRepository;
@@ -33,6 +33,15 @@ public class TaskService {
 
 	@Autowired
 	EntryRepository entryRepository;
+
+	@Autowired
+	TaskMemberRepository taskMemberRepository;
+
+	@Autowired
+	UserRepository userRepository;
+
+	@PersistenceContext
+	public EntityManager em;
 
 	public Entry addEntry(long projectId, String entryName, double pos) {
 		Entry entry = new Entry(projectId, entryName, pos);
@@ -67,5 +76,38 @@ public class TaskService {
 
 	public List<Entry> getProjectEntries(Project project) {
 		return entryRepository.findByProjectId(project.getId());
+	}
+
+	public TaskMember addTaskMember(Task task, User user) {
+		TaskMember taskMember = new TaskMember(task.getId(), user.getId(),
+				"member");
+		return taskMemberRepository.save(taskMember);
+	}
+
+	public TaskMember addTaskWatcher(Task task, User user) {
+		TaskMember taskMember = new TaskMember(task.getId(), user.getId(),
+				"watcher");
+		return taskMemberRepository.save(taskMember);
+	}
+
+	public Task getTaskById(long taskId) {
+		return taskRepository.findById(taskId);
+	}
+
+	public List<Long> getTaskMemberUserIds(Task task) {
+		Query query = em
+				.createQuery("select userId from TaskMember where taskId=:taskId");
+		query.setParameter("taskId", task.getId());
+		List result = query.getResultList();
+		return new ArrayList<Long>(result);
+	}
+
+	public Task fillTaskMember(Task task) {
+		List<Long> userIds= getTaskMemberUserIds(task);
+		if (!userIds.isEmpty())
+			task.setMembers(userRepository.findByIdIn(userIds));
+		else 
+			task.setMembers(new ArrayList<User>());
+		return task;
 	}
 }

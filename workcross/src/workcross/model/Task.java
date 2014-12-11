@@ -1,6 +1,7 @@
 package workcross.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -37,7 +38,13 @@ public class Task extends BaseModel {
 
 	@Column(name = "pos", nullable = false)
 	private double pos = 65535.0;
-
+	
+	@Transient
+	private List<User> members;
+	
+	@Transient
+	private List<User> watcher;
+	
 	public long getProjectId() {
 		return projectId;
 	}
@@ -96,6 +103,30 @@ public class Task extends BaseModel {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Boolean getArchive() {
+		return archive;
+	}
+
+	public void setArchive(Boolean archive) {
+		this.archive = archive;
+	}
+
+	public List<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<User> members) {
+		this.members = members;
+	}
+
+	public List<User> getWatcher() {
+		return watcher;
+	}
+
+	public void setWatcher(List<User> watcher) {
+		this.watcher = watcher;
 	}
 
 	public Task() {
