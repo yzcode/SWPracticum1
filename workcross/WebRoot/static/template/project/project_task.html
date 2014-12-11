@@ -21,22 +21,44 @@
                 <div class="task-ul-li">
                     <div class="task-ul-li-task" ng-repeat="task in project.tasks |filter:{entryId:entry.id}:true| orderBy:'pos'">
                         <div class="task-ul-li-task-title">
-                            <a class="static-a" href="javascript:;">
-                                <span ng-class="{true:'icon-check task-finish',false:'icon-check-empty'}[task.completed]" ng-click="taskcomplete(task);"></span>
-                            </a>
-                            <span class="taskname">{{task.taskName}}</span>
+                            <div class="task-complete-icon">
+                                <a class="static-a" href="javascript:;">
+                                    <span ng-class="{true:'icon-check',false:'icon-check-empty'}[task.completed]" ng-click="taskcomplete(task);"></span>
+                                </a>
+                            </div>
+                            <a class="taskname static-a" ng-class="{true:'task-finish',false:''}[task.completed]">{{task.taskName}}</a>
+                        </div>
+                        <div class="task-ul-li-task-mem">
                         </div>
                     </div>
                 </div>
                 <div class="task-ul-footer">
-                    <a class="static-a" href="javascript:;">
+                    <div ng-class="{true: '', false: 'noshow'}[entry.newtask]">
+                        <textarea class="newtask-text" id="{{entry.id}}_text" ng-model="entry.newtask_text"></textarea>
+                        <div>
+                            <button type="button" class="btn btn-danger width-25" ng-click="newtask_post(entry)">保存</button>
+                            <button type="button" class="btn btn-success width-25" ng-click="newtask_cancel(entry)">取消</button>
+                        </div>
+                    </div>
+                    <a class="static-a" href="javascript:;" ng-class="{true: 'noshow', false: ''}[entry.newtask]" ng-click="newtask_setup(entry)">
                         新建任务
                     </a>
                 </div>
             </div>
+            <div class="div-newentry">
+                <div ng-class="{true: '', false: 'noshow'}[newentry]" class="newentry-main">
+                    <input type="text" ng-model="newentry_text" class="newentry-input" placeholder="列表名">
+                    <div>
+                        <button type="button" class="btn btn-danger width-25" ng-click="newentry_post()">保存</button>
+                        <button type="button" class="btn btn-success width-25" ng-click="newentry_cancel()">取消</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" ng-class="{true: 'noshow', false: ''}[newentry]" ng-click="newentry_setup()">新建列表</button>
+            </div>
         </div>
     </div>
     <div class="div-project-right">
+
         <ng-include src="'/workcross/static/template/project/project_right.html'"></ng-include>
     </div>
 </div>

@@ -237,15 +237,41 @@ workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams
     }]);
 
 
-workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams',
-    function ($scope, projectRes, globel_settings, $routeParams) {
+workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams','Teams',
+    function ($scope, projectRes, globel_settings, $routeParams,Teams) {
         $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
             globel_settings.chgpage('project');
             $scope.project_curpage = 'project_task';
+            $scope.teaminfo=Teams.get({teamId: $scope.project.project.teamId}, function(Teams) {
+            });
+            for(var i = 0;i<$scope.project.entries.length;i++){
+                $scope.project.entries[i].newtask=false;
+            }
+            $scope.newentry = false;
         })
         $scope.taskcomplete = function(task){
             if(settings.debug) console.log(task);
             if(task.completed) task.completed = false;
             else task.completed = true;
+        }
+        $scope.newtask_setup = function(entry){
+            entry.newtask = true;
+        }
+        $scope.newtask_cancel = function(entry){
+            entry.newtask = false;
+        }
+        $scope.newtask_post = function(entry){
+            entry.newtask = false;
+            console.log(entry.newtask_text);
+        }
+        $scope.newentry_setup = function(){
+            $scope.newentry = true;
+        }
+        $scope.newentry_cancel = function(){
+            $scope.newentry = false;
+        }
+        $scope.newentry_post = function(){
+            $scope.newentry = false;
+            console.log($scope.newentry_text);
         }
     }]);

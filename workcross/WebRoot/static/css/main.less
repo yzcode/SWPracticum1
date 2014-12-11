@@ -158,6 +158,12 @@ body{
   border-top: solid 1px #e5e5e5;
   border-bottom: solid 1px #fff;
 }
+.noshow{
+  display: none;
+}
+.width-25{
+  width: 25%;
+}
 //css for scrollbar
 ::-webkit-scrollbar {
   width: 10px;
@@ -702,6 +708,43 @@ table.table.project-list tbody tr td p{
   color: @server-main-panel-color;
   font-size: 16px;
 }
+.project-right-app-wrap{
+  width: 100%;
+  padding-top: 10px;
+}
+.project-right-app-wrap li{
+  width: 33.33%;
+  text-align: center;
+  border-radius:5px ;
+  padding: 10px;
+}
+.project-right-app-wrap li:hover{
+  background-color: @avatar-hover-color-b;
+}
+.project-right-app-wrap li.active{
+  background-color: @avatar-hover-color-b;
+
+}
+.project-right-app-wrap li.active a{
+  color: #D84C31;
+}
+.project-right-app-wrap li a span{
+  font-size: 20px;
+}
+.project-right-mem-wrap{
+  width: 100%;
+  padding: 0px;
+  margin-left: -5px;
+}
+.project-right-mem-wrap li{
+  width: 25%;
+  display: inline-block;
+  padding: 6px 6px;
+  border-radius: 5px;
+}
+.project-right-mem-wrap li:hover{
+  background-color: @avatar-hover-color-b;
+}
 //css for priject_right.html end
 
 //css for project.html
@@ -724,12 +767,13 @@ table.table.project-list tbody tr td p{
   top: 59px;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 240px;
+  white-space: nowrap;
 }
 .server-project-task{
   position: relative;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
   max-width: 100%;
 }
 .server-project-task-ul{
@@ -756,8 +800,7 @@ table.table.project-list tbody tr td p{
 .task-ul-footer{
   position: relative;
   z-index: 2;
-  padding: 5px;
-  padding-left: 15px;
+  padding: 10px;
   line-height: 28px;
 }
 .task-ul-li-task{
@@ -777,8 +820,50 @@ table.table.project-list tbody tr td p{
 .task-ul-li-task-title .taskname{
   color: @server-main-panel-color;
   margin-left: 5px;
+  white-space: normal;
+  word-wrap: break-word;
 }
 .task-finish{
   text-decoration: line-through;
+}
+.task-complete-icon{
+  display: inline-block;
+  width: 15px;
+}
+.task-ul-li-task-mem{
+  text-align: right;
+}
+.newtask-text{
+  border: solid 1px #66afe9;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
+  width: 100%;
+  padding: 5px;
+  resize: none;
+  outline: none;
+}
+.newentry-input{
+  .newtask-text;
+  padding: 5px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+.div-newentry{
+  display: inline-block;
+  width: 280px;
+  margin: 15px 0 0 15px;
+  position: relative;
+}
+.div-newentry .btn-default{
+  width: 100%;
+  height: 42px;
+  background-color: @server-panel-bgcolor;
+}
+.newentry-main{
+  box-shadow: 0 1px 3px #eee, inset 0 0 3px #fff;
+  min-width: 240px;
+  border: solid 1px #e1e1e1;
+  padding: 15px 10px;
+  background: @server-panel-bgcolor;
 }
 //css for project.html end
