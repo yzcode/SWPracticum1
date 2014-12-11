@@ -7,6 +7,11 @@ import javax.persistence.*;
 		"teamId", "userId" }) })
 public class TeamMember extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5622782603325749082L;
+
 	@Column(name = "teamId")
 	long teamId;
 
