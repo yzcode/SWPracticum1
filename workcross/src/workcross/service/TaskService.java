@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.persistence.*;
 
 import workcross.model.*;
+import workcross.repository.CommentRepository;
 import workcross.repository.EntryRepository;
 import workcross.repository.ProjectRepository;
 import workcross.repository.TaskMemberRepository;
@@ -39,6 +40,9 @@ public class TaskService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	CommentRepository commentRepository;
 
 	@PersistenceContext
 	public EntityManager em;
@@ -103,11 +107,12 @@ public class TaskService {
 	}
 
 	public Task fillTaskMember(Task task) {
-		List<Long> userIds= getTaskMemberUserIds(task);
+		List<Long> userIds = getTaskMemberUserIds(task);
 		if (!userIds.isEmpty())
 			task.setMembers(userRepository.findByIdIn(userIds));
-		else 
+		else
 			task.setMembers(new ArrayList<User>());
 		return task;
 	}
+
 }
