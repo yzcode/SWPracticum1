@@ -40,17 +40,11 @@ public class TaskController {
 		Project project = projectService.getProjectById(projectId);
 		List<Entry> entries = taskService.getProjectEntries(project);
 		List<Task> tasks = taskService.getProjectTasks(project);
-		
-		try {
-			for (Task task : tasks) {
+		for (Task task : tasks)
+		{
 			taskService.fillTaskMember(task);
+			taskService.fillTaskCheckPoints(task);
 		}
-		} catch (Exception e) {
-			System.out.println(e);
-			e.printStackTrace();
-			throw e;
-		}
-		
 		data.put("project", project);
 		data.put("entries", entries);
 		data.put("tasks", tasks);
@@ -68,7 +62,11 @@ public class TaskController {
 	public @ResponseBody
 	Task addTask(HttpSession httpSession, long projectId, long entryId,
 			String name, String description, double pos) {
-		return taskService.addTask(projectId, entryId, name, description, pos);
+		User user = (User) httpSession.getAttribute("user");
+		Task task = taskService.addTask(projectId, entryId, name, description,
+				pos);
+		taskService.addTaskWatcher(task, user);
+		return task;
 	}
 
 	@RequestMapping(value = "/api/tasks/{taskId}/member/", method = RequestMethod.POST)
@@ -87,5 +85,36 @@ public class TaskController {
 		User user = userService.getUserByUsername(username);
 		Task task = taskService.getTaskById(taskId);
 		return taskService.addTaskWatcher(task, user);
+	}
+
+	@RequestMapping(value = "/api/tasks/{taskId}/checkpoints/", method = RequestMethod.POST)
+	public @ResponseBody
+	TaskCheckPoint addTaskCheckPoint(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId, String name) {
+		Task task = taskService.getTaskById(taskId);
+		TaskCheckPoint taskCheckPoint = taskService.addTaskCheckPoint(task,
+				name);
+		return taskCheckPoint;
+	}
+
+	@RequestMapping(value = "/api/tasks/{taskId}/checkpoints/{checkPointId}/", method = RequestMethod.POST)
+	public @ResponseBody
+	TaskCheckPoint modifyTaskCheckPoint(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId,
+			@PathVariable(value = "checkPointId") long checkPointId,
+			Boolean completed) {
+		TaskCheckPoint taskCheckPoint = taskService
+				.getTaskCheckPointById(checkPointId);
+		return taskService.modifyTaskCheckPoint(taskCheckPoint, completed);
+	}
+
+	@RequestMapping(value = "/api/tasks/{taskId}/checkpoints/{checkPointId}/", method = RequestMethod.DELETE)
+	public void deleteTaskCheckPoint(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId,
+			@PathVariable(value = "checkPointId") long checkPointId,
+			Boolean completed) {
+		TaskCheckPoint taskCheckPoint = taskService
+				.getTaskCheckPointById(checkPointId);
+		taskService.deleteTaskCheckPoint(taskCheckPoint);
 	}
 }

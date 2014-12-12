@@ -14,10 +14,10 @@ public class Task extends BaseModel {
 	 */
 	private static final long serialVersionUID = -4392436816333091974L;
 
-	@Column(name = "projectId",nullable = false)
+	@Column(name = "projectId", nullable = false)
 	private long projectId;
 
-	@Column(name = "entryId",nullable = true)
+	@Column(name = "entryId", nullable = true)
 	private long entryId;
 
 	@Column(name = "taskName", nullable = false)
@@ -28,7 +28,7 @@ public class Task extends BaseModel {
 
 	@Column(name = "archive", nullable = false)
 	private Boolean archive = false;
-	 
+
 	@Column(name = "expireDate", nullable = true)
 	private Date expireDdate;
 
@@ -38,13 +38,16 @@ public class Task extends BaseModel {
 
 	@Column(name = "pos", nullable = false)
 	private double pos = 65535.0;
-	
+
 	@Transient
 	private List<User> members;
-	
+
 	@Transient
 	private List<User> watcher;
-	
+
+	@Transient
+	private List<TaskCheckPoint> checkpoints;
+
 	public long getProjectId() {
 		return projectId;
 	}
@@ -129,10 +132,18 @@ public class Task extends BaseModel {
 		this.watcher = watcher;
 	}
 
+	public List<TaskCheckPoint> getCheckpoints() {
+		return checkpoints;
+	}
+
+	public void setCheckpoints(List<TaskCheckPoint> checkpoints) {
+		this.checkpoints = checkpoints;
+	}
+
 	public Task() {
 		super();
 	}
-	
+
 	public Task(long projectId, long entryId, String taskName,
 			String description, double pos) {
 		super();
@@ -143,5 +154,4 @@ public class Task extends BaseModel {
 		this.pos = pos;
 	}
 
-	
 }

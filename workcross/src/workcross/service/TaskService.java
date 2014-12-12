@@ -9,8 +9,10 @@ import javax.annotation.Resource;
 import javax.persistence.*;
 
 import workcross.model.*;
+import workcross.repository.CommentRepository;
 import workcross.repository.EntryRepository;
 import workcross.repository.ProjectRepository;
+import workcross.repository.TaskCheckPointRepository;
 import workcross.repository.TaskMemberRepository;
 import workcross.repository.TaskRepository;
 import workcross.repository.TeamMemberRepository;
@@ -39,6 +41,12 @@ public class TaskService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	CommentRepository commentRepository;
+
+	@Autowired
+	TaskCheckPointRepository taskCheckPointRepository;
 
 	@PersistenceContext
 	public EntityManager em;
@@ -103,11 +111,41 @@ public class TaskService {
 	}
 
 	public Task fillTaskMember(Task task) {
-		List<Long> userIds= getTaskMemberUserIds(task);
+		List<Long> userIds = getTaskMemberUserIds(task);
 		if (!userIds.isEmpty())
 			task.setMembers(userRepository.findByIdIn(userIds));
-		else 
+		else
 			task.setMembers(new ArrayList<User>());
+		return task;
+	}
+
+	public TaskCheckPoint addTaskCheckPoint(Task task, String name) {
+		TaskCheckPoint taskCheckPoint = new TaskCheckPoint(task.getId(), name,
+				false);
+		return taskCheckPointRepository.save(taskCheckPoint);
+	}
+
+	public TaskCheckPoint modifyTaskCheckPoint(TaskCheckPoint taskCheckPoint,
+			Boolean completed) {
+		taskCheckPoint.setCompleted(completed);
+		return taskCheckPointRepository.save(taskCheckPoint);
+	}
+
+	public TaskCheckPoint getTaskCheckPointById(long checkPointId) {
+		return taskCheckPointRepository.findById(checkPointId);
+	}
+
+	public void deleteTaskCheckPoint(TaskCheckPoint taskCheckPoint) {
+		if (taskCheckPoint != null)
+			taskCheckPointRepository.delete(taskCheckPoint);
+	}
+
+	public List<TaskCheckPoint> getTaskCheckPoints(Task task) {
+		return taskCheckPointRepository.findByTaskId(task.getId());
+	}
+
+	public Task fillTaskCheckPoints(Task task) {
+		task.setCheckpoints(getTaskCheckPoints(task));
 		return task;
 	}
 }

@@ -26,7 +26,7 @@ public class ProjectController {
 
 	@Autowired
 	TeamService teamService;
-	
+
 	@Autowired
 	TaskService taskService;
 
@@ -43,10 +43,11 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "/api/projects/{projectId}/", method = RequestMethod.GET)
-	public @ResponseBody Project projectInfo(HttpSession httpSession,
+	public @ResponseBody
+	Project projectInfo(HttpSession httpSession,
 			@PathVariable(value = "projectId") long projectId) {
-		Map<String,Object> data = new HashMap<String, Object>();
-		Project project = projectService.getProjectById(projectId);		
+		Map<String, Object> data = new HashMap<String, Object>();
+		Project project = projectService.getProjectById(projectId);
 		return project;
 	}
 }
