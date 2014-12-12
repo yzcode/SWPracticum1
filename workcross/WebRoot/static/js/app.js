@@ -11,35 +11,41 @@ var workx = angular.module('workx', [
     'serverRes',
     'workxfilter'
 ]);
+workx.run(["$rootScope", function ($rootScope) {
+    //slidebox
+    $rootScope.slidebox = {
+        show_slide: false
+    };
 
-workx.config(['$routeProvider','$locationProvider',
-    function($routeProvider,$locationProvider) {
+}]);
+workx.config(['$routeProvider', '$locationProvider',
+    function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/dashboard/', {
-                templateUrl: settings.webroot+'static/template/dashboard.html',
+                templateUrl: settings.webroot + 'static/template/dashboard.html',
                 controller: 'dashboard'
             }).
             when('/projects/', {
-                templateUrl: settings.webroot+'static/template/projects.html',
+                templateUrl: settings.webroot + 'static/template/projects.html',
                 controller: 'projects'
             }).
             when('/project/:projectId/task', {
-                templateUrl: settings.webroot+'static/template/project/project_task.html',
+                templateUrl: settings.webroot + 'static/template/project/project_task.html',
                 controller: 'project_taskctr'
             }).
             when('/project/:projectId/', {
                 redirectTo: '/project/:projectId/task'
             }).
             when('/teams/:teamId', {
-                templateUrl: settings.webroot+'static/template/team.html',
+                templateUrl: settings.webroot + 'static/template/team.html',
                 controller: 'teamctr'
             }).
-            when('/calender/',{
-                templateUrl: settings.webroot+'static/template/calender.html',
+            when('/calender/', {
+                templateUrl: settings.webroot + 'static/template/calender.html',
                 controller: 'calenderctr'
             }).
-            when('/discovery/',{
-                templateUrl: settings.webroot+'static/template/discovery.html',
+            when('/discovery/', {
+                templateUrl: settings.webroot + 'static/template/discovery.html',
                 controller: 'discoveryctr'
             }).
             //when('/teams/:teamId/team_pro', {
@@ -50,56 +56,58 @@ workx.config(['$routeProvider','$locationProvider',
             });
     }]);
 
-workx.directive("droppable", [function() {
+workx.directive("droppable", [function () {
     return {
         restrict: "A",
-        link: function(e, t, i) {
-            e.$watch(i.droppable, function(e) {
-                e==null || t.droppable(e)
+        link: function (e, t, i) {
+            e.$watch(i.droppable, function (e) {
+                e == null || t.droppable(e)
             })
         }
-    }}]).directive("draggable", [function() {
+    }
+}]).directive("draggable", [function () {
     return {
         restrict: "A",
-        link: function(e, t, i) {
-            e.$watch(i.draggable, function(e) {
-                e==null || t.draggable(e)
+        link: function (e, t, i) {
+            e.$watch(i.draggable, function (e) {
+                e == null || t.draggable(e)
             })
         }
-    }}]);
+    }
+}]);
 
 var workxfilter = angular.module('workxfilter', []);
 
-workxfilter.filter('longname', function() {
-    return function(input) {
+workxfilter.filter('longname', function () {
+    return function (input) {
         var overlong = 10;
-        var strReg=/[^\x00-\xff]/g;
-        var _str = input.replace(strReg,'**');
-        if(_str.length>overlong+1){
-            var res=input.substr(0,overlong/2);
-            var i = overlong/2;
-            while(res.replace(strReg,'**').length<overlong){
+        var strReg = /[^\x00-\xff]/g;
+        var _str = input.replace(strReg, '**');
+        if (_str.length > overlong + 1) {
+            var res = input.substr(0, overlong / 2);
+            var i = overlong / 2;
+            while (res.replace(strReg, '**').length < overlong) {
                 res = res + input[i];
                 i++;
             }
-            return res+'...';
+            return res + '...';
         }
         else return input;
     };
 });
 
-workxfilter.filter('timeformat',function(){
-    return function(timestamp){
-        if(timestamp==null) return "";
+workxfilter.filter('timeformat', function () {
+    return function (timestamp) {
+        if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        return nowt.getFullYear()+'年'+nowt.getMonth()+'月'+nowt.getDay()+'日' ;
+        return nowt.getFullYear() + '年' + nowt.getMonth() + '月' + nowt.getDay() + '日';
     };
 })
 
-workxfilter.filter('timeformatYM',function(){
-    return function(timestamp){
-        if(timestamp==null) return "";
+workxfilter.filter('timeformatYM', function () {
+    return function (timestamp) {
+        if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
         var day = "";
@@ -109,11 +117,11 @@ workxfilter.filter('timeformatYM',function(){
     };
 })
 
-workxfilter.filter('taskInEntry',function(){
-    return function(task,id){
+workxfilter.filter('taskInEntry', function () {
+    return function (task, id) {
         var res = [];
-        for(var i in task){
-            if(task[i].entryId == id) res.push(task[i]);
+        for (var i in task) {
+            if (task[i].entryId == id) res.push(task[i]);
         }
         return res;
     };

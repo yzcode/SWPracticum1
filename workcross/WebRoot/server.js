@@ -16,6 +16,7 @@ app.get('/workcross/', function (req, res) {
 });
 wx_test_remap("/workcross/api/teams/","/static/json/testjson/teams.json");
 wx_test_remap("/workcross/api/user/currentuser","/static/json/testjson/user.json");
+wx_test_remap("/workcross/api/teams/:teamId/tasks/","/static/json/testjson/team_tasks.json");
 
 app.post('/workcross/api/tasks/', function(req, res){
     res.sendfile(__dirname+'/static/json/testjson/new_task.json');

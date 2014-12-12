@@ -19,7 +19,7 @@
                 </div>
                 <div class="hr"></div>
                 <div class="task-ul-li">
-                    <div class="task-ul-li-task" droppable="member_drop_options" ng-repeat="task in project.tasks |filter:{entryId:entry.id}:true| orderBy:'pos'" task-id="{{task.id}}">
+                    <div class="task-ul-li-task" droppable="member_drop_options" ng-repeat="task in project.tasks |filter:{entryId:entry.id}:true| orderBy:'pos'" task-id="{{task.id}}" ng-click="js_open_task_detail($event,task)">
                         <div class="task-ul-li-task-title">
                             <div class="task-complete-icon">
                                 <a class="static-a" href="javascript:;">

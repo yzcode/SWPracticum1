@@ -32,7 +32,7 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                 target: $event,
                 templateUrl: "/workcross/static/template/master_new.html",
                 controller: ['$scope', 'popbox', '$http', function ($scope, popbox, $http) {
-                        $scope.popbox = popbox;
+                    $scope.popbox = popbox;
                     $scope.currentStep = 'master_new';
                     $scope.data = {};
                     $scope.data.stepHistory = [];
@@ -212,8 +212,8 @@ workxControllers.controller('projects', ['$scope', '$http', 'globel_settings', '
         )
     }]);
 
-workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route','$popbox',
-    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route,$popbox) {
+workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox) {
         $scope.team = Teams.get({teamId: $routeParams.teamId}, function (Teams) {
             console.log('loading page teams');
             globel_settings.chgpage('teams');
@@ -249,19 +249,19 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
             if (settings.debug) console.log($rootScope.user.username + '  ' + cuser);
             return cuser == $rootScope.user.username;
         }
-        $scope.userpopup = function ($event,user) {
+        $scope.userpopup = function ($event, user) {
             $popbox.popbox({
                 target: $event,
-                placement:"right",
+                placement: "right",
                 templateUrl: "/workcross/static/template/user/userpopup.html",
-                controller: ['$scope', 'popbox', '$http','pop_data', function ($scope, popbox, $http,pop_data) {
+                controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
                     $scope.userpop = pop_data.userpop;
                 }],
                 resolve: {
                     pop_data: function () {
                         return {
                             $scope: $scope,
-                            userpop:user
+                            userpop: user
                             //parameters: i,
                             //team: t.current_team
                         }
@@ -271,9 +271,8 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
         };
     }]);
 
-
-workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams','$popbox',
-    function ($scope, projectRes, globel_settings, $routeParams, Teams,$popbox) {
+workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$popbox',
+    function ($scope, projectRes, globel_settings, $routeParams, Teams, $rootScope, $popbox) {
         $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
             globel_settings.chgpage('project');
             $scope.project_curpage = 'project_task';
@@ -297,22 +296,22 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         }
         $scope.newtask_post = function (entry) {
             entry.newtask = false;
-            var new_pos = -1 ;
-            for(var i =0 ;i<$scope.project.tasks.length;i++){
-                if($scope.project.tasks[i].entryId == entry.id){
-                    if($scope.project.tasks[i].pos>new_pos) new_pos = $scope.project.tasks[i].pos;
+            var new_pos = -1;
+            for (var i = 0; i < $scope.project.tasks.length; i++) {
+                if ($scope.project.tasks[i].entryId == entry.id) {
+                    if ($scope.project.tasks[i].pos > new_pos) new_pos = $scope.project.tasks[i].pos;
                 }
             }
-            if(new_pos==-1) new_pos= 65535;
+            if (new_pos == -1) new_pos = 65535;
             $.post("/workcross/api/tasks/",
                 {
-                    projectId:$scope.project.project.id,
-                    entryId:entry.id,
-                    name:entry.newtask_text,
-                    description:"",
-                    pos:new_pos
+                    projectId: $scope.project.project.id,
+                    entryId: entry.id,
+                    name: entry.newtask_text,
+                    description: "",
+                    pos: new_pos
                 },
-                function(data,status){
+                function (data, status) {
                     var a = data;
                     $scope.project.tasks.push(a);
                     $scope.$apply();
@@ -327,87 +326,94 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         }
         $scope.newentry_post = function () {
             $scope.newentry = false;
-            var new_pos = -1 ;
-            for(var i =0 ;i<$scope.project.entries.length;i++){
-                if($scope.project.entries[i].pos>new_pos) new_pos = $scope.project.entries[i].pos;
+            var new_pos = -1;
+            for (var i = 0; i < $scope.project.entries.length; i++) {
+                if ($scope.project.entries[i].pos > new_pos) new_pos = $scope.project.entries[i].pos;
             }
-            if(new_pos==-1) new_pos= 65535;
+            if (new_pos == -1) new_pos = 65535;
             $.post("/workcross/api/entries/",
                 {
-                    projectId:$scope.project.project.id,
-                    name:$scope.newentry_text,
-                    description:"",
-                    pos:new_pos
+                    projectId: $scope.project.project.id,
+                    name: $scope.newentry_text,
+                    description: "",
+                    pos: new_pos
                 },
-                function(data,status){
+                function (data, status) {
                     var a = data;
                     $scope.project.entries.push(a);
                     $scope.$apply();
                 });
             console.log($scope.newentry_text);
         }
-        $scope.getMember = function(memid){
+        $scope.getMember = function (memid) {
             var t_mems = $scope.teaminfo.users;
-            for(var i = 0;i<t_mems.length;i++){
-                if(t_mems[i].username==memid){
+            for (var i = 0; i < t_mems.length; i++) {
+                if (t_mems[i].username == memid) {
                     return t_mems[i];
                 }
             }
         }
-        $scope.memintask = function(mem,task){
-            if(task == null) return false ;
-            for(var i =0;i<task.members.length;i++){
-                if(task.members[i].id==mem.id)return true;
+        $scope.memintask = function (mem, task) {
+            if (task == null) return false;
+            for (var i = 0; i < task.members.length; i++) {
+                if (task.members[i].id == mem.id)return true;
             }
             return false;
         }
+        $scope.js_open_task_detail = function ($event, task) {
+            $rootScope.slidebox.show_slide = !$rootScope.slidebox.show_slide;
+        }
         $scope.member_drop_options = {
             accept: ".avatar",
-            over: function() {},
-            out: function() {},
+            over: function () {
+            },
+            out: function () {
+            },
             hoverClass: "task-state-member-over",
-            drop: function(event, n) {
+            drop: function (event, n) {
                 console.log(n.helper.context.title);
                 var task_id = $(event.target).attr("task-id");
                 var t_tasks = $scope.project.tasks;
-                $scope.$apply(function(){
-                    for(var i=0;i<t_tasks.length;i++){
-                        if(task_id == t_tasks[i].id){
+                $scope.$apply(function () {
+                    for (var i = 0; i < t_tasks.length; i++) {
+                        if (task_id == t_tasks[i].id) {
                             var t_tar = $scope.getMember(n.helper.context.title);
                             console.log(t_tar);
-                            if(!$scope.memintask(t_tar,t_tasks[i])) t_tasks[i].members.push(t_tar);
+                            if (!$scope.memintask(t_tar, t_tasks[i])) t_tasks[i].members.push(t_tar);
                         }
                     }
                 })
-                if(settings.debug) console.log("drop events toggle!");
+                if (settings.debug) console.log("drop events toggle!");
             }
         }
         $scope.draggable_options = {
             cursor: "move",
             helper: "clone",
-            revert :"vaild",
+            revert: "vaild",
             zIndex: 2e3,
             delay: 300,
-            start: function(e, t) {
+            start: function (e, t) {
                 t.helper.addClass("member-state-on-drag");
                 console.log("drag events toggle!")
             },
-            stop: function() {},
-            drag: function() {}
+            stop: function () {
+            },
+            drag: function () {
+            }
         }
-        $scope.userpopup = function ($event,user) {
+        $scope.userpopup = function ($event, user) {
             $popbox.popbox({
                 target: $event,
-                placement:"left",
+                placement: "left",
                 templateUrl: "/workcross/static/template/user/userpopup.html",
-                controller: ['$scope', 'popbox', '$http','pop_data', function ($scope, popbox, $http,pop_data) {
+                controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
                     $scope.userpop = pop_data.userpop;
                 }],
                 resolve: {
                     pop_data: function () {
                         return {
                             $scope: $scope,
-                            userpop:user
+                            userpop: user
                             //parameters: i,
                             //team: t.current_team
                         }

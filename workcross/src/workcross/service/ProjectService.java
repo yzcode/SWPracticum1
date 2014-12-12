@@ -6,8 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-import org.hibernate.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import workcross.model.*;
 import workcross.repository.ProjectRepository;
@@ -26,6 +27,9 @@ public class ProjectService {
 	@Autowired
 	ProjectRepository projectRepository;
 
+	@PersistenceContext
+	public EntityManager em;
+
 	public Project addProject(String projectName, String description, Team team) {
 		Project project = new Project();
 		project.setName(projectName);
@@ -37,9 +41,15 @@ public class ProjectService {
 	public Project getProjectById(long id) {
 		return projectRepository.findById(id);
 	}
-	
-	public List<Project> getTeamProjects(Team team)
-	{
+
+	public List<Project> getTeamProjects(Team team) {
 		return projectRepository.findByTeamId(team.getId());
+	}
+
+	public List<Long> getTeamProjectIds(Team team) {
+		Query query = em
+				.createQuery("select id from Project where teamId=:teamId");
+		query.setParameter("teamId", team.getId());
+		return query.getResultList();
 	}
 }
