@@ -6,7 +6,7 @@
             </div>
             <div class="main-panel">
                 <ul class="user-ul">
-                    <li class="user-li" ng-repeat="user in team.users">
+                    <li class="user-li" ng-repeat="user in team.users" ng-click="userpopup($event,user)">
                         <a href="javascript:;" class="avatar-56 avatar">
                             <span class="avatar-face">
                                 <span class="avatar-text">{{user.nickname[0]}}</span>

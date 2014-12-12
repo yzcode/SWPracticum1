@@ -18,7 +18,7 @@
     <div class="project-right-mem">
         <div class="title">成员</div>
         <ul class="project-right-mem-wrap">
-            <li ng-repeat="user in teaminfo.users"  ng-mouseenter="hoverli = true" ng-mouseleave="hoverli = false" ng-class="{true:'hoverclass',false:''}[hoverli]">
+            <li ng-repeat="user in teaminfo.users" ng-click="userpopup($event,user)">
                 <div>
                     <a class="avatar static-a" href="javascript:;" draggable="draggable_options" title="{{user.username}}">
                         <span class="avatar-face" >

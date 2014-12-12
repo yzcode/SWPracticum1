@@ -102,7 +102,10 @@ workxfilter.filter('timeformatYM',function(){
         if(timestamp==null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        return nowt.getMonth()+'月'+nowt.getDay()+'日' ;
+        var day = "";
+        day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
+        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
+        return mon+'月'+day+'日' ;
     };
 })
 
@@ -113,5 +116,12 @@ workxfilter.filter('taskInEntry',function(){
             if(task[i].entryId == id) res.push(task[i]);
         }
         return res;
+    };
+})
+
+workxfilter.filter('usersign',function(){
+    return function(sign){
+        if(sign != null && sign!="") return sign
+        return "他很懒 什么也没有留下";
     };
 })

@@ -32,7 +32,7 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                 target: $event,
                 templateUrl: "/workcross/static/template/master_new.html",
                 controller: ['$scope', 'popbox', '$http', function ($scope, popbox, $http) {
-                    $scope.popbox = popbox;
+                        $scope.popbox = popbox;
                     $scope.currentStep = 'master_new';
                     $scope.data = {};
                     $scope.data.stepHistory = [];
@@ -212,8 +212,8 @@ workxControllers.controller('projects', ['$scope', '$http', 'globel_settings', '
         )
     }]);
 
-workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route',
-    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route) {
+workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route','$popbox',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route,$popbox) {
         $scope.team = Teams.get({teamId: $routeParams.teamId}, function (Teams) {
             console.log('loading page teams');
             globel_settings.chgpage('teams');
@@ -249,12 +249,31 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
             if (settings.debug) console.log($rootScope.user.username + '  ' + cuser);
             return cuser == $rootScope.user.username;
         }
-
+        $scope.userpopup = function ($event,user) {
+            $popbox.popbox({
+                target: $event,
+                placement:"right",
+                templateUrl: "/workcross/static/template/user/userpopup.html",
+                controller: ['$scope', 'popbox', '$http','pop_data', function ($scope, popbox, $http,pop_data) {
+                    $scope.userpop = pop_data.userpop;
+                }],
+                resolve: {
+                    pop_data: function () {
+                        return {
+                            $scope: $scope,
+                            userpop:user
+                            //parameters: i,
+                            //team: t.current_team
+                        }
+                    }
+                }
+            }).open();
+        };
     }]);
 
 
-workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams',
-    function ($scope, projectRes, globel_settings, $routeParams, Teams) {
+workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams','$popbox',
+    function ($scope, projectRes, globel_settings, $routeParams, Teams,$popbox) {
         $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
             globel_settings.chgpage('project');
             $scope.project_curpage = 'project_task';
@@ -376,4 +395,24 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             stop: function() {},
             drag: function() {}
         }
+        $scope.userpopup = function ($event,user) {
+            $popbox.popbox({
+                target: $event,
+                placement:"left",
+                templateUrl: "/workcross/static/template/user/userpopup.html",
+                controller: ['$scope', 'popbox', '$http','pop_data', function ($scope, popbox, $http,pop_data) {
+                    $scope.userpop = pop_data.userpop;
+                }],
+                resolve: {
+                    pop_data: function () {
+                        return {
+                            $scope: $scope,
+                            userpop:user
+                            //parameters: i,
+                            //team: t.current_team
+                        }
+                    }
+                }
+            }).open();
+        };
     }]);

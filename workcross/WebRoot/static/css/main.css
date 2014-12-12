@@ -640,6 +640,26 @@ ul.popbox-item .emoji {
 .popbox-body .control-label {
   line-height: 26px;
 }
+.userpopup-main-wrap {
+  padding: 15px;
+  min-width: 300px;
+}
+#userpopava {
+  vertical-align: bottom;
+}
+.userpopup-userinfo {
+  margin-left: 10px;
+}
+.userpopup-userinfo-username {
+  margin-top: 15px;
+}
+.userpopup-userinfo-nickname {
+  font-size: 16px;
+}
+.userpopup-userinfo-des {
+  margin-top: 10px;
+  color: #646b75;
+}
 .mod-navbar {
   border-bottom: 1px solid #e1e1e1;
   box-shadow: 1px 0 3px #eeeeee, inset 0 0 3px #ffffff;
