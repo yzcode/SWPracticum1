@@ -46,8 +46,5 @@ public class LoginController {
 	}
 
 	
-	@RequestMapping(value = "/api/user/currentuser", method = RequestMethod.GET)
-	public @ResponseBody User currentuser(HttpSession httpSession) {
-		return (User) (httpSession.getAttribute("user"));
-	}
+	
 }

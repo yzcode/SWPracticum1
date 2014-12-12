@@ -3,7 +3,7 @@ package workcross.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "task_member")
+@Table(name = "task_checkpoint")
 public class TaskCheckPoint extends BaseModel {
 
 	/**

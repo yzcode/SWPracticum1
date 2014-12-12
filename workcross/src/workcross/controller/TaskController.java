@@ -40,8 +40,7 @@ public class TaskController {
 		Project project = projectService.getProjectById(projectId);
 		List<Entry> entries = taskService.getProjectEntries(project);
 		List<Task> tasks = taskService.getProjectTasks(project);
-		for (Task task : tasks)
-		{
+		for (Task task : tasks) {
 			taskService.fillTaskMember(task);
 			taskService.fillTaskCheckPoints(task);
 		}

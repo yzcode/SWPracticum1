@@ -58,16 +58,7 @@
                            ng-click="show_select_team_dialog($event)">
                             <i class="icon-user" ng-show="data.current_team.team_id == -1"></i>
                             <i class="icon-sitemap" ng-show="data.current_team.team_id != -1"></i>
-                            {{data.current_team.name}}
-                            <i class="pull-right icon-chevron-right"></i>
-                        </a>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">
-                            <strong>公开性：</strong>
-                        </label>
-                        <a href="javascript:;" class="help-block plr_5" ng-click="show_visibility_dialog($event)">
-                            <i class="{{data.visibility.icon}} mr_5"></i> {{data.visibility.desc}}
+                            {{data.current_team.teamname}}
                             <i class="pull-right icon-chevron-right"></i>
                         </a>
                     </div>
@@ -77,7 +68,7 @@
                         </div>
                     </div>
                     <div>
-                        <button wt-form-submit="js_add_prj(add_prj_form, data.current_team.team_id, data.prjName, desc, data.visibility.visibility)"
+                        <button ng-click="js_add_prj(add_prj_form, data.current_team.id, data.prjName, desc, data.visibility.visibility)"
                                 class="btn btn-success mr_15" data-loading-text="保存中..."
                                 loading-status="is_saving_project">创建
                         </button>
@@ -129,7 +120,7 @@
         </div>
         <!-- end of #team -->
     </li>
-    <li ng-switch-when="4" class="popbox-step-li w_360">
+    <li ng-switch-when="visibility" class="popbox-step-li w_360">
         <div class="popbox-header">
             <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
             <button class="cancel icon-remove" ng-click="js_close()"></button>
@@ -171,7 +162,7 @@
             </ul>
         </div>
     </li>
-    <li ng-switch-when="5" class="popbox-step-li w_360">
+    <li ng-switch-when="select_team" class="popbox-step-li w_360">
         <div class="popbox-header">
             <button class="back glyphicon glyphicon-chevron-left" ng-click="back()" ng-hide="currentStep==dialogEntryStep"></button>
             <button class="cancel icon-remove" ng-click="js_close()"></button>
@@ -179,12 +170,12 @@
         </div>
         <div class="popbox-body">
             <ul class="popbox-menu max-h360" wt-scroll>
-                <li ng-repeat="team in owner_teams">
-                    <a ng-click="select_team($event, owner_teams[$index])">
+                <li ng-repeat="team in user.managed_teams">
+                    <a ng-click="select_team($event, user.managed_teams[$index])">
                         <i class="icon-user" ng-show="team.team_id == -1"></i>
                         <i class="icon-sitemap" ng-show="team.team_id != -1"></i>
-                        {{team.name}}
-                        <i class="icon-ok p_5 text-muted pull-right" ng-if="data.current_team==owner_teams[$index]"></i>
+                        {{team.teamname}}
+                        <i class="icon-ok p_5 text-muted pull-right" ng-if="data.current_team==user.managed_teams[$index]"></i>
                     </a>
                 </li>
                 <li class="divider"></li>
