@@ -230,19 +230,18 @@ body {
 
 //css for scrollbar
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 15px;
+  width: 1em;
 }
 
+::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
 ::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment, ::-webkit-scrollbar-thumb {
-  background-color: #fff;
-  border: solid 1px #bec1c4;
+  background-color: darkgrey;
 }
-
-::-webkit-scrollbar-track-piece {
-  background-color: #fff;
-}
-
 //css for scrollbar end
 
 ul, ol {
@@ -1578,7 +1577,7 @@ table.table.project-list tbody tr td p {
 .div-newentry {
   display: inline-block;
   width: 280px;
-  margin: 15px 0 0 15px;
+  margin: 15px 20px 0 15px;
   position: relative;
 }
 
