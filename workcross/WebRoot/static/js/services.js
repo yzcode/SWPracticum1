@@ -17,7 +17,7 @@ serverRes.factory('Teams', ['$resource',
 serverRes.factory('projectRes', ['$resource',
     function($resource){
         var url="";
-        if(settings.j2ee) url = "/workcross/api/project/:projectId/";
+        if(settings.j2ee) url = "/workcross/api/projects/:projectId/entries/";
         else url = '/workcross/static/json/testjson/entries.json';
         return $resource(url, {}, {
             query: {method:'GET', params:{projectId:'-1'}, isArray:true}

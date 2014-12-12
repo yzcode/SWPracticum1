@@ -11,10 +11,23 @@ var workx = angular.module('workx', [
     'serverRes',
     'workxfilter'
 ]);
+workx.config(['$resourceProvider', function ($resourceProvider) {
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+}]);
 workx.run(["$rootScope", function ($rootScope) {
     //slidebox
-    $rootScope.slidebox = {
-        show_slide: false
+    var slidebox = $rootScope.slidebox = {
+        show_slide: false,
+        show_box: function () {
+            this.show_slide = true;
+        },
+        hide_box: function () {
+            this.show_slide = false;
+        },
+        task: {},
+        show_task: function (task, project) {
+
+        }
     };
 
 }]);
@@ -111,9 +124,9 @@ workxfilter.filter('timeformatYM', function () {
         var nowt = new Date();
         nowt.setTime(timestamp);
         var day = "";
-        day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
-        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
-        return mon+'月'+day+'日' ;
+        day = nowt.getDay() < 10 ? ('0' + nowt.getDay().toString()) : (nowt.getDay().toString());
+        var mon = nowt.getMonth() < 10 ? ('0' + nowt.getMonth().toString()) : (nowt.getMonth().toString());
+        return mon + '月' + day + '日';
     };
 })
 
@@ -127,9 +140,9 @@ workxfilter.filter('taskInEntry', function () {
     };
 })
 
-workxfilter.filter('usersign',function(){
-    return function(sign){
-        if(sign != null && sign!="") return sign
+workxfilter.filter('usersign', function () {
+    return function (sign) {
+        if (sign != null && sign != "") return sign
         return "他很懒 什么也没有留下";
     };
 })

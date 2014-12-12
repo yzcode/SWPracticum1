@@ -4,7 +4,7 @@
 
 var settings = new Object();
 
-settings.j2ee = false;
+settings.j2ee = true;
 settings.debug = true;
 if(!settings.j2ee) settings.webroot = '/workcross/';
 else settings.webroot = '/workcross/';

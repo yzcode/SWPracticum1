@@ -32,10 +32,10 @@ public class TaskController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping(value = "/api/entries/", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/projects/{projectId}/entries/", method = RequestMethod.GET)
 	public @ResponseBody
 	Map<String, Object> projectTasks(HttpSession httpSession,
-			@RequestParam(value = "projectId") long projectId) throws Exception {
+			@PathVariable(value = "projectId") long projectId) throws Exception {
 		Map<String, Object> data = new HashMap<String, Object>();
 		Project project = projectService.getProjectById(projectId);
 		List<Entry> entries = taskService.getProjectEntries(project);
@@ -68,7 +68,7 @@ public class TaskController {
 		return task;
 	}
 
-	@RequestMapping(value = "/api/tasks/{taskId}/member/", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/tasks/{taskId}/members/", method = RequestMethod.POST)
 	public @ResponseBody
 	TaskMember addTaskMember(HttpSession httpSession,
 			@PathVariable(value = "taskId") long taskId, String username) {
@@ -77,7 +77,7 @@ public class TaskController {
 		return taskService.addTaskMember(task, user);
 	}
 
-	@RequestMapping(value = "/api/tasks/{taskId}/watcher/", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/tasks/{taskId}/watchers/", method = RequestMethod.POST)
 	public @ResponseBody
 	TaskMember addTaskWathcer(HttpSession httpSession,
 			@PathVariable(value = "taskId") long taskId, String username) {

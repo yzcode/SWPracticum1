@@ -35,7 +35,7 @@ public class UserController {
 	Map<String, Object> currentuser(HttpSession httpSession) {
 		User user = (User) httpSession.getAttribute("user");
 		Map<String, Object> result = objectMapper.convertValue(user, Map.class);
-		List<Team> manageTeams = userService.getUserTeamsByRole(user, "manage");
+		List<Team> manageTeams = userService.getUserTeamsByRole(user, "manager");
 		result.put("managed_teams", manageTeams);
 		return result;
 	}

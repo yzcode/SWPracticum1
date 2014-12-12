@@ -66,14 +66,16 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                             name: name,
                             desc: desc
                         });
-                        js_close();
+                        $scope.js_close();
                     }
                     $scope.js_add_prj = function (add_prj_form, team_id, prjName, desc) {
+                        desc = desc || "";
                         $.post('/workcross/api/projects/', {
                             name: prjName,
-                            team: team_id
+                            team: team_id,
+                            desc:desc
                         });
-                        js_close();
+                        $scope.js_close();
                     }
                 }],
                 resolve: {
@@ -379,7 +381,10 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         if (task_id == t_tasks[i].id) {
                             var t_tar = $scope.getMember(n.helper.context.title);
                             console.log(t_tar);
-                            if (!$scope.memintask(t_tar, t_tasks[i])) t_tasks[i].members.push(t_tar);
+                            if (!$scope.memintask(t_tar, t_tasks[i])) {
+                                t_tasks[i].members.push(t_tar);
+                                $.post("/workcross/api/tasks/" + t_tasks[i].id + "/members/", {username: t_tar.username});
+                            }
                         }
                     }
                 })
@@ -421,4 +426,8 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                 }
             }).open();
         };
+    }]);
+workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox) {
+
     }]);

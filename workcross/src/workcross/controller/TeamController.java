@@ -87,6 +87,8 @@ public class TeamController {
 			tasks = taskService.getTasksByProjectIds(projectIds);
 		else
 			tasks= new ArrayList<Task>();
+		for (Task task:tasks)
+			taskService.fillTaskMember(task);
 		result.put("team", team);
 		result.put("tasks", tasks);
 		return result;

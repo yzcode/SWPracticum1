@@ -23,7 +23,7 @@ public class Task extends BaseModel {
 	@Column(name = "taskName", nullable = false)
 	private String taskName;
 
-	@Column(name = "completed", nullable = false)
+	@Column(name = "completed", nullable = false,columnDefinition="tinyint(1) default 0")
 	private Boolean completed = false;
 
 	@Column(name = "archive", nullable = false)

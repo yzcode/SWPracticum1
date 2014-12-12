@@ -17,7 +17,7 @@ public class TaskCheckPoint extends BaseModel {
 	@Column(name = "name",length=50)
 	private String name;
 	
-	@Column(name = "completed", nullable = false)
+	@Column(name = "completed", nullable = false,columnDefinition="tinyint(1) default 0")
 	private Boolean completed = false;
 
 	public long getTaskId() {
