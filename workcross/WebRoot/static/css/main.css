@@ -2,8 +2,8 @@
   height: 58px;
   padding-top: 4px;
   background-color: #393939;
-  border: solid 0px #bec1c4;
-  border-radius: 0px;
+  border: solid 0 #bec1c4;
+  border-radius: 0;
 }
 .main-container {
   margin-top: 58px;
@@ -56,8 +56,7 @@ li {
 }
 ul.left-panel-ul > li > a.listitem {
   display: block;
-  padding: 15px 20px;
-  padding-left: 30px;
+  padding: 15px 20px 15px 30px;
   white-space: nowrap;
 }
 a.listitem:link {
@@ -89,12 +88,11 @@ div.verdivider {
   border-right: solid 1px #646668;
 }
 li.divider-v {
-  border-style: solid;
-  border-width: 1px;
   opacity: .5;
   height: 58px;
-  border-left-color: #111415;
+  border: 1px solid;
   border-right-color: #646668;
+  border-left-color: #111415;
 }
 .left-panel-icon-sw {
   position: absolute;
@@ -102,7 +100,7 @@ li.divider-v {
   left: 180px;
 }
 .left-panel-ul-2 {
-  padding-left: 0px;
+  padding-left: 0;
   background-color: #282823;
 }
 .a-link {
@@ -726,9 +724,7 @@ h3 span {
   margin-top: 5px;
 }
 .team-title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -762,9 +758,7 @@ h3 span {
   overflow: hidden;
 }
 .server-left .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -778,9 +772,7 @@ h3 span {
   padding: 10px;
 }
 .server-right .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -791,8 +783,7 @@ h3 span {
   top: 60px;
   right: 0;
   bottom: 0;
-  margin: 15px;
-  margin-bottom: 17px;
+  margin: 15px 15px 17px;
   position: absolute;
   overflow: hidden;
 }
@@ -823,17 +814,13 @@ h3 span {
   padding: 10px;
 }
 .team-mem-left .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
 }
 .team-mem-right .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -847,7 +834,7 @@ h3 span {
   color: #8a959e;
 }
 .user-ul {
-  padding-left: 0%;
+  padding-left: 0 ;
 }
 .user-li {
   display: inline-block;
@@ -934,9 +921,7 @@ table.table.project-list tbody tr td p {
   padding: 0;
 }
 .team-set-main .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -974,9 +959,7 @@ table.table.project-list tbody tr td p {
   min-height: 100%;
 }
 .team-tas-left .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -994,9 +977,7 @@ table.table.project-list tbody tr td p {
   width: 330px;
 }
 .team-tas-right .title {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
@@ -1031,9 +1012,7 @@ table.table.project-list tbody tr td p {
   min-height: 100%;
 }
 .teamname-projects {
-  padding: 10px;
-  padding-left: 14px;
-  padding-bottom: 18px;
+  padding: 10px 10px 18px 14px;
   font-size: 18px;
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
