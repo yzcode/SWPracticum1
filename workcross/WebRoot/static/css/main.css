@@ -1033,6 +1033,9 @@ table.table.project-list tbody tr td p {
   float: left;
   padding: 10px;
 }
+.user-li .icon-filterarg {
+  padding-top: 10px;
+}
 .team-tas-li-taskname-name {
   margin-left: 10px;
 }
