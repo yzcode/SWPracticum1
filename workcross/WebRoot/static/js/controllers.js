@@ -19,7 +19,7 @@ var workxControllers = angular.module('workxControllers', ['ui.bootstrap.popbox'
 workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '$rootScope', '$popbox',
     function ($scope, $http, globel_settings, $rootScope, $popbox) {
         var url = '';
-        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        if (settings.j2ee) url = '/workcross/api/user/currentuser';
         else url = '/workcross/static/json/testjson/user.json';
         $http.get(url).success(
             function (data) {
@@ -36,6 +36,9 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                     $scope.currentStep = 'master_new';
                     $scope.data = {};
                     $scope.data.stepHistory = [];
+                    $scope.data.current_team = {teamname: "新建团队"};
+                    if ($scope.user.managed_teams.length > 0)
+                        $scope.data.current_team = $scope.user.managed_teams[0];
                     $scope.show_new_project_dialog = function ($event) {
                         $scope.data.stepHistory.push($scope.currentStep);
                         $scope.currentStep = 'new_project';
@@ -43,6 +46,14 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                     $scope.show_new_team_dialog = function ($event) {
                         $scope.data.stepHistory.push($scope.currentStep);
                         $scope.currentStep = 'new_team';
+                    }
+                    $scope.show_select_team_dialog = function ($event) {
+                        $scope.data.stepHistory.push($scope.currentStep);
+                        $scope.currentStep = 'select_team';
+                    }
+                    $scope.select_team = function ($event, team) {
+                        $scope.data.current_team = team;
+                        $scope.back($event);
                     }
                     $scope.back = function ($event) {
                         $scope.currentStep = $scope.data.stepHistory.pop();
@@ -54,6 +65,12 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                         $.post('/workcross/api/teams/', {
                             name: name,
                             desc: desc
+                        });
+                    }
+                    $scope.js_add_prj = function (add_prj_form, team_id, prjName, desc) {
+                        $.post('/workcross/api/projects/', {
+                            name: prjName,
+                            team: team_id
                         });
                     }
                 }],
@@ -73,7 +90,7 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
 workxControllers.controller('left-panel', ['$scope', '$http', 'globel_settings', 'Teams',
     function ($scope, $http, globel_settings, Teams) {
         var url = '';
-        if (settings.j2ee) url='/workcross/api/teams/';
+        if (settings.j2ee) url = '/workcross/api/teams/';
         else url = '/workcross/static/json/testjson/teams.json';
         $http.get(url).success(
             function (data) {
@@ -132,14 +149,11 @@ workxControllers.controller('left-panel', ['$scope', '$http', 'globel_settings',
     }]);
 
 
-
-
-
-workxControllers.controller('dashboard', ['$scope', '$http', 'globel_settings','$rootScope',
-    function ($scope, $http, globel_settings,$rootScope) {
+workxControllers.controller('dashboard', ['$scope', '$http', 'globel_settings', '$rootScope',
+    function ($scope, $http, globel_settings, $rootScope) {
         $scope.user = $rootScope.user;
         var url = '';
-        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        if (settings.j2ee) url = '/workcross/api/user/currentuser';
         else url = '/workcross/static/json/testjson/user.json';
         $http.get(url).success(
             function (data) {
@@ -164,7 +178,7 @@ workxControllers.controller('dashboard', ['$scope', '$http', 'globel_settings','
 workxControllers.controller('calenderctr', ['$scope', '$http', 'globel_settings',
     function ($scope, $http, globel_settings) {
         var url = '';
-        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        if (settings.j2ee) url = '/workcross/api/user/currentuser';
         else url = '/workcross/static/json/testjson/user.json';
         globel_settings.chgpage('calender');
     }]);
@@ -172,33 +186,33 @@ workxControllers.controller('calenderctr', ['$scope', '$http', 'globel_settings'
 workxControllers.controller('discoveryctr', ['$scope', '$http', 'globel_settings',
     function ($scope, $http, globel_settings) {
         var url = '';
-        if (settings.j2ee) url='/workcross/api/user/currentuser';
+        if (settings.j2ee) url = '/workcross/api/user/currentuser';
         else url = '/workcross/static/json/testjson/user.json';
         globel_settings.chgpage('discovery');
     }]);
 
-workxControllers.controller('projects', ['$scope', '$http','globel_settings','Teams',
-    function($scope, $http,globel_settings,Teams) {
+workxControllers.controller('projects', ['$scope', '$http', 'globel_settings', 'Teams',
+    function ($scope, $http, globel_settings, Teams) {
         var url = '';
-        if (settings.j2ee) url='/workcross/api/teams/';
+        if (settings.j2ee) url = '/workcross/api/teams/';
         else url = '/workcross/static/json/testjson/teams.json';
         $http.get(url).success(
-            function(data){
-                $scope.projects_curpage='projects_partin';
+            function (data) {
+                $scope.projects_curpage = 'projects_partin';
                 globel_settings.chgpage('projects');
-                $scope.teams= data;
-                $scope.teams[$scope.teams.length-1].isLast = true;
+                $scope.teams = data;
+                $scope.teams[$scope.teams.length - 1].isLast = true;
                 var index;
-                for(index in $scope.teams){
-                    $scope.teams[index].projects=Teams.get({teamId: $scope.teams[index].id} );
+                for (index in $scope.teams) {
+                    $scope.teams[index].projects = Teams.get({teamId: $scope.teams[index].id});
                 }
             }
         )
     }]);
 
-workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams','Teams','$rootScope','$route',
-    function($scope,globel_settings,$routeParams,Teams,$rootScope,$route) {
-        $scope.team=Teams.get({teamId: $routeParams.teamId}, function(Teams) {
+workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route) {
+        $scope.team = Teams.get({teamId: $routeParams.teamId}, function (Teams) {
             console.log('loading page teams');
             globel_settings.chgpage('teams');
             var linkto = $routeParams.path;
@@ -221,56 +235,56 @@ workxControllers.controller('teamctr', ['$scope','globel_settings','$routeParams
             }
             else $scope.team_curpage = 'team_mem';
             var stateObject = {};
-            var title = 'workx team '+$scope.team_curpage;
-            var newUrl = "/teams/"+$routeParams.teamId+"?path="+$scope.team_curpage;
-            if(settings.debug) console.log(newUrl);
+            var title = 'workx team ' + $scope.team_curpage;
+            var newUrl = "/teams/" + $routeParams.teamId + "?path=" + $scope.team_curpage;
+            if (settings.debug) console.log(newUrl);
             //$location.url(newUrl);
         };
 
-        $scope.isCreator=function(){
+        $scope.isCreator = function () {
             var cuser = $scope.team.teamcrate;
-            if(cuser==undefined) cuser='administrator';
-            if(settings.debug) console.log($rootScope.user.username+'  '+cuser);
-            return cuser==$rootScope.user.username;
+            if (cuser == undefined) cuser = 'administrator';
+            if (settings.debug) console.log($rootScope.user.username + '  ' + cuser);
+            return cuser == $rootScope.user.username;
         }
 
     }]);
 
 
-workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams','Teams',
-    function ($scope, projectRes, globel_settings, $routeParams,Teams) {
+workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams',
+    function ($scope, projectRes, globel_settings, $routeParams, Teams) {
         $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
             globel_settings.chgpage('project');
             $scope.project_curpage = 'project_task';
-            $scope.teaminfo=Teams.get({teamId: $scope.project.project.teamId}, function(Teams) {
+            $scope.teaminfo = Teams.get({teamId: $scope.project.project.teamId}, function (Teams) {
             });
-            for(var i = 0;i<$scope.project.entries.length;i++){
-                $scope.project.entries[i].newtask=false;
+            for (var i = 0; i < $scope.project.entries.length; i++) {
+                $scope.project.entries[i].newtask = false;
             }
             $scope.newentry = false;
         })
-        $scope.taskcomplete = function(task){
-            if(settings.debug) console.log(task);
-            if(task.completed) task.completed = false;
+        $scope.taskcomplete = function (task) {
+            if (settings.debug) console.log(task);
+            if (task.completed) task.completed = false;
             else task.completed = true;
         }
-        $scope.newtask_setup = function(entry){
+        $scope.newtask_setup = function (entry) {
             entry.newtask = true;
         }
-        $scope.newtask_cancel = function(entry){
+        $scope.newtask_cancel = function (entry) {
             entry.newtask = false;
         }
-        $scope.newtask_post = function(entry){
+        $scope.newtask_post = function (entry) {
             entry.newtask = false;
             console.log(entry.newtask_text);
         }
-        $scope.newentry_setup = function(){
+        $scope.newentry_setup = function () {
             $scope.newentry = true;
         }
-        $scope.newentry_cancel = function(){
+        $scope.newentry_cancel = function () {
             $scope.newentry = false;
         }
-        $scope.newentry_post = function(){
+        $scope.newentry_post = function () {
             $scope.newentry = false;
             console.log($scope.newentry_text);
         }

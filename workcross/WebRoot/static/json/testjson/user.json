@@ -1,5 +1,31 @@
 {
-  "email": "codeforyz@gmail.com",
-  "username": "yangz",
-  "nickname": "yangzheng"
+  "id": 1,
+  "lastModified": 1418129025000,
+  "dateCreated": 1418129025000,
+  "username": "comzyh",
+  "nickname": "comzyh",
+  "email": "comzyh@163.com",
+  "managed_teams": [
+    {
+      "id": 5,
+      "lastModified": 1417793716000,
+      "dateCreated": 1417793716000,
+      "teamname": "BBBB",
+      "description": "hhhhhh"
+    },
+    {
+      "id": 7,
+      "lastModified": 1417793753000,
+      "dateCreated": 1417793753000,
+      "teamname": "DDDD",
+      "description": "hhhhhh"
+    },
+    {
+      "id": 9,
+      "lastModified": 1418134965000,
+      "dateCreated": 1418134965000,
+      "teamname": "FFF",
+      "description": "大大大"
+    }
+  ]
 }

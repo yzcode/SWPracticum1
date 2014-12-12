@@ -10,4 +10,5 @@ public interface TeamMemberRepository extends CrudRepository<TeamMember, Long> {
 	List<TeamMember> findByTeamId(long teamId);
 	List<TeamMember> findByUserId(long userId);
 	TeamMember findByTeamIdAndUserId(long teamId,long userId);
+	List<TeamMember> findByUserIdAndRole(long userId,String role);
 }
