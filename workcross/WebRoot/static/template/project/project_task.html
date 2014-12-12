@@ -23,7 +23,7 @@
                         <div class="task-ul-li-task-title">
                             <div class="task-complete-icon">
                                 <a class="static-a" href="javascript:;">
-                                    <span ng-class="{true:'icon-check',false:'icon-check-empty'}[task.completed]" ng-click="taskcomplete(task);"></span>
+                                    <span ng-class="{true:'icon-check taskli',false:'icon-check-empty'}[task.completed]" ng-click="taskcomplete(task);"></span>
                                 </a>
                             </div>
                             <a class="taskname static-a" ng-class="{true:'task-finish',false:''}[task.completed]">{{task.taskName}}</a>

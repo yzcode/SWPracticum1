@@ -1141,9 +1141,6 @@ table.table.project-list tbody tr td p {
   padding: 6px 6px;
   border-radius: 5px;
 }
-.project-right-mem-wrap li.hoverclass {
-  background-color: #f2f2ea;
-}
 .div-project-main {
   margin-right: 240px;
 }
@@ -1287,4 +1284,7 @@ table.table.project-list tbody tr td p {
 }
 .label {
   padding: 0.4em .6em .3em;
+}
+.icon-check.taskli {
+  color: #79C455;
 }

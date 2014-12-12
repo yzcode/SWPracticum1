@@ -17,6 +17,12 @@ app.get('/workcross/', function (req, res) {
 wx_test_remap("/workcross/api/teams/","/static/json/testjson/teams.json");
 wx_test_remap("/workcross/api/user/currentuser","/static/json/testjson/user.json");
 
-var server = app.listen(8083, function () {
+app.post('/workcross/api/tasks/', function(req, res){
+    res.sendfile(__dirname+'/static/json/testjson/new_task.json');
+});
+app.post('/workcross/api/entries/', function(req, res){
+    res.sendfile(__dirname+'/static/json/testjson/new_entry.json');
+});
+var server = app.listen(8083, function() {
     console.log('Listening on port %d', server.address().port);
 });

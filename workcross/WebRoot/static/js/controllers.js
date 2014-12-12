@@ -278,6 +278,26 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         }
         $scope.newtask_post = function (entry) {
             entry.newtask = false;
+            var new_pos = -1 ;
+            for(var i =0 ;i<$scope.project.tasks.length;i++){
+                if($scope.project.tasks[i].entryId == entry.id){
+                    if($scope.project.tasks[i].pos>new_pos) new_pos = $scope.project.tasks[i].pos;
+                }
+            }
+            if(new_pos==-1) new_pos= 65535;
+            $.post("/workcross/api/tasks/",
+                {
+                    projectId:$scope.project.project.id,
+                    entryId:entry.id,
+                    name:entry.newtask_text,
+                    description:"",
+                    pos:new_pos
+                },
+                function(data,status){
+                    var a = data;
+                    $scope.project.tasks.push(a);
+                    $scope.$apply();
+                });
             console.log(entry.newtask_text);
         }
         $scope.newentry_setup = function () {
@@ -288,6 +308,23 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         }
         $scope.newentry_post = function () {
             $scope.newentry = false;
+            var new_pos = -1 ;
+            for(var i =0 ;i<$scope.project.entries.length;i++){
+                if($scope.project.entries[i].pos>new_pos) new_pos = $scope.project.entries[i].pos;
+            }
+            if(new_pos==-1) new_pos= 65535;
+            $.post("/workcross/api/entries/",
+                {
+                    projectId:$scope.project.project.id,
+                    name:$scope.newentry_text,
+                    description:"",
+                    pos:new_pos
+                },
+                function(data,status){
+                    var a = data;
+                    $scope.project.entries.push(a);
+                    $scope.$apply();
+                });
             console.log($scope.newentry_text);
         }
         $scope.getMember = function(memid){
@@ -297,6 +334,13 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                     return t_mems[i];
                 }
             }
+        }
+        $scope.memintask = function(mem,task){
+            if(task == null) return false ;
+            for(var i =0;i<task.members.length;i++){
+                if(task.members[i].id==mem.id)return true;
+            }
+            return false;
         }
         $scope.member_drop_options = {
             accept: ".avatar",
@@ -312,8 +356,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         if(task_id == t_tasks[i].id){
                             var t_tar = $scope.getMember(n.helper.context.title);
                             console.log(t_tar);
-                            t_tasks[i].members.push(t_tar);
-
+                            if(!$scope.memintask(t_tar,t_tasks[i])) t_tasks[i].members.push(t_tar);
                         }
                     }
                 })
@@ -323,7 +366,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         $scope.draggable_options = {
             cursor: "move",
             helper: "clone",
-            revert :true,
+            revert :"vaild",
             zIndex: 2e3,
             delay: 300,
             start: function(e, t) {
