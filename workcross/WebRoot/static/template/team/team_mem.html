@@ -6,6 +6,15 @@
             </div>
             <div class="main-panel">
                 <ul class="user-ul">
+                    <li class="user-li ivenmem" ng-click="newuserpopup($event);">
+                        <a id="invent-a" class="avatar-add avatar-56" href="javascript:;">
+                            <span class="o">
+                                <i class="icon-plus"></i>
+                            </span>
+                            <br/>
+                            <p class="avatar-name" >邀请成员</p>
+                        </a>
+                    </li>
                     <li class="user-li" ng-repeat="user in team.users" ng-click="userpopup($event,user)">
                         <a href="javascript:;" class="avatar-56 avatar">
                             <span class="avatar-face">

@@ -310,7 +310,7 @@ ul, ol {
   max-width: 400px;
   padding: 1px;
   text-align: left;
-  background-color: #fbfbfb;
+  background-color: @server-panel-maincolor;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   border: 1px solid #e1e1e1;
@@ -818,6 +818,15 @@ ul.popbox-item .emoji {
   margin-top: 10px;
   color: @server-main-panel-color;
 }
+.newuserpopup-main-wrap{
+  .userpopup-main-wrap
+}
+.deluserpopup-main-wrap{
+
+}
+.deluserpopup-main-wrap .server-userpopup{
+  padding: 10px;
+}
 //css for userpopup.html end
 
 //mod-nav
@@ -892,7 +901,34 @@ h3 span {
   display: inline-block;
   zoom: 1;
 }
-
+.avatar-footer{
+  width: 300px;
+  border-top: solid 1px #fff;
+  padding: 5px 15px;
+  text-align: right;
+  background: #f9f9f7;
+  line-height: 32px;
+  border-top: solid 1px #e1e1e1;
+}
+.avatar-add{
+  text-align: center;
+}
+.avatar-add.avatar-56 .o {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  font-size: 23px !important;
+}
+.avatar-add .o {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  color: #8a959e;
+  border: solid 1px #8a959e;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 18px !important;
+}
 .avatar .avatar-face {
   display: inline-block;
   position: relative;
@@ -1049,7 +1085,19 @@ h3 span {
   font-size: 14px;
   color: @mod-navbar-li-color;
 }
-
+.ivenmem{
+  margin-top: 7px;
+}
+.ivenmem:hover #invent-a{
+  color: @avatar-color;
+}
+.ivenmem:hover span.o{
+  color: @avatar-color;
+  border-color: @avatar-color;
+}
+#invent-a:hover{
+  background-color: transparent;
+}
 .user-ul {
   padding-left: 0;
 }
@@ -1450,7 +1498,7 @@ table.table.project-list tbody tr td p {
   zoom: 1;
   -webkit-box-shadow: 0 1px 3px #eee, inset 0 0 3px #fff;
   box-shadow: 0 1px 3px #eee, inset 0 0 3px #fff;
-  background: #fbfbfb;
+  background: @server-panel-maincolor;
   width: 280px;
   margin: 15px 0 0 15px;
   border: solid 1px #e1e1e1;
@@ -1478,7 +1526,7 @@ table.table.project-list tbody tr td p {
   padding: 10px 10px 5px 10px;
   border-bottom: solid 1px #e1e1e1;
   border-top: solid 1px #fff;
-  background: #fbfbfb;
+  background: @server-panel-maincolor;
   min-height: 20px;
   line-height: 20px;
   cursor: pointer;

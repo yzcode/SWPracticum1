@@ -17,7 +17,11 @@ app.get('/workcross/', function (req, res) {
 wx_test_remap("/workcross/api/teams/","/static/json/testjson/teams.json");
 wx_test_remap("/workcross/api/user/currentuser","/static/json/testjson/user.json");
 wx_test_remap("/workcross/api/teams/:teamId/tasks/","/static/json/testjson/team_tasks.json");
+wx_test_remap("/workcross/api/projects/:teamId/entries/","/static/json/testjson/entries.json");
 
+app.get("/workcross/api/teams/:teamId/", function (req, res) {
+    res.sendfile(__dirname + '/static/json/testjson/team'+req.params.teamId+'.json');
+});
 app.post('/workcross/api/tasks/', function(req, res){
     res.sendfile(__dirname+'/static/json/testjson/new_task.json');
 });
