@@ -116,4 +116,6 @@ public class TaskController {
 				.getTaskCheckPointById(checkPointId);
 		taskService.deleteTaskCheckPoint(taskCheckPoint);
 	}
+
+	
 }

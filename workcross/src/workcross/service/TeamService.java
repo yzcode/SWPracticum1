@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.Query;
 
@@ -32,7 +34,8 @@ public class TeamService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
+	@PersistenceContext
+	public EntityManager em;
 	
 	public Team addTeam(String teamName,String description)
 	{

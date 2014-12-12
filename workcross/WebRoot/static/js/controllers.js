@@ -253,8 +253,8 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
     }]);
 
 
-workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams',
-    function ($scope, projectRes, globel_settings, $routeParams, Teams) {
+workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams', '$rootScope',
+    function ($scope, projectRes, globel_settings, $routeParams, Teams, $rootScope) {
         $scope.project = projectRes.get({projectId: $routeParams.projectId}, function () {
             globel_settings.chgpage('project');
             $scope.project_curpage = 'project_task';
@@ -290,26 +290,31 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             $scope.newentry = false;
             console.log($scope.newentry_text);
         }
-        $scope.getMember = function(memid){
+        $scope.getMember = function (memid) {
             var t_mems = $scope.teaminfo.users;
-            for(var i = 0;i<t_mems.length;i++){
-                if(t_mems[i].username==memid){
+            for (var i = 0; i < t_mems.length; i++) {
+                if (t_mems[i].username == memid) {
                     return t_mems[i];
                 }
             }
         }
+        $scope.js_open_task_detail = function ($event, task) {
+            $rootScope.slidebox.show_slide = !$rootScope.slidebox.show_slide;
+        }
         $scope.member_drop_options = {
             accept: ".avatar",
-            over: function() {},
-            out: function() {},
+            over: function () {
+            },
+            out: function () {
+            },
             hoverClass: "task-state-member-over",
-            drop: function(event, n) {
+            drop: function (event, n) {
                 console.log(n.helper.context.title);
                 var task_id = $(event.target).attr("task-id");
                 var t_tasks = $scope.project.tasks;
-                $scope.$apply(function(){
-                    for(var i=0;i<t_tasks.length;i++){
-                        if(task_id == t_tasks[i].id){
+                $scope.$apply(function () {
+                    for (var i = 0; i < t_tasks.length; i++) {
+                        if (task_id == t_tasks[i].id) {
                             var t_tar = $scope.getMember(n.helper.context.title);
                             console.log(t_tar);
                             t_tasks[i].members.push(t_tar);
@@ -317,20 +322,22 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         }
                     }
                 })
-                if(settings.debug) console.log("drop events toggle!");
+                if (settings.debug) console.log("drop events toggle!");
             }
         }
         $scope.draggable_options = {
             cursor: "move",
             helper: "clone",
-            revert :true,
+            revert: true,
             zIndex: 2e3,
             delay: 300,
-            start: function(e, t) {
+            start: function (e, t) {
                 t.helper.addClass("member-state-on-drag");
                 console.log("drag events toggle!")
             },
-            stop: function() {},
-            drag: function() {}
+            stop: function () {
+            },
+            drag: function () {
+            }
         }
     }]);

@@ -29,13 +29,15 @@
 
     <style>
 
-        #nav-right{
+        #nav-right {
             margin-right: 30px;
         }
-        #nav-header{
+
+        #nav-header {
             margin-left: 30px;
         }
-        #main-nav-left{
+
+        #main-nav-left {
             width: 220px;
             height: 100%;
             position: absolute;
@@ -46,7 +48,8 @@
             border-right: 1px;
             overflow: hidden;
         }
-        #main-server{
+
+        #main-server {
             height: 100%;
             position: relative;
             margin-left: 220px;
@@ -54,43 +57,49 @@
             display: block;
             overflow: hidden;
         }
-        #waperall{
+
+        #waperall {
             position: absolute;
-            top:58px;
+            top: 58px;
             left: 0;
             bottom: 0;
             right: 0;
         }
-        #left-panel-nav,#left-panel-teams{
+
+        #left-panel-nav, #left-panel-teams {
             margin-top: 0px;
             margin-bottom: 0px;
             padding-left: 0px;
             padding-bottom: 0px;
         }
-        #mainnav{
+
+        #mainnav {
             border: hidden;
-            background-color:#393939 ;
+            background-color: #393939;
         }
-        #main-server{
+
+        #main-server {
             background-color: #F9F9F7;
         }
-        .container-fluid{
+
+        .container-fluid {
             height: 58px;
         }
-        #nav-icon{
+
+        #nav-icon {
             padding-top: 19px;
         }
 
     </style>
 </head>
 <body>
-<div class="main-container" >
-    <nav class="navbar navbar-inverse navbar-fixed-top mainnav"  role="navigation" id="mainnav" >
+<div class="main-container">
+    <nav class="navbar navbar-inverse navbar-fixed-top mainnav" role="navigation" id="mainnav">
         <div class="container-fluid">
             <div class="navbar-header" id="nav-header">
                 <a class="navbar-brand" href="#" id="nav-icon"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;WorkX</a>
             </div>
-            <div class="collapse navbar-collapse" >
+            <div class="collapse navbar-collapse">
                 <!--<form class="navbar-form navbar-left" role="search">-->
                 <!--<div class="form-group">-->
                 <!--<input type="text" class="form-control" placeholder="Search">-->
@@ -100,13 +109,16 @@
                 <ul class="nav navs navbar-nav navbar-right" id="nav-right" ng-controller="userMain">
                     <li class="divider-v"></li>
                     <li class="dropdown">
-                        <a  href="" class="font-set-fm js-popbox"  id="master_new_menu" ng-click="master_new_menu($event)">新建<span class="caret"></span></a>
+                        <a href="" class="font-set-fm js-popbox" id="master_new_menu"
+                           ng-click="master_new_menu($event)">新建<span class="caret"></span></a>
                     </li>
                     <li class="divider-v"></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-bell" style="font-size: 16px"></span> <span class="badge">3</span></a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-bell" style="font-size: 16px"></span> <span
+                            class="badge">3</span></a></li>
                     <li class="divider-v"></li>
-                    <li class="dropdown" >
-                        <a href="javascript:;" class="avatar avatar-30" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 15px">
+                    <li class="dropdown">
+                        <a href="javascript:;" class="avatar avatar-30" class="dropdown-toggle" data-toggle="dropdown"
+                           style="padding-top: 15px">
                             <span class="avatar-face">
                                 <span class="avatar-text">杨政</span>
                             </span>
@@ -121,17 +133,23 @@
                     </li>
                     <li class="divider-v"></li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
     </nav>
     <div id="waperall">
         <div class="maindiv">
-            <div id="main-nav-left"  ng-controller="left-panel">
+            <div id="main-nav-left" ng-controller="left-panel">
                 <ul id="left-panel-nav" class="left-panel-ul">
-                    <li><a class="listitem" ng-class="{'active':curpage == 'dashboard'}" href="#/dashboard/"><span class="left-panel-icon glyphicon glyphicon-dashboard"></span>工作台</a></li>
-                    <li><a class="listitem" ng-class="{'active':curpage == 'calender'}" href="#/calender/"><span class="left-panel-icon glyphicon glyphicon-calendar"></span>日历</a></li>
-                    <li><a class="listitem" ng-class="{'active':curpage == 'discovery'}" href="#/discovery/"><span class="left-panel-icon glyphicon glyphicon-eye-open"></span>发现</a></li>
-                    <li><a class="listitem" ng-class="{'active':curpage == 'projects'}" href="#/projects/"><span class=" left-panel-icon glyphicon glyphicon-hdd"></span>项目</a></li>
+                    <li><a class="listitem" ng-class="{'active':curpage == 'dashboard'}" href="#/dashboard/"><span
+                            class="left-panel-icon glyphicon glyphicon-dashboard"></span>工作台</a></li>
+                    <li><a class="listitem" ng-class="{'active':curpage == 'calender'}" href="#/calender/"><span
+                            class="left-panel-icon glyphicon glyphicon-calendar"></span>日历</a></li>
+                    <li><a class="listitem" ng-class="{'active':curpage == 'discovery'}" href="#/discovery/"><span
+                            class="left-panel-icon glyphicon glyphicon-eye-open"></span>发现</a></li>
+                    <li><a class="listitem" ng-class="{'active':curpage == 'projects'}" href="#/projects/"><span
+                            class=" left-panel-icon glyphicon glyphicon-hdd"></span>项目</a></li>
                 </ul>
                 <div class="divider"></div>
                 <div>
@@ -140,9 +158,11 @@
                             <a href="#/teams/{{team.id}}" class="listitem" ng-click="show_project($event,team.id)">
                                 <span class="glyphicon glyphicon-th-list left-panel-icon"></span>
                                 {{team.teamname}}
-                                <span class="left-panel-icon-sw glyphicon glyphicon-chevron-right" ng-class="{true:'glyphicon-chevron-down',false:'glyphicon-chevron-right'}[team.expand == true]"></span>
+                                <span class="left-panel-icon-sw glyphicon glyphicon-chevron-right"
+                                      ng-class="{true:'glyphicon-chevron-down',false:'glyphicon-chevron-right'}[team.expand == true]"></span>
                             </a>
-                            <ul class="left-panel-ul left-panel-ul-2" id="team{{team.id}}-project" style="display: none">
+                            <ul class="left-panel-ul left-panel-ul-2" id="team{{team.id}}-project"
+                                style="display: none">
                                 <li ng-repeat="project in team.projects.projects">
                                     <a href="#/project/{{project.id}}" class="listitem">
                                         <span class="glyphicon glyphicon-tasks left-panel-icon"></span>
@@ -157,6 +177,9 @@
             <div id="main-server">
                 <div ng-view="worksx"></div>
             </div>
+        </div>
+        <div class="slide-content" ng-class="{true:'slidebox_show',false:''}[slidebox.show_slide]">
+            <div ng-include="'/workcross/static/template/task.html'" style="width: 700px"></div>
         </div>
     </div>
 </div>

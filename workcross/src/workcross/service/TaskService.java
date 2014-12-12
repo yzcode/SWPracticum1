@@ -148,4 +148,9 @@ public class TaskService {
 		task.setCheckpoints(getTaskCheckPoints(task));
 		return task;
 	}
+
+	public List<Task> getTasksByProjectIds(List<Long> ProjectIds) {
+		return taskRepository.findByProjectIdIn(ProjectIds);
+	}
+
 }

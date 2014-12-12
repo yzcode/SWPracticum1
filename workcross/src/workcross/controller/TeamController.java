@@ -1,5 +1,6 @@
 package workcross.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import workcross.model.*;
 import workcross.service.ProjectService;
+import workcross.service.TaskService;
 import workcross.service.TeamService;
 import workcross.service.UserService;
 
@@ -27,6 +29,9 @@ public class TeamController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	TaskService taskService;
 
 	// 添加团队
 	@RequestMapping(value = "/api/teams/", method = RequestMethod.POST)
@@ -69,5 +74,22 @@ public class TeamController {
 		User user = userService.getUserByUsername(username);
 		Team team = teamService.getTeamById(teamId);
 		return teamService.addUserToTeam(user, team, "member");
+	}
+	
+	@RequestMapping(value = "/api/teams/{teamId}/tasks/", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getProjectTasks(HttpSession httpSession,
+			@PathVariable(value = "teamId") long teamId) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Team team = teamService.getTeamById(teamId);
+		List<Long> projectIds = projectService.getTeamProjectIds(team);
+		List<Task> tasks;
+		if (!projectIds.isEmpty())
+			tasks = taskService.getTasksByProjectIds(projectIds);
+		else
+			tasks= new ArrayList<Task>();
+		result.put("team", team);
+		result.put("tasks", tasks);
+		return result;
+
 	}
 }
