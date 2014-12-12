@@ -122,7 +122,7 @@
                         <a href="javascript:;" class="avatar avatar-30" class="dropdown-toggle" data-toggle="dropdown"
                            style="padding-top: 15px">
                             <span class="avatar-face">
-                                <span class="avatar-text">杨政</span>
+                                <span class="avatar-text">{{user.username[0]}}</span>
                             </span>
                             <span>{{user.username}} <span class="caret"></span></span>
                         </a>
@@ -130,7 +130,7 @@
                             <li><a>{{user.email}}</a></li>
                             <li><a>{{user.nickname}}</a></li>
                             <li class="divider"></li>
-                            <li><a href="/workcross/logout">logout</a></li>
+                            <li><a href="/workcross/Logout">logout</a></li>
                         </ul>
                     </li>
                     <li class="divider-v"></li>
@@ -181,7 +181,7 @@
             </div>
         </div>
         <div class="slide-content" ng-class="{true:'slidebox_show',false:''}[slidebox.show_slide]">
-            <div ng-include="'/workcross/static/template/task.html'" style="width: 700px"></div>
+            <div ng-include src="'/workcross/static/template/task.html'" style="width: 700px"></div>
         </div>
     </div>
 </div>

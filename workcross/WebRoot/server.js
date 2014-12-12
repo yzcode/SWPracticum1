@@ -18,6 +18,9 @@ wx_test_remap("/workcross/api/teams/","/static/json/testjson/teams.json");
 wx_test_remap("/workcross/api/user/currentuser","/static/json/testjson/user.json");
 wx_test_remap("/workcross/api/teams/:teamId/tasks/","/static/json/testjson/team_tasks.json");
 wx_test_remap("/workcross/api/projects/:teamId/entries/","/static/json/testjson/entries.json");
+wx_test_remap("/workcross/api/tasks/:taskId/comments/","/static/json/testjson/comment.json");
+wx_test_remap("/workcross/api/projects/:projectId/","/static/json/testjson/project.json");
+
 
 app.get("/workcross/api/teams/:teamId/", function (req, res) {
     res.sendfile(__dirname + '/static/json/testjson/team'+req.params.teamId+'.json');

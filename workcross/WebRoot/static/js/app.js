@@ -26,6 +26,8 @@ workx.run(["$rootScope", function ($rootScope) {
         },
         task: {},
         show_task: function (task, project) {
+            $rootScope.$broadcast("slidebox_load_task",task,project);
+            this.show_box();
 
         }
     };
