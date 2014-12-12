@@ -66,12 +66,14 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                             name: name,
                             desc: desc
                         });
+                        js_close();
                     }
                     $scope.js_add_prj = function (add_prj_form, team_id, prjName, desc) {
                         $.post('/workcross/api/projects/', {
                             name: prjName,
                             team: team_id
                         });
+                        js_close();
                     }
                 }],
                 resolve: {
