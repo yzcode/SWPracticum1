@@ -18,14 +18,14 @@
     <div class="project-right-mem">
         <div class="title">成员</div>
         <ul class="project-right-mem-wrap">
-            <li ng-repeat="user in teaminfo.users">
-                <a class="static-a" href="javascript:;">
-                    <span class="avatar">
-                        <span class="avatar-face">
-                            <span class="avatar-text">{{user.username[0]}}</span>
+            <li ng-repeat="user in teaminfo.users"  ng-mouseenter="hoverli = true" ng-mouseleave="hoverli = false" ng-class="{true:'hoverclass',false:''}[hoverli]">
+                <div>
+                    <a class="avatar static-a" href="javascript:;" draggable="draggable_options" title="{{user.username}}">
+                        <span class="avatar-face" >
+                            <span class="avatar-text">{{user.nickname[0]}}</span>
                         </span>
-                    </span>
-                </a>
+                    </a>
+                </div>
             </li>
         </ul>
     </div>

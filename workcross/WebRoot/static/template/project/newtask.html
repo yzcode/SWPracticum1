@@ -1,0 +1,7 @@
+<div ng-class="{true: '', false: 'noshow'}[entry.newtask]">
+<textarea class="newtask-text" id="{{entry.id}}_text" ng-model="entry.newtask_text"></textarea>
+<div>
+    <button type="button" class="btn btn-danger width-25" ng-click="newtask_post(entry)">保存</button>
+    <button type="button" class="btn btn-success width-25" ng-click="newtask_cancel(entry)">取消</button>
+</div>
+</div>

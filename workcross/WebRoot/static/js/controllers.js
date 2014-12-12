@@ -106,7 +106,7 @@ workxControllers.controller('left-panel', ['$scope', '$http', 'globel_settings',
             var teams = $('.left-panel-ul-2');
             for (var index = 0; index < teams.length; index++) {
                 var id = this.getindex(name);
-                if ($(teams[index]).html() == tmp.html()) {
+                if ($(teams[index]).attr("id") == tmp.attr("id")) {
                     if (tmp.css("display") == "none") {
                         tmp.parent().css("background-color", "#282823");
                         this.teams[id].expand = true;
@@ -273,5 +273,48 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         $scope.newentry_post = function(){
             $scope.newentry = false;
             console.log($scope.newentry_text);
+        }
+        $scope.getMember = function(memid){
+            var t_mems = $scope.teaminfo.users;
+            for(var i = 0;i<t_mems.length;i++){
+                if(t_mems[i].username==memid){
+                    return t_mems[i];
+                }
+            }
+        }
+        $scope.member_drop_options = {
+            accept: ".avatar",
+            over: function() {},
+            out: function() {},
+            hoverClass: "task-state-member-over",
+            drop: function(event, n) {
+                console.log(n.helper.context.title);
+                var task_id = $(event.target).attr("task-id");
+                var t_tasks = $scope.project.tasks;
+                $scope.$apply(function(){
+                    for(var i=0;i<t_tasks.length;i++){
+                        if(task_id == t_tasks[i].id){
+                            var t_tar = $scope.getMember(n.helper.context.title);
+                            console.log(t_tar);
+                            t_tasks[i].members.push(t_tar);
+
+                        }
+                    }
+                })
+                if(settings.debug) console.log("drop events toggle!");
+            }
+        }
+        $scope.draggable_options = {
+            cursor: "move",
+            helper: "clone",
+            revert :true,
+            zIndex: 2e3,
+            delay: 300,
+            start: function(e, t) {
+                t.helper.addClass("member-state-on-drag");
+                console.log("drag events toggle!")
+            },
+            stop: function() {},
+            drag: function() {}
         }
     }]);

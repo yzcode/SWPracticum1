@@ -1,6 +1,8 @@
 /**
  * Created by yangz on 2014/12/5.
  */
+
+
 'use strict';
 var workx = angular.module('workx', [
     'ngRoute',
@@ -47,6 +49,24 @@ workx.config(['$routeProvider','$locationProvider',
                 redirectTo: '/dashboard'
             });
     }]);
+
+workx.directive("droppable", [function() {
+    return {
+        restrict: "A",
+        link: function(e, t, i) {
+            e.$watch(i.droppable, function(e) {
+                e==null || t.droppable(e)
+            })
+        }
+    }}]).directive("draggable", [function() {
+    return {
+        restrict: "A",
+        link: function(e, t, i) {
+            e.$watch(i.draggable, function(e) {
+                e==null || t.draggable(e)
+            })
+        }
+    }}]);
 
 var workxfilter = angular.module('workxfilter', []);
 
