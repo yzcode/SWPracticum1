@@ -1,5 +1,6 @@
 package workcross.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,6 +35,9 @@ public class TaskController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@RequestMapping(value = "/api/projects/{projectId}/entries/", method = RequestMethod.GET)
 	public @ResponseBody
@@ -66,6 +73,16 @@ public class TaskController {
 				pos);
 		taskService.addTaskWatcher(task, user);
 		return task;
+	}
+
+	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.POST)
+	public @ResponseBody
+	Task modeifyTask(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId, @RequestBody String json) throws JsonParseException, JsonMappingException, IOException {
+		//User user = (User) httpSession.getAttribute("user");
+		Task task = objectMapper.readValue(json,Task.class);
+		task.setId(taskId);
+		return taskService.saveTask(task);
 	}
 
 	@RequestMapping(value = "/api/tasks/{taskId}/members/", method = RequestMethod.POST)
@@ -117,5 +134,4 @@ public class TaskController {
 		taskService.deleteTaskCheckPoint(taskCheckPoint);
 	}
 
-	
 }

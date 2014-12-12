@@ -66,9 +66,9 @@ public class TeamController {
 		return data;
 	}
 
-	@RequestMapping(value = "/api/teams/{teamId}/", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/teams/{teamId}/members/", method = RequestMethod.POST)
 	public @ResponseBody
-	TeamMember getTeamInfo(HttpSession httpSession,
+	TeamMember addTeamMember(HttpSession httpSession,
 			@PathVariable(value = "teamId") long teamId, String username)
 			throws Exception {
 		User user = userService.getUserByUsername(username);

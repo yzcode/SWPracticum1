@@ -23,11 +23,11 @@ public class Task extends BaseModel {
 	@Column(name = "taskName", nullable = false)
 	private String taskName;
 
-	@Column(name = "completed", nullable = false,columnDefinition="tinyint(1) default 0")
+	@Column(name = "completed", nullable = false, columnDefinition = "tinyint(1) default 0")
 	private Boolean completed = false;
 
-	@Column(name = "archive", nullable = false)
-	private Boolean archive = false;
+	@Column(name = "archived", nullable = false)
+	private Boolean archived = false;
 
 	@Column(name = "expireDate", nullable = true)
 	private Date expireDdate;
@@ -108,12 +108,12 @@ public class Task extends BaseModel {
 		return serialVersionUID;
 	}
 
-	public Boolean getArchive() {
-		return archive;
+	public Boolean getArchived() {
+		return archived;
 	}
 
-	public void setArchive(Boolean archive) {
-		this.archive = archive;
+	public void setArchived(Boolean archived) {
+		this.archived = archived;
 	}
 
 	public List<User> getMembers() {

@@ -61,7 +61,13 @@ public class TaskService {
 		Task task = new Task(projectId, entryId, taskName, description, pos);
 		return taskRepository.save(task);
 	}
-
+	public Task saveTask(Task task)
+	{
+		Task o_task = taskRepository.findById(task.getId());
+		task.setDateCreated(o_task.getDateCreated());
+		task.setProjectId(o_task.getProjectId());	
+		return taskRepository.save(task);
+	}
 	public void removeTask(Task task) {
 		taskRepository.delete(task);
 	}

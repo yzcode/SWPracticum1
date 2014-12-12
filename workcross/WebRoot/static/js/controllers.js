@@ -2,7 +2,7 @@
 
 var module = angular.module("globel", []);
 
-module.service('globel_settings', ['$rootScope', function ($rootScope) {
+module.service('globel_settings', ['$rootScope', '$http', function ($rootScope, $http) {
     var service = {
         curpage: 'dashboard',
         chgpage: function (page) {
@@ -10,12 +10,20 @@ module.service('globel_settings', ['$rootScope', function ($rootScope) {
             $rootScope.$broadcast('curpage.update');
         }
     };
-    $rootScope.finishtask=function(task){
-
+    $rootScope.updateTask = function (task) {
+        var post = {};
+        var p_list = ["id", "lastModified", "dateCreated", "projectId", "entryId", "taskName", "completed", "archived", "expireDdate", "description", "pos"];
+        for (var i in p_list)
+            post[p_list[i]] = task[p_list[i]];
+        $http.post("/workcross/api/tasks/" + task.id + "/", post);
     };
-    $rootScope.addUserToTask=function(task,user){
+    $rootScope.finishtask = function (task) {
+        $rootScope.updateTask(task);
+    };
+    $rootScope.addUserToTask = function (task, user) {
         $.post("/workcross/api/tasks/" + task.id + "/members/", {username: user.username});
     };
+
     return service;
 }]);
 /* Controllers */
@@ -79,7 +87,7 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                         $.post('/workcross/api/projects/', {
                             name: prjName,
                             team: team_id,
-                            desc:desc
+                            desc: desc
                         });
                         $scope.js_close();
                     }
@@ -220,11 +228,11 @@ workxControllers.controller('projects', ['$scope', '$http', 'globel_settings', '
         )
     }]);
 
-workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox','$http',
-    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox,$http) {
+workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox', '$http',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox, $http) {
         $scope.team = Teams.get({teamId: $routeParams.teamId}, function (Teams) {
             console.log('loading page teams');
-            $http.get('/workcross/api/teams/'+$scope.team.team.id+'/tasks/').success(function(data){
+            $http.get('/workcross/api/teams/' + $scope.team.team.id + '/tasks/').success(function (data) {
                 $scope.team.tasks = data;
                 $scope.taskfilterarg = 'default';
             })
@@ -239,9 +247,9 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
             }
             else $scope.team_curpage = 'team_mem';
         });
-        $scope.set_taskfilterarg = function(arg){
-            if($scope.taskfilterarg != arg) $scope.taskfilterarg=arg;
-            else  $scope.taskfilterarg='default';
+        $scope.set_taskfilterarg = function (arg) {
+            if ($scope.taskfilterarg != arg) $scope.taskfilterarg = arg;
+            else  $scope.taskfilterarg = 'default';
         }
         $scope.setcurpage = function (linkto) {
             if (linkto == 'team_pro') {
@@ -383,7 +391,9 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             return false;
         }
         $scope.js_open_task_detail = function ($event, task) {
-            $rootScope.slidebox.show_slide = !$rootScope.slidebox.show_slide;
+            if (event.target.tagName == "DIV")
+            //$rootScope.slidebox.show_slide = !$rootScope.slidebox.show_slide;
+                $rootScope.slidebox.show_task(task);
         }
         $scope.member_drop_options = {
             accept: ".avatar",
@@ -401,10 +411,9 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         if (task_id == t_tasks[i].id) {
                             var t_tar = $scope.getMember(n.helper.context.title);
                             console.log(t_tar);
-                            if (!$scope.memintask(t_tar, t_tasks[i]))
-                            {
+                            if (!$scope.memintask(t_tar, t_tasks[i])) {
                                 t_tasks[i].members.push(t_tar);
-                                $rootScope.addUserToTask(t_tasks[i],t_tar);
+                                $rootScope.addUserToTask(t_tasks[i], t_tar);
                             }
                         }
                     }
@@ -448,7 +457,47 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             }).open();
         };
     }]);
-workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox',
-    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox) {
+workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox', '$http',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox, $http) {
+        console.log("in");
+        $scope.task = {name: "Task"};
+        $scope.$on("slidebox_load_task", function ($event, task, project) {
+            $scope.task = task;
+            $scope.project = project;
+            $scope.task.is_edit = false;
+            $scope.task.is_todo_edit = false;
+            $scope.task_editing = {name: task.name, description: task.description};
+            //functions
+            $scope.js_close = function ($event) {
+                $rootScope.slidebox.hide_box();
+            }
+            $scope.js_show_editor = function () {
+                $scope.task_editing = {taskName: task.taskName, description: task.description};
+                $scope.task.is_edit = true;
+            }
+            $scope.js_update_task = function () {
+                $scope.task.taskName = $scope.task_editing.taskName;
+                $scope.task.description = $scope.task_editing.description;
+                $scope.task.is_edit = false;
+                $rootScope.updateTask($scope.task);
+            }
+            $scope.js_cancel_editor = function () {
+                $scope.task.is_edit = false;
+            }
+            $scope.taskcomplete = function (task) {
+                task.completed = !task.completed;
+                $rootScope.updateTask(task);
+            }
 
+            if (!$scope.project)
+                $http.get("/workcross/api/projects/" + task.projectId + "/").success(function (data) {
+                    $scope.project = data;
+
+                });
+            $scope.comments = [];
+            $http.get("/workcross/api/tasks/" + task.id + "/comments/").success(function (data) {
+                    $scope.comments = data;
+                }
+            )
+        });
     }]);
