@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,9 @@ public class TeamController {
 	
 	@Autowired
 	TaskService taskService;
+	
+	@Autowired
+	ObjectMapper objectMapper;
 
 	// 添加团队
 	@RequestMapping(value = "/api/teams/", method = RequestMethod.POST)
@@ -68,12 +72,15 @@ public class TeamController {
 
 	@RequestMapping(value = "/api/teams/{teamId}/members/", method = RequestMethod.POST)
 	public @ResponseBody
-	TeamMember addTeamMember(HttpSession httpSession,
+	Map<String,Object> addTeamMember(HttpSession httpSession,
 			@PathVariable(value = "teamId") long teamId, String username)
 			throws Exception {
+		
 		User user = userService.getUserByUsername(username);
 		Team team = teamService.getTeamById(teamId);
-		return teamService.addUserToTeam(user, team, "member");
+		Map<String,Object> result = objectMapper.convertValue(teamService.addUserToTeam(user, team, "member"), Map.class);
+		result.put("user", user);
+		return result;
 	}
 	
 	@RequestMapping(value = "/api/teams/{teamId}/tasks/", method = RequestMethod.GET)

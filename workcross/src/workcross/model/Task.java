@@ -26,7 +26,7 @@ public class Task extends BaseModel {
 	@Column(name = "completed", nullable = false, columnDefinition = "tinyint(1) default 0")
 	private Boolean completed = false;
 
-	@Column(name = "archived", nullable = false)
+	@Column(name = "archived", nullable = false,columnDefinition = "tinyint(1) default 0")
 	private Boolean archived = false;
 
 	@Column(name = "expireDate", nullable = true)

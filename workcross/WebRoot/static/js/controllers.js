@@ -313,6 +313,8 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
                         $.post(url,{
                             username:newuser
                         },function(data,status){
+                            $scope.team.users.push(data.user);
+                            $scope.$apply();
                             $scope.js_close();
                         })
                     }
