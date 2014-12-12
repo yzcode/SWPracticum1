@@ -153,10 +153,16 @@ li.divider-v {
 }
 
 //global css
+.mr_5 {
+  margin-right: 5px;
+}
 .withscroll {
   overflow-y: scroll;
 }
-
+.static-16{
+  width: 16px;
+  height: 16px;
+}
 body {
   .font-set-fm
 }
@@ -1170,7 +1176,39 @@ table.table.project-list tbody tr td p {
 .team-tas-left .title {
   .team-title;
 }
+.team-tas-li-time{
+  border-bottom: solid 1px #e1e1e1;
+  border-top: solid 1px #fff;
+  background: @server-panel-bgcolor;
+  padding: 10px 15px;
+  color: #d84c31;
+  font-size: 14px;
+  text-shadow: 0 2px 0 #fff,0 -2px 0 #f2f2ea;
+}
+.team-tas-li-mem{
+  float: right;
+  text-align: right;
+  padding-top: 8px;
+}
+.team-tas-li-en{
+  padding: 10px 15px 10px 30px;
+  border-bottom: solid 1px #e1e1e1;
+  cursor: pointer;
+  overflow: hidden;
+}
+.team-tas-li-info{
+  float: left;
+  padding: 10px;
+}
+.team-tas-li-taskname{
 
+}
+.team-tas-li-taskname-name{
+  margin-left: 10px;
+}
+.taskfinish{
+  text-decoration: line-through;
+}
 .team-tas-right {
   .team-mem-right;
   height: auto;

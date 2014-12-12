@@ -10,6 +10,12 @@ module.service('globel_settings', ['$rootScope', function ($rootScope) {
             $rootScope.$broadcast('curpage.update');
         }
     };
+    $rootScope.finishtask=function(task){
+
+    };
+    $rootScope.addUserToTask=function(task,user){
+
+    };
     return service;
 }]);
 /* Controllers */
@@ -212,10 +218,14 @@ workxControllers.controller('projects', ['$scope', '$http', 'globel_settings', '
         )
     }]);
 
-workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox',
-    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox) {
+workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox','$http',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox,$http) {
         $scope.team = Teams.get({teamId: $routeParams.teamId}, function (Teams) {
             console.log('loading page teams');
+            $http.get('/workcross/api/teams/'+$scope.team.team.id+'/tasks/').success(function(data){
+                $scope.team.tasks = data;
+                $scope.taskfilterarg = 'default';
+            })
             globel_settings.chgpage('teams');
             var linkto = $routeParams.path;
             if (linkto == 'team_pro') {
@@ -227,6 +237,10 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
             }
             else $scope.team_curpage = 'team_mem';
         });
+        $scope.set_taskfilterarg = function(arg){
+            if($scope.taskfilterarg != arg) $scope.taskfilterarg=arg;
+            else  $scope.taskfilterarg='default';
+        }
         $scope.setcurpage = function (linkto) {
             if (linkto == 'team_pro') {
                 $scope.team_curpage = 'team_pro';
@@ -242,7 +256,12 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
             if (settings.debug) console.log(newUrl);
             //$location.url(newUrl);
         };
-
+        $scope.taskcomplete = function (task) {
+            if (settings.debug) console.log(task);
+            if (task.completed) task.completed = false;
+            else task.completed = true;
+            $rootScope.finishtask(task);
+        }
         $scope.isCreator = function () {
             var cuser = $scope.team.teamcrate;
             if (cuser == undefined) cuser = 'administrator';
@@ -287,6 +306,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             if (settings.debug) console.log(task);
             if (task.completed) task.completed = false;
             else task.completed = true;
+            $rootScope.finishtask(task);
         }
         $scope.newtask_setup = function (entry) {
             entry.newtask = true;
@@ -379,7 +399,11 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         if (task_id == t_tasks[i].id) {
                             var t_tar = $scope.getMember(n.helper.context.title);
                             console.log(t_tar);
-                            if (!$scope.memintask(t_tar, t_tasks[i])) t_tasks[i].members.push(t_tar);
+                            if (!$scope.memintask(t_tar, t_tasks[i]))
+                            {
+                                t_tasks[i].members.push(t_tar);
+                                $rootScope.addUserToTask(t_tasks[i],t_tar);
+                            }
                         }
                     }
                 })
