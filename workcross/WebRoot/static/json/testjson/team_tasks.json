@@ -9,10 +9,26 @@
       "taskName": "惠大神快不行了",
       "completed": false,
       "archive": false,
-      "expireDdate": null,
+      "expireDdate": 1418201075000,
       "description": "这是一个风险",
       "pos": 65535.0,
-      "members": null,
+      "members": [
+        {
+          "id": 1,
+          "lastModified": 1418129025000,
+          "dateCreated": 1418129025000,
+          "username": "comzyh",
+          "nickname": "comzyh",
+          "email": "comzyh@163.com"
+        },{
+          "id": 2,
+          "lastModified": 1418129025000,
+          "dateCreated": 1418129025000,
+          "username": "yangz",
+          "nickname": "杨政",
+          "email": "yz@1123.com"
+        }
+      ],
       "watcher": null,
       "checkpoints": null
     },
@@ -23,12 +39,12 @@
       "projectId": 1,
       "entryId": 2,
       "taskName": "惠大神不行了",
-      "completed": false,
+      "completed": true,
       "archive": false,
-      "expireDdate": null,
+      "expireDdate": 1418129025000,
       "description": "叫120",
       "pos": 65535.0,
-      "members": null,
+      "members": [],
       "watcher": null,
       "checkpoints": null
     },
@@ -44,7 +60,16 @@
       "expireDdate": null,
       "description": "起义",
       "pos": 262144.0,
-      "members": null,
+      "members": [
+        {
+          "id": 1,
+          "lastModified": 1418129025000,
+          "dateCreated": 1418129025000,
+          "username": "comzyh",
+          "nickname": "comzyh",
+          "email": "comzyh@163.com"
+        }
+      ],
       "watcher": null,
       "checkpoints": null
     },
@@ -60,7 +85,7 @@
       "expireDdate": null,
       "description": "打的",
       "pos": 131072.0,
-      "members": null,
+      "members": [],
       "watcher": null,
       "checkpoints": null
     }

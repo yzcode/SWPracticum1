@@ -106,8 +106,15 @@ li.divider-v {
 .a-link {
   cursor: pointer;
 }
+.mr_5 {
+  margin-right: 5px;
+}
 .withscroll {
   overflow-y: scroll;
+}
+.static-16 {
+  width: 16px;
+  height: 16px;
 }
 body {
   font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Segoe UI', 'Microsoft Yahei', Tahoma, Arial, STHeiti, sans-serif;
@@ -1002,6 +1009,36 @@ table.table.project-list tbody tr td p {
   border-bottom: 1px solid #e1e1e1;
   color: #646b75;
 }
+.team-tas-li-time {
+  border-bottom: solid 1px #e1e1e1;
+  border-top: solid 1px #fff;
+  background: #f9f9f7;
+  padding: 10px 15px;
+  color: #d84c31;
+  font-size: 14px;
+  text-shadow: 0 2px 0 #ffffff, 0 -2px 0 #f2f2ea;
+}
+.team-tas-li-mem {
+  float: right;
+  text-align: right;
+  padding-top: 8px;
+}
+.team-tas-li-en {
+  padding: 10px 15px 10px 30px;
+  border-bottom: solid 1px #e1e1e1;
+  cursor: pointer;
+  overflow: hidden;
+}
+.team-tas-li-info {
+  float: left;
+  padding: 10px;
+}
+.team-tas-li-taskname-name {
+  margin-left: 10px;
+}
+.taskfinish {
+  text-decoration: line-through;
+}
 .team-tas-right {
   border: 1px solid #e1e1e1;
   box-shadow: 1px 0 3px #eeeeee, inset 0 0 3px #ffffff;
@@ -1307,4 +1344,24 @@ table.table.project-list tbody tr td p {
 }
 .icon-check.taskli {
   color: #79C455;
+}
+.slide-content {
+  border-left: solid 1px #e1e1e1;
+  -webkit-box-shadow: 0 0px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 15px rgba(0, 0, 0, 0.1);
+  background: #f9f9f7;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 0;
+  z-index: 100;
+  overflow: hidden;
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+.slide-content.slidebox_show {
+  width: 700px;
 }

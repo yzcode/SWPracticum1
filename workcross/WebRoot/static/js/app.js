@@ -114,7 +114,9 @@ workxfilter.filter('timeformat', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        return nowt.getFullYear() + '年' + nowt.getMonth() + '月' + nowt.getDay() + '日';
+        var day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
+        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
+        return nowt.getFullYear() + '年' + mon + '月' + day + '日';
     };
 })
 
@@ -123,10 +125,9 @@ workxfilter.filter('timeformatYM', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        var day = "";
-        day = nowt.getDay() < 10 ? ('0' + nowt.getDay().toString()) : (nowt.getDay().toString());
-        var mon = nowt.getMonth() < 10 ? ('0' + nowt.getMonth().toString()) : (nowt.getMonth().toString());
-        return mon + '月' + day + '日';
+        var day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
+        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
+        return mon+'月'+day+'日' ;
     };
 })
 
@@ -145,4 +146,24 @@ workxfilter.filter('usersign', function () {
         if (sign != null && sign != "") return sign
         return "他很懒 什么也没有留下";
     };
+}).filter('taskfiltername',function(){
+    return function(name){
+        if(name == 'default') return "团队";
+        else return name + '的';
+    }
+}).filter('taskfilter',function(){
+    return function(tasks,arg){
+        if(arg=='default') return tasks;
+        else {
+            var res_task = [];
+            for(var i =0 ;i<tasks.length;i++){
+                var tmp = false;
+                for(var j = 0;j<tasks[i].members.length;j++){
+                    if(tasks[i].members[j].username == arg) tmp =true;
+                }
+                if(tmp) res_task.push(tasks[i]);
+            }
+            return res_task;
+        }
+    }
 })
