@@ -34,7 +34,7 @@
                             </div>
                             <div class="task-ul-li-task-mem disinline pull-right">
                                 <ul class="" id = "main">
-                                    <li ng-repeat="member in task.members" class="disinline">
+                                    <li ng-repeat="member in task.members" class="disinline" ng-click="delpopup($event,task,member)">
                                         <a class="static-a" href="javascript:;">
                                             <span class="avatar avatar-30">
                                                 <span class="avatar-face">

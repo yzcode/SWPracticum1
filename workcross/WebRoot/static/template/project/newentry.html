@@ -1,7 +1,7 @@
 <div ng-class="{true: '', false: 'noshow'}[newentry]" class="newentry-main">
     <input type="text" ng-model="newentry_text" class="newentry-input" placeholder="列表名">
     <div>
-        <button type="button" class="btn btn-danger width-25" ng-click="newentry_post()">保存</button>
+        <button type="button" class="btn btn-danger width-25" ng-click="newentry_post(newentry_text)">保存</button>
         <button type="button" class="btn btn-success width-25" ng-click="newentry_cancel()">取消</button>
     </div>
 </div>

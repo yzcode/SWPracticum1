@@ -298,6 +298,36 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
                 }
             }).open();
         };
+        $scope.newuserpopup = function ($event) {
+            $popbox.popbox({
+                target: $event,
+                placement: "right",
+                templateUrl: "/workcross/static/template/user/newuserpopup.html",
+                controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
+                    $scope.team = pop_data.$scope.team;
+                    $scope.js_close =function(){
+                        popbox.close();
+                    }
+                    $scope.js_add = function(e,newuser){
+                        var url = '/workcross/api/teams/'+$scope.team.team.id+'/members/';
+                        $.post(url,{
+                            username:newuser
+                        },function(data,status){
+                            $scope.js_close();
+                        })
+                    }
+                }],
+                resolve: {
+                    pop_data: function () {
+                        return {
+                            $scope: $scope
+                            //parameters: i,
+                            //team: t.current_team
+                        }
+                    }
+                }
+            }).open();
+        };
     }]);
 
 workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$popbox',
@@ -311,6 +341,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                 $scope.project.entries[i].newtask = false;
             }
             $scope.newentry = false;
+            $scope.newentry_text = "";
         })
         $scope.taskcomplete = function (task) {
             if (settings.debug) console.log(task);
@@ -354,7 +385,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
         $scope.newentry_cancel = function () {
             $scope.newentry = false;
         }
-        $scope.newentry_post = function () {
+        $scope.newentry_post = function (arg_text) {
             $scope.newentry = false;
             var new_pos = -1;
             for (var i = 0; i < $scope.project.entries.length; i++) {
@@ -364,7 +395,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             $.post("/workcross/api/entries/",
                 {
                     projectId: $scope.project.project.id,
-                    name: $scope.newentry_text,
+                    name: arg_text,
                     description: "",
                     pos: new_pos
                 },
@@ -373,7 +404,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                     $scope.project.entries.push(a);
                     $scope.$apply();
                 });
-            console.log($scope.newentry_text);
+            console.log(arg_text);
         }
         $scope.getMember = function (memid) {
             var t_mems = $scope.teaminfo.users;
@@ -449,6 +480,35 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         return {
                             $scope: $scope,
                             userpop: user
+                            //parameters: i,
+                            //team: t.current_team
+                        }
+                    }
+                }
+            }).open();
+        };$scope.delpopup = function ($event, arg_task,arg_mem) {
+            $popbox.popbox({
+                target: $event,
+                placement: "top",
+                templateUrl: "/workcross/static/template/user/deluserpopup.html",
+                controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
+                    $scope.task = pop_data.task;
+                    $scope.userpop = pop_data.member;
+                    $scope.deluser =function(e){
+                        var url = "";
+                        $.post(url,{
+                            username:$scope.userpop.username
+                        },function(data,status){
+                            popbox.close();
+                        })
+                    }
+                }],
+                resolve: {
+                    pop_data: function () {
+                        return {
+                            $scope: $scope,
+                            task: arg_task,
+                            member:arg_mem
                             //parameters: i,
                             //team: t.current_team
                         }
