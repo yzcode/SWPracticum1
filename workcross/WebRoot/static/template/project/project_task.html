@@ -1,0 +1,74 @@
+<div class="div-project-main">
+    <div class="mod-navbar">
+        <div class="title">
+            <h3>
+                <span class="glyphicon glyphicon-tasks" style="font-size: 16px"></span>
+                {{project.project.name}}
+            </h3>
+        </div>
+        <div class="mod-navbar-main pull-right">
+            <ul class="nav nav-tabs" role="tablist">
+            </ul>
+        </div>
+    </div>
+    <div class="server-project-main server-main">
+        <div class="server-project-task">
+            <div class="server-project-task-ul" ng-repeat="entry in project.entries | orderBy:'pos'" >
+                <div class="task-ul-header">
+                    {{entry.entryName}}
+                </div>
+                <div class="hr"></div>
+                <div class="task-ul-li">
+                    <div class="task-ul-li-task" droppable="member_drop_options" ng-repeat="task in project.tasks |filter:{entryId:entry.id}:true| orderBy:'pos'" task-id="{{task.id}}" ng-click="js_open_task_detail($event,task)">
+                        <div class="task-ul-li-task-title">
+                            <div class="task-complete-icon">
+                                <a class="static-a" href="javascript:;">
+                                    <span ng-class="{true:'icon-check taskli',false:'icon-check-empty'}[task.completed]" ng-click="taskcomplete(task);"></span>
+                                </a>
+                            </div>
+                            <a class="taskname static-a" ng-class="{true:'task-finish',false:''}[task.completed]">{{task.taskName}}</a>
+                        </div>
+                        <div class="task-ul-li-task-footer">
+                            <div class="task-ul-li-task-time disinline">
+                                <span class="label label-danger" ng-if="task.expireDdate"><span class="icon-time"></span> {{task.expireDdate | timeformatYM}}</span>
+                            </div>
+                            <div class="task-ul-li-task-mem disinline pull-right">
+                                <ul class="" id = "main">
+                                    <li ng-repeat="member in task.members" class="disinline" ng-click="delpopup($event,task,member)">
+                                        <a class="static-a" href="javascript:;">
+                                            <span class="avatar avatar-30">
+                                                <span class="avatar-face">
+                                                    <span class="avatar-text">{{member.nickname[0]}}</span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-ul-footer">
+                    <div ng-if="entry.newtask">
+                        <ng-include src="'/workcross/static/template/project/newtask.html'">
+                        </ng-include>
+                    </div>
+                    <a class="static-a" href="javascript:;" ng-class="{true: 'noshow', false: ''}[entry.newtask]" ng-click="newtask_setup(entry)">
+                        新建任务
+                    </a>
+                </div>
+            </div>
+            <div class="div-newentry">
+                <div ng-if="newentry">
+                    <ng-include src="'/workcross/static/template/project/newentry.html'">
+                    </ng-include>
+                </div>
+                <button type="button" class="btn btn-default" ng-class="{true: 'noshow', false: ''}[newentry]" ng-click="newentry_setup()">新建列表</button>
+            </div>
+        </div>
+    </div>
+    <div class="div-project-right">
+
+        <ng-include src="'/workcross/static/template/project/project_right.html'"></ng-include>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="server-team-main">
+    <div class="team-mem-left-wrap">
+        <div class="team-mem-left">
+            <div class="title">
+                团队项目
+            </div>
+            <div class="project-list-wrap">
+                <table class="table table-hover project-list">
+                    <tbody>
+                        <tr ng-repeat="pro in team.projects ">
+                            <td>
+                                <a href="#/project/{{pro.id}}" class="project-a static-a">
+                                    <p>
+                                        <span class="glyphicon glyphicon-tasks icon-tasks"></span>
+                                        <span class="proname">{{pro.name}}</span>
+                                        <span class="pronum glyphicon glyphicon-user">&nbsp6</span>
+                                    </p>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="team-mem-right pull-right">
+        <div class="title">
+            <p class="teamname">{{team.team.teamname}}</p>
+            <p class="createtime">创建于{{team.team.dateCreated | timeformat}}</p>
+        </div>
+    </div>
+</div>

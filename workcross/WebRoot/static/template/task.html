@@ -1,0 +1,172 @@
+<div ng-controller="entity_task_ctrl" style="width: 700px">
+    <div class="sliderbox-panel-header">
+        <div class="sliderbox-panel-header-title"><span class="glyphicon glyphicon-tasks header-icon"></span>{{project.name}}
+        </div>
+        <ul class="nav nav-pills">
+            <li data-placement="bottom" class=""><a href="javascript:;" id="timetg"
+                                                    title="截止日期"><i class="icon-time"></i>&nbsp;日期 </a></li>
+            <li><a href="javascript:;" ng-click="js_add_todo_editor()" title="添加检查项"> <i class="icon-th-list"></i>&nbsp;检查项 </a>
+            </li>
+            <li><a href="javascript:;" ng-click="js_del_task(task)" title="delete"> <i class="icon-warning-sign"></i>&nbsp;删除 </a>
+            </li>
+            <li class="divider-v"></li>
+            <li><a href="javascript:;" ng-click="js_close()" title="关闭"> <i class="icon-remove"></i> </a></li>
+        </ul>
+    </div>
+    <div class="entity-panel-body">
+        <div class="content-panel">
+            <div class="task-ul-li-task-title panel-title" ng-hide="task.is_edit">
+                <div class="task-complete-icon">
+                    <a class="static-a" href="javascript:;">
+                    <span ng-class="{true:'icon-check taskli',false:'icon-check-empty'}[task.completed]"
+                          ng-click="taskcomplete(task);" class="icon-check taskli"></span>
+                    </a>
+                </div>
+                <a class="taskname static-a ng-binding task-finish" href=""
+                   ng-class="{true:'task-finish',false:''}[task.completed]"
+                   ng-click="js_show_editor()">{{task.taskName}}<em>{{task.entry_name}}</em></a>
+
+                <div class="slidebox-description">{{task.description}}</div>
+            </div>
+            <div class="panel-title" ng-show="task.is_edit">
+                <form novalidate="">
+                    <div class="form-group">
+                        <input ng-model="task_editing.taskName" placeholder="任务名称" class="form-control" type="text"
+                               required="">
+                    </div>
+                    <div class="form-group">
+
+                        <textarea ng-model="task_editing.description" placeholder="为您的任务添加描述" rows="4"
+                                  class="form-control"></textarea>
+
+                    </div>
+                    <div>
+                        <button ng-click="js_update_task()" class="btn btn-success mr_15">保存
+                        </button>
+                        <button ng-click="js_cancel_editor()" class="btn float_left">取消</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--checkpoints-->
+            <div class="content-module" ng-show="task.is_todo_edit || task.checkpoints.length > 0">
+                <h4><i class="icon-th-list"></i>&nbsp;检查项</h4>
+
+                <!--<div class="progress-warp">-->
+                    <!--<span ng-bind="task.percentage+'%'"></span>-->
+                    <!--<progressbar value="task.percentage" type="success"></progressbar>-->
+                    <!--<div class="progress">-->
+                        <!--<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="task-todos">
+                    <ul class="sortable" sortable="todo_sort_options">
+                        <li class="todo-item" ng-repeat="todo in task.checkpoints"
+                            ng-class="{'todo-item-done':todo.completed!=0}"
+                            todo-id="{{ todo.id }}">
+                            <a class="todo-item-check static-a" ng-click="js_complete_todo(task, todo)">
+                                <!--<i ng-class="{0: 'icon-check-empty', 1: 'icon-check-sign'}[todo.completed]"></i>-->
+                                <div class="disinline static-16" style="vertical-align: top;"><span ng-class="{true:'icon-check taskli',false:'icon-check-empty'}[todo.completed]"></span></div>
+                            </a>
+
+                            <div class="todo-item-edit disinline">
+                                <div ng-hide="todo.is_todo_edit" ng-click="js_show_todo_editor(todo)"ng-class="{true:'todo-finish',false:''}[todo.completed]">
+                                    {{todo.name}}
+                                </div>
+
+                                <div class="edit" ng-show="todo.is_todo_edit">
+                                    <div class="todo-edit-control">
+                                        <textarea  ng-model="todo.name" type="text" class="form-control"/>
+                                    </div>
+                                    <div class="mb_10">
+                                        <button ng-click="js_save_todo($event,todo)" data-loading-text="保存"
+                                                loading-status="todo.is_saving" class="btn btn-success mr_15">保存
+                                        </button>
+                                        <button class="btn" ng-click="js_show_todo_editor( todo)">
+                                            删除
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="todo-item">
+                            <a class="todo-item-check static-a" ng-click="js_complete_todo(task, todo)">
+                                <!--<i ng-class="{0: 'icon-check-empty', 1: 'icon-check-sign'}[todo.completed]"></i>-->
+                                <div class="disinline static-16" style="vertical-align: top;"></div>
+                            </a>
+                            <div class="todo-item-edit disinline">
+                                <div ng-hide="task.addtodo" ng-click="js_add_todo_editor()"ng-class="{true:'todo-finish',false:''}[todo.completed]">
+                                    添加检查项
+                                </div>
+
+                                <div class="edit" ng-show="task.addtodo">
+                                    <div class="todo-edit-control">
+                                        <textarea  ng-model="addtodo_name" type="text" class="form-control"/>
+                                    </div>
+                                    <div class="mb_10">
+                                        <button ng-click="js_addtodo($event,addtodo_name)" data-loading-text="保存"
+                                                loading-status="" class="btn btn-success mr_15">添加
+                                        </button>
+                                        <button class="btn" ng-click="js_add_todo_editor()">
+                                            取消
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!--comment-->
+            <div class="divider-task">评论</div>
+            <ul class="comments">
+                <li ng-repeat="comment in comments" class="comment-li">
+                    <a class="avatar static-a " href="javascript:;" title="{{comment.owner.username}}">
+                        <span class="avatar-face">
+                            <span class="avatar-text ng-binding">{{comment.owner.username[0]}}</span>
+                        </span>
+                    </a>
+                    <div class="pull-right">{{comment.dateCreated | timeformatCOM}}</div>
+                    <div class="disinline" style="overflow: hidden">
+                        <div class="comment-li-user">{{comment.owner.nickname}}</div>
+
+                        <div class="comment-li-mess">{{comment.message}}</div>
+                    </div>
+                </li>
+                <li  class="comment-li">
+                    <a class="avatar static-a " style="vertical-align: top" href="javascript:;" title="{{comment.owner.username}}">
+                        <span class="avatar-face">
+                            <span class="avatar-text ng-binding">{{user.username[0]}}</span>
+                        </span>
+                    </a>
+                    <div class="disinline task-comment-wrap">
+                        <textarea class="newtask-text task-comment" ng-model="new_com">
+                            {{new_com}}
+                        </textarea>
+                    </div>
+                    <button class="btn btn-success pull-right comment-sub" ng-click="js_comment($event,new_com)">提交评论</button>
+                </li>
+            </ul>
+
+        </div>
+        <div class="sidebar-module"></div>
+    </div>
+</div>
+
+<script>
+    $('#timetg').datetimepicker({
+            format: "yyyy MM dd",
+            autoclose: true,
+            todayBtn: true,
+            minView:'2'
+        })
+    $('#timetg').click(function($event){
+        $('#timetg').datetimepicker('show');
+    })
+    $('#timetg').datetimepicker()
+            .on('changeDate', function(ev){
+                $('#timetg').scope().settime(ev.date);
+            });
+</script>

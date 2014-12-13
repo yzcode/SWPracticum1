@@ -1,0 +1,56 @@
+<div class="server-team-main" id="server-team-tas-main">
+    <div class="team-tas-left-wrap">
+        <div class="team-tas-left">
+            <div class="title">
+                {{taskfilterarg|taskfiltername}}任务
+            </div>
+            <div class="main-panel">
+                <div class="team-tas-main-wrap">
+                    <div class="team-tas-li" ng-repeat="task in team.tasks.tasks | taskfilter:taskfilterarg">
+                        <div class="team-tas-li-time">{{task.dateCreated | timeformat}}</div>
+                        <div class="team-tas-li-en">
+                            <div class="team-tas-li-taskname">
+                                <div class="disinline static-16" ng-click="taskcomplete(task);"><span ng-class="{true:'icon-check taskli',false:'icon-check-empty'}[task.completed]"></span></div>
+                                <span class="team-tas-li-taskname-name" ng-class="{true:'taskfinish',false:''}[task.completed]">{{task.taskName}}</span>
+                            </div>
+                            <div class="team-tas-li-info">
+                                <span class="label label-danger" ng-if="task.expireDdate"><span class="icon-time"></span> {{task.expireDdate | timeformatYM}}</span>
+                            </div>
+                            <div class="team-tas-li-mem">
+                                <a class="avatar avatar-30 mr_5" ng-repeat="mem in task.members">
+                                    <span class="avatar-face">
+                                        <span class="avatar-text">
+                                           {{mem.nickname[0]}}
+                                        </span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="team-tas-right pull-right">
+        <div class="title">
+            <p class="teamname"><span class="glyphicon glyphicon-filter"></span> 任务筛选</p>
+        </div>
+        <div class="user-list">
+            <ul class="user-ul">
+                <li ng-repeat="team_user in team.users" class="user-li">
+                    <a href="javascript:;" ng-click="set_taskfilterarg(team_user.username)">
+                        <span class="avatar avatar-30">
+                            <span class="avatar-face">
+                                <span class="avatar-text" >
+                                {{team_user.username[0]}}
+                                </span>
+                                <span class="username">{{team_user.nickname}}</span>
+                            </span>
+                        </span>
+                        <span class="pull-right" ng-class="{true:'icon-ok icon-filterarg',false:''}[team_user.username==taskfilterarg]"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="project-right-wrap">
+    <div class="project-right-header">
+        <div>项目管理</div>
+    </div>
+    <div class="hr"></div>
+    <div class="project-right-app">
+        <div class="title">应用</div>
+        <ul class="project-right-app-wrap">
+            <li class="active">
+                <a class="static-a" href="javascript:;">
+                    <span class="icon-check"></span>
+                    <div>任务</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="hr"></div>
+    <div class="project-right-mem">
+        <div class="title">成员</div>
+        <ul class="project-right-mem-wrap">
+            <li ng-repeat="user in teaminfo.users" ng-click="userpopup($event,user)">
+                <div>
+                    <a class="avatar static-a" href="javascript:;" draggable="draggable_options" title="{{user.username}}">
+                        <span class="avatar-face" >
+                            <span class="avatar-text">{{user.nickname[0]}}</span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

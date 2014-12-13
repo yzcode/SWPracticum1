@@ -6,8 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import org.hibernate.Query;
+import javax.persistence.Query;
 
 import workcross.model.*;
 import workcross.repository.TeamMemberRepository;
@@ -21,29 +23,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class TeamService {
-	
-	
+
 	@Autowired
 	private TeamRepository teamRepository;
-	
+
 	@Autowired
 	private TeamMemberRepository teamMemberRepository;
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	
-	public Team addTeam(String teamName,String description)
-	{
+
+	@PersistenceContext
+	public EntityManager em;
+
+	public Team addTeam(String teamName, String description) {
 		Team team = new Team();
 		team.setTeamname(teamName);
 		team.setDescription(description);
 		return teamRepository.save(team);
-		
+
 	}
-	
-	public TeamMember addUserToTeam(User user ,Team team) throws Exception 
-	{
+
+	public TeamMember addUserToTeam(User user, Team team) throws Exception {
 		if (user == null || team == null)
 			throw new Exception("User or Team is null");
 		TeamMember teamMember = new TeamMember();
@@ -51,27 +52,48 @@ public class TeamService {
 		teamMember.setTeamId(team.getId());
 		return teamMemberRepository.save(teamMember);
 	}
-	
-	public List<Team> getUserTeams(User user)
-	{
-		List<TeamMember> teamMembers =  teamMemberRepository.findByUserId(user.getId());
-		List<Long> teamIds = new ArrayList<Long>();
-		for (TeamMember tm:teamMembers)
-			teamIds.add(tm.getTeamId());
-		return teamRepository.findByIdIn(teamIds);
+
+	public TeamMember addUserToTeam(User user, Team team, String role)
+			throws Exception {
+		if (user == null || team == null)
+			throw new Exception("User or Team is null");
+		TeamMember teamMember = new TeamMember();
+		teamMember.setUserId(user.getId());
+		teamMember.setTeamId(team.getId());
+		teamMember.setRole(role);
+		return teamMemberRepository.save(teamMember);
 	}
-	
-	public List<User> getTeamUsers(Team team)
-	{
-		List<TeamMember> teamMembers =  teamMemberRepository.findByTeamId(team.getId());
-		List<Long> userIds = new ArrayList<Long>();
-		for (TeamMember tm:teamMembers)
-			userIds.add(tm.getUserId());
-		return userRepository.findByIdIn(userIds);
+
+	public List<Team> getUserTeams(User user) {
+		Query query = em
+				.createQuery("select teamId from TeamMember where userId=:userId");
+		query.setParameter("userId", user.getId());
+		List<Long> teamIds = query.getResultList();
+		if (!teamIds.isEmpty())
+			return teamRepository.findByIdIn(teamIds);
+		else
+			return new ArrayList<Team>();
 	}
-	public Team getTeamById(long id)
-	{
+
+	public List<Long> getTeamUserIds(Team team) {
+		Query query = em
+				.createQuery("select userId from TeamMember where teamId=:teamId");
+		query.setParameter("teamId", team.getId());
+		List<Long> userIds = query.getResultList();
+		return userIds;
+	}
+
+	public List<User> getTeamUsers(Team team) {
+
+		List<Long> userIds = getTeamUserIds(team);
+		if (!userIds.isEmpty())
+			return userRepository.findByIdIn(userIds);
+		else
+			return new ArrayList<User>();
+	}
+
+	public Team getTeamById(long id) {
 		return teamRepository.findById(id);
 	}
-	
+
 }

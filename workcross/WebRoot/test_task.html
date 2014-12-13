@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/workcross/static/css/bootstrap.min.css">
+</head>
+<body>
+<h1>/workcross/api/entries/</h1>
+
+<form class="form-horizontal panel-body" action="/workcross/api/entries/" method="post">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">projectId</label>
+
+        <div class="col-sm-9">
+            <input class="form-control" type="text" name="projectId">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">name</label>
+
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">pos</label>
+
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="pos">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label col-sm-2">
+            <button class="btn btn-default" type="submit">提交</button>
+        </div>
+    </div>
+</form>
+
+<h1>/workcross/api/tasks/</h1>
+
+<form class="form-horizontal panel-body" action="/workcross/api/tasks/" method="post">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">projectId</label>
+
+        <div class="col-sm-9">
+            <input class="form-control" type="text" name="projectId">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">entryId</label>
+
+        <div class="col-sm-9">
+            <input class="form-control" type="text" name="entryId">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">name</label>
+
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">description</label>
+
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="description">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">pos</label>
+
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="pos">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label col-sm-2">
+            <button class="btn btn-default" type="submit">提交</button>
+        </div>
+    </div>
+</form>
+<h1>/workcross/api/tasks/{taskId}/member/</h1>
+
+<form class="form-horizontal panel-body" action="/workcross/api/tasks/1/member/" method="post">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">username</label>
+
+        <div class="col-sm-9">
+            <input class="form-control" type="text" name="username">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label col-sm-2">
+            <button class="btn btn-default" type="submit">提交</button>
+        </div>
+    </div>
+</form>
+
+<h1>/workcross//api/tasks/1/member/</h1>
+
+<form class="form-horizontal panel-body" action="/workcross/api/tasks/1/checkpoints/" method="post">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">username</label>
+
+        <div class="col-sm-9">
+            <input class="form-control" type="text" name="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label col-sm-2">
+            <button class="btn btn-default" type="submit">提交</button>
+        </div>
+    </div>
+</form>
+</body>
