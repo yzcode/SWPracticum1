@@ -90,6 +90,8 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                         $.post('/workcross/api/teams/', {
                             name: name,
                             desc: desc
+                        },function(data,status){
+                            $rootScope.$broadcast("add-team",data);
                         });
                         $scope.js_close();
                     }
@@ -98,7 +100,9 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                         $.post('/workcross/api/projects/', {
                             name: prjName,
                             team: team_id,
-                            desc: desc
+                            desc: ""
+                        },function(data,status){
+                            $rootScope.$broadcast("add-project",data);
                         });
                         $scope.js_close();
                     }
@@ -175,6 +179,17 @@ workxControllers.controller('left-panel', ['$scope', '$http', 'globel_settings',
                 //});
             }
         }
+        $scope.$on("add-team",function($event,team){
+            $scope.teams = $scope.teams || [];
+            $scope.teams.push(team);
+            $scope.$apply();
+        });
+        $scope.$on("add-project",function($event,project){
+            $scope.teams = $scope.teams || [];
+            for (var i =0;i<$scope.teams.length;i++)
+                if ($scope.teams[i].id == project.teamId)
+                    $scope.teams[i].projects.projects.push(project);
+        });
     }]);
 
 
