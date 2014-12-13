@@ -637,12 +637,10 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
             }
             $scope.settime = function(date){
                 console.log(date.valueOf());
-                var url = '/workcross/api/'
-                $.post(url,{
-
-                },function(data,status){
-                    $scope.task.expireDdate = data.expireDdate;
-                })
+                var url = '/workcross/api/tasks/'+$scope.task.id+'/'
+                $scope.task.expireDdate = date;
+                $scope.$apply();
+                $rootScope.updateTask($scope.task);
             }
         });
     }]);
