@@ -500,6 +500,18 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                 }
             }).open();
         };
+        $scope.$on("remove-task", function ($event, taskId) {
+            var index = -1;
+            var tasks = $scope.project.tasks;
+            for (var i = 0; i < tasks.length; i++)
+                if (tasks[i].id == taskId)
+                    index = i;
+            if (index != -1) {
+                tasks.splice(index, 1);
+                $scope.$apply();
+            }
+
+        });
         $scope.delpopup = function ($event, arg_task, arg_mem) {
             $popbox.popbox({
                 target: $event,
@@ -538,16 +550,16 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
         $scope.$on("slidebox_load_task", function ($event, task, project) {
             $scope.task = task;
             var tmp_todofinishcnt = 0;
-            for(var i in $scope.task.checkpoints){
-                if($scope.task.checkpoints[i].completed) tmp_todofinishcnt++;
+            for (var i in $scope.task.checkpoints) {
+                if ($scope.task.checkpoints[i].completed) tmp_todofinishcnt++;
             }
             console.log(tmp_todofinishcnt);
-            $scope.task.percentage = tmp_todofinishcnt / $scope.task.checkpoints.length *100;
-            $scope.task.addtodo=false;
+            //$scope.task.percentage = tmp_todofinishcnt / $scope.task.checkpoints.length *100;
+            $scope.task.addtodo = false;
             $scope.project = project;
             $scope.task.is_edit = false;
             $scope.task.is_todo_edit = false;
-            $scope.new_com= "";
+            $scope.new_com = "";
             $scope.task_editing = {name: task.name, description: task.description};
             //functions
             $scope.js_close = function ($event) {
@@ -570,7 +582,6 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
                 task.completed = !task.completed;
                 $rootScope.updateTask(task);
             }
-
             if (!$scope.project)
                 $http.get("/workcross/api/projects/" + task.projectId + "/").success(function (data) {
                     $scope.project = data;
@@ -580,67 +591,70 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
                     $scope.comments = data;
                 }
             )
-            $scope.js_complete_todo = function(task,todo){
-                if(todo.completed)todo.completed = false;
+            $scope.js_complete_todo = function (task, todo) {
+                if (todo.completed)todo.completed = false;
                 else todo.completed = true;
-                var url = '/workcross/api/tasks/'+$scope.task.id+'/checkpoints/'+todo.id+'/';
-                $.post(url,{
-                    completed:todo.completed
-                },function(data,status){
+                var url = '/workcross/api/tasks/' + $scope.task.id + '/checkpoints/' + todo.id + '/';
+                $.post(url, {
+                    completed: todo.completed
+                }, function (data, status) {
 
                 })
             }
-            $scope.js_show_todo_editor = function(todo){
-                if(todo.is_todo_edit) todo.is_todo_edit = false;
+            $scope.js_show_todo_editor = function (todo) {
+                if (todo.is_todo_edit) todo.is_todo_edit = false;
                 else todo.is_todo_edit = true;
             }
-            $scope.js_add_todo_editor=function(){
-                if($scope.task.addtodo) $scope.task.addtodo= false;
-                else $scope.task.addtodo = true;
+            $scope.js_add_todo_editor = function () {
+                if ($scope.task.addtodo) $scope.task.addtodo = false;
+                else $scope.task.addtodo = true, $scope.task.is_todo_edit = true;
             }
-            $scope.js_addtodo = function(event,names){
+            $scope.js_addtodo = function (event, names) {
                 //添加todo
-                var url = '/workcross/api/tasks/'+$scope.task.id+'/checkpoints/';
+                var url = '/workcross/api/tasks/' + $scope.task.id + '/checkpoints/';
                 console.log(url);
-                $.post(url,{
-                    name:names
-                },function(data,status){
+                $.post(url, {
+                    name: names
+                }, function (data, status) {
                     $scope.task.checkpoints.push(data);
+                    $scope.$apply();
                 })
             }
-            $scope.js_save_todo = function(e,todo){
-                var url = '/workcross/api/tasks/'+$scope.task.id+'/checkpoints/'+todo.id+'/';
+            $scope.js_save_todo = function (e, todo) {
+                var url = '/workcross/api/tasks/' + $scope.task.id + '/checkpoints/' + todo.id + '/';
                 console.log(url);
-                $.post(url,{
-                    name:todo.name
-                },function(data,status){
+                $.post(url, {
+                    name: todo.name
+                }, function (data, status) {
 
                 })
             }
-            $scope.js_del_task = function(task){
-                var urls = '/workcross/api/tasks/'+$scope.task.id+'/';
+            $scope.js_del_task = function (task) {
+                var taskId = task.id;
+                var urls = '/workcross/api/tasks/' + $scope.task.id + '/';
                 console.log(urls);
                 $.ajax({
-                    url:urls,
-                    method:'delete'
+                    url: urls,
+                    method: 'delete',
+                    success: function () {
+                        $rootScope.$broadcast("remove-task", taskId);
+                    }
                 });
             }
-            $scope.js_comment = function(e,com){
-                var url = '/workcross/api/tasks/'+$scope.task.id+'/comments/';
-                $.post(url,{
-                    message:com
-                },function(data,status){
+            $scope.js_comment = function (e, com) {
+                var url = '/workcross/api/tasks/' + $scope.task.id + '/comments/';
+                $.post(url, {
+                    message: com
+                }, function (data, status) {
                     $scope.comments.push(data);
                     $scope.new_com = "";
                     $scope.$apply();
                 })
             }
-            $scope.settime = function(date){
+            $scope.settime = function (date) {
                 console.log(date.valueOf());
                 var url = '/workcross/api/'
-                $.post(url,{
-
-                },function(data,status){
+                $.post(url, {}, function (data, status) {
                     $scope.task.expireDdate = data.expireDdate;
                 })
             }
@@ -654,8 +668,8 @@ workxControllers.controller('dashboard-main', ['$scope', 'globel_settings', '$ro
                 $scope.$apply();
             });
         }
-        $scope.js_open_task = function ($event,feed) {
-            $scope.js_set_feede_read($event,feed);
+        $scope.js_open_task = function ($event, feed) {
+            $scope.js_set_feede_read($event, feed);
             $rootScope.slidebox.show_task(feed.objectId);
         }
     }]);
