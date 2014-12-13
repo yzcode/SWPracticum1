@@ -120,7 +120,7 @@ workxfilter.filter('timeformat', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        var day = nowt.getDay() < 10 ? ('0' + nowt.getDay().toString()) : (nowt.getDay().toString());
+        var day = nowt.getDate() < 10 ? ('0' + nowt.getDate().toString()) : (nowt.getDate().toString());
         var mon = nowt.getMonth() < 10 ? ('0' + nowt.getMonth().toString()) : (nowt.getMonth().toString());
         return nowt.getFullYear() + '年' + mon + '月' + day + '日';
     };
@@ -131,7 +131,7 @@ workxfilter.filter('timeformatYM', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        var day = nowt.getDay() < 10 ? ('0' + nowt.getDay().toString()) : (nowt.getDay().toString());
+        var day = nowt.getDate() < 10 ? ('0' + nowt.getDate().toString()) : (nowt.getDate().toString());
         var mon = nowt.getMonth() < 10 ? ('0' + nowt.getMonth().toString()) : (nowt.getMonth().toString());
         return mon + '月' + day + '日';
     };
@@ -141,7 +141,7 @@ workxfilter.filter('timeformatCOM', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        var day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
+        var day = nowt.getDate()<10?('0'+nowt.getDate().toString()):(nowt.getDate().toString());
         var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
         return mon+'-'+day+'  '+ nowt.getHours()+':'+nowt.getMinutes();
     };

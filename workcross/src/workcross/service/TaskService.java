@@ -173,5 +173,9 @@ public class TaskService {
 	public void deleteTask(Task task) {
 		taskRepository.delete(task);
 	}
-
+	public void removeTaskMember(long taskId,long userId,String relation)
+	{
+		TaskMember taskMember = taskMemberRepository.findByUserIdAndRelationAndTaskId(userId, relation, taskId);
+		taskMemberRepository.delete(taskMember);
+	}
 }

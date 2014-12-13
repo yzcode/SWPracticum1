@@ -520,13 +520,25 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                 controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
                     $scope.task = pop_data.task;
                     $scope.userpop = pop_data.member;
+                    var taskId = $scope.userpop.id;
                     $scope.deluser = function (e) {
-                        var url = "";
-                        $.post(url, {
-                            username: $scope.userpop.username
-                        }, function (data, status) {
-                            popbox.close();
-                        })
+                        var url = "/workcross/api/tasks/" + $scope.task.id + "/members/" + $scope.userpop.username + "/";
+                        $.ajax({
+                            url: url,
+                            method: "DELETE",
+                            success: function (data, status) {
+                                var index = -1;
+                                var tasks = $scope.task;
+                                for (var i = 0; i < tasks.length; i++)
+                                    if (tasks[i].id == taskId)
+                                        index = i;
+                                if (index != -1) {
+                                    tasks.splice(index, 1);
+                                    $scope.$apply();
+                                }
+                            }
+                        });
+
                     }
                 }],
                 resolve: {
@@ -653,7 +665,7 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
             }
             $scope.settime = function (date) {
                 console.log(date.valueOf());
-                var url = '/workcross/api/tasks/'+$scope.task.id+'/'
+                var url = '/workcross/api/tasks/' + $scope.task.id + '/'
                 $scope.task.expireDdate = date;
                 $scope.$apply();
                 $rootScope.updateTask($scope.task);

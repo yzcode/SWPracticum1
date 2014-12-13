@@ -8,4 +8,5 @@ public interface TaskMemberRepository extends CrudRepository<TaskMember, Long> {
 	List<TaskMember>findByUserId(long userId);
 	List<TaskMember>findByTaskIdAndRelation(long taskId,String relation);
 	List<TaskMember>findByUserIdAndRelation(long userId,String relation);
+	TaskMember findByUserIdAndRelationAndTaskId(long userId,String relation,long taskId);
 }

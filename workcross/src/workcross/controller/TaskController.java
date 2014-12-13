@@ -86,6 +86,7 @@ public class TaskController {
 
 		return task;
 	}
+
 	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.GET)
 	@ResponseBody
 	Task getTask(HttpSession httpSession,
@@ -95,7 +96,7 @@ public class TaskController {
 		taskService.fillTaskMember(task);
 		return task;
 	}
-	
+
 	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.DELETE)
 	@ResponseBody
 	Task deleteTask(HttpSession httpSession,
@@ -127,6 +128,17 @@ public class TaskController {
 		feedService.addUserTaskFeed(taskId, user,
 				String.format("有一条新任务分配给您:%s", task.getTaskName()));
 		return taskService.addTaskMember(task, user);
+	}
+
+	@RequestMapping(value = "/api/tasks/{taskId}/members/{username}/", method = RequestMethod.DELETE)
+	public @ResponseBody
+	User removeTaskMember(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId,
+			@PathVariable(value = "username") String username) {
+		User user = userService.getUserByUsername(username);
+		Task task = taskService.getTaskById(taskId);
+		taskService.removeTaskMember(task.getId(), user.getId(), "member");
+		return user;
 	}
 
 	@RequestMapping(value = "/api/tasks/{taskId}/watchers/", method = RequestMethod.POST)
