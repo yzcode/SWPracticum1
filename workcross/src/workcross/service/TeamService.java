@@ -75,12 +75,17 @@ public class TeamService {
 			return new ArrayList<Team>();
 	}
 
-	public List<User> getTeamUsers(Team team) {
-
+	public List<Long> getTeamUserIds(Team team) {
 		Query query = em
 				.createQuery("select userId from TeamMember where teamId=:teamId");
 		query.setParameter("teamId", team.getId());
 		List<Long> userIds = query.getResultList();
+		return userIds;
+	}
+
+	public List<User> getTeamUsers(Team team) {
+
+		List<Long> userIds = getTeamUserIds(team);
 		if (!userIds.isEmpty())
 			return userRepository.findByIdIn(userIds);
 		else

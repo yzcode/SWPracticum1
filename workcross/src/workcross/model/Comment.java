@@ -2,7 +2,7 @@ package workcross.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Comment")
+@Table(name = "comment")
 public class Comment extends BaseModel {
 
 	/**

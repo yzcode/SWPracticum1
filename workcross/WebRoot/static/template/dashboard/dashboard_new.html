@@ -1,10 +1,21 @@
-<div class="server-dashboard-main server-main">
+<div class="server-dashboard-main server-main" ng-controller="dashboard-main">
     <div class="dashboard-new-left-wrap server-left-wrap">
         <div class="dashboard-new-left server-left">
             <div class="title">
                 最新动态
             </div>
             <div class="main-panel">
+                <div class="feed-item" ng-repeat="feed in feeds">
+                    <div class="disinline feed-item-icon">
+                        <a href="javascript:;" ng-show="!feed.read" class="icon-envelope mr_15 ng-scope static-a"
+                           tooltip="标为已读" ng-click="js_set_feede_read($event,feed)"> </a>
+                        <a href="javascript:;" ng-show="feed.read"
+                           class="icon-envelope-alt mr_15 ng-scope ng-hide static-a" tooltip="消息已读"> </a>
+                    </div>
+                    <div ng-class="{true:'',false:'unread'}[feed.read]" class="disinline">
+                        <h4>{{feed.message}}</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

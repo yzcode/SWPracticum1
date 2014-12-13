@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import workcross.model.*;
+import workcross.service.FeedService;
 import workcross.service.ProjectService;
 import workcross.service.TaskService;
 import workcross.service.TeamService;
@@ -35,9 +36,12 @@ public class TaskController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	ObjectMapper objectMapper;
+
+	@Autowired
+	FeedService feedService;
 
 	@RequestMapping(value = "/api/projects/{projectId}/entries/", method = RequestMethod.GET)
 	public @ResponseBody
@@ -72,15 +76,34 @@ public class TaskController {
 		Task task = taskService.addTask(projectId, entryId, name, description,
 				pos);
 		taskService.addTaskWatcher(task, user);
+		taskService.fillTaskMember(task);
+
+		Project project = projectService.getProjectById(projectId);
+		Team team = teamService.getTeamById(project.getTeamId());
+		List<Long> teamMemberIds = teamService.getTeamUserIds(team);
+		feedService.addUsersTaskFeeds(task.getId(), teamMemberIds,
+				String.format("%s 添加了一个任务:%s", user.getNickname(), name));
+
+		return task;
+	}
+
+	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.DELETE)
+	@ResponseBody
+	Task deleteTask(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId) {
+		Task task = taskService.getTaskById(taskId);
+		taskService.deleteTask(task);
 		return task;
 	}
 
 	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.POST)
 	public @ResponseBody
 	Task modeifyTask(HttpSession httpSession,
-			@PathVariable(value = "taskId") long taskId, @RequestBody String json) throws JsonParseException, JsonMappingException, IOException {
-		//User user = (User) httpSession.getAttribute("user");
-		Task task = objectMapper.readValue(json,Task.class);
+			@PathVariable(value = "taskId") long taskId,
+			@RequestBody String json) throws JsonParseException,
+			JsonMappingException, IOException {
+		// User user = (User) httpSession.getAttribute("user");
+		Task task = objectMapper.readValue(json, Task.class);
 		task.setId(taskId);
 		return taskService.saveTask(task);
 	}
@@ -91,6 +114,9 @@ public class TaskController {
 			@PathVariable(value = "taskId") long taskId, String username) {
 		User user = userService.getUserByUsername(username);
 		Task task = taskService.getTaskById(taskId);
+
+		feedService.addUserTaskFeed(taskId, user,
+				String.format("有一条新任务分配给您:%s", task.getTaskName()));
 		return taskService.addTaskMember(task, user);
 	}
 

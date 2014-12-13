@@ -61,13 +61,14 @@ public class TaskService {
 		Task task = new Task(projectId, entryId, taskName, description, pos);
 		return taskRepository.save(task);
 	}
-	public Task saveTask(Task task)
-	{
+
+	public Task saveTask(Task task) {
 		Task o_task = taskRepository.findById(task.getId());
 		task.setDateCreated(o_task.getDateCreated());
-		task.setProjectId(o_task.getProjectId());	
+		task.setProjectId(o_task.getProjectId());
 		return taskRepository.save(task);
 	}
+
 	public void removeTask(Task task) {
 		taskRepository.delete(task);
 	}
@@ -110,10 +111,20 @@ public class TaskService {
 
 	public List<Long> getTaskMemberUserIds(Task task) {
 		Query query = em
-				.createQuery("select userId from TaskMember where taskId=:taskId");
+				.createQuery("select userId from TaskMember where taskId=:taskId and relation=:relation");
 		query.setParameter("taskId", task.getId());
-		List result = query.getResultList();
-		return new ArrayList<Long>(result);
+		query.setParameter("relation", "member");
+		List<Long> result = query.getResultList();
+		return result;
+	}
+
+	public List<Long> getTaskWatcherUserIds(Task task) {
+		Query query = em
+				.createQuery("select userId from TaskMember where taskId=:taskId and relation=:relation");
+		query.setParameter("taskId", task.getId());
+		query.setParameter("relation", "watcher");
+		List<Long> result = query.getResultList();
+		return result;
 	}
 
 	public Task fillTaskMember(Task task) {
@@ -157,6 +168,10 @@ public class TaskService {
 
 	public List<Task> getTasksByProjectIds(List<Long> ProjectIds) {
 		return taskRepository.findByProjectIdIn(ProjectIds);
+	}
+
+	public void deleteTask(Task task) {
+		taskRepository.delete(task);
 	}
 
 }
