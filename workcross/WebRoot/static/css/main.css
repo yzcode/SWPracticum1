@@ -1413,4 +1413,114 @@ table.table.project-list tbody tr td p {
 }
 .slide-content.slidebox_show {
   width: 700px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.sliderbox-panel-header {
+  line-height: 30px;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 16px;
+}
+.sliderbox-panel-header .header-icon {
+  margin-right: 12px;
+}
+.sliderbox-panel-header-title {
+  max-width: 275px;
+  display: inline-block;
+}
+.slide-content ul.nav {
+  float: right;
+  height: 34px;
+}
+.slide-content ul.nav li a {
+  padding: 2px 10px;
+  color: #393939;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+.slide-content ul.nav li.divider-v {
+  border-style: solid;
+  border-width: 1px;
+  height: 32px;
+  border-left-color: #e5e5e5;
+  border-right-color: #fff;
+  color: transparent;
+  background: transparent;
+  margin-right: 8px;
+}
+.slide-content .content-panel {
+  padding-left: 20px;
+  padding-top: 5px;
+  width: 500px;
+  float: left;
+  overflow-x: hidden;
+}
+.slide-content .sidebar-module {
+  width: 160px;
+  float: right;
+  min-height: 375px;
+}
+.slide-content .content-panel .panel-title {
+  font-size: 24px;
+}
+.slide-content .slidebox-description {
+  line-height: 24px;
+  font-size: 14px;
+  padding-left: 20px;
+  margin-top: 20px;
+}
+.todo-item {
+  padding: 10px;
+}
+.todo-item-edit {
+  margin-left: 10px;
+}
+.todo-finish {
+  text-decoration: line-through;
+}
+.todo-edit-control {
+  position: relative;
+  width: 100%;
+  margin-right: 150px;
+  display: block;
+}
+.todo-edit-control textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 4px 0;
+  text-indent: .5em;
+}
+.divider-task {
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+.comments {
+  padding: 0px 0px;
+}
+.comment-li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  overflow: hidden;
+}
+.comment-li .avatar {
+  vertical-align: top;
+}
+.comment-li-mess {
+  margin-top: 10px;
+}
+.task-comment {
+  width: 100%;
+  height: 130px;
+}
+.task-comment-wrap {
+  width: 80%;
+  margin-left: 30px;
+}
+.comment-sub {
+  margin-right: 18px;
+  margin-top: 20px;
+}
+.form_datetime {
+  min-height: 300px;
 }

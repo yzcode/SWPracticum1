@@ -132,7 +132,16 @@ workxfilter.filter('timeformatYM', function () {
         return mon+'月'+day+'日' ;
     };
 })
-
+workxfilter.filter('timeformatCOM', function () {
+    return function (timestamp) {
+        if (timestamp == null) return "";
+        var nowt = new Date();
+        nowt.setTime(timestamp);
+        var day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
+        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
+        return mon+'-'+day+'  '+ nowt.getHours()+':'+nowt.getMinutes();
+    };
+})
 workxfilter.filter('taskInEntry', function () {
     return function (task, id) {
         var res = [];
@@ -167,5 +176,16 @@ workxfilter.filter('usersign', function () {
             }
             return res_task;
         }
+    }
+}).filter('taskfilterbyCOM',function(){
+    return function(tasks,arg){
+        var res_tasks = [];
+        var nowdate = new Date();
+        for(var i = 0;i<tasks.length;i++){
+            if(arg=='completed' && tasks[i].completed) res_tasks.push(tasks[i]);
+            else if(arg=='uncompleted'&& tasks[i].completed==false) res_tasks.push(tasks[i]);
+            else if(tasks[i].expireDdate!=null && tasks[i].expireDdate < nowdate.valueOf() ) res_tasks.push(tasks[i]);
+        }
+        return res_tasks;
     }
 })

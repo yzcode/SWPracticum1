@@ -1680,14 +1680,14 @@ table.table.project-list tbody tr td p {
 
 .slide-content.slidebox_show {
   width: 700px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .sliderbox-panel-header {
-  padding-left: 15px;
   line-height: 30px;
-  padding-top: 12px;
-  padding-bottom: 2px;
-  border-bottom: 1px solid @board-server;
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
   font-size: 16px;
 }
 
@@ -1747,5 +1747,58 @@ table.table.project-list tbody tr td p {
   padding-left: 20px;
   margin-top: 20px;
 }
-
+.todo-item{
+  padding: 10px;
+}
+.todo-item-edit{
+  margin-left: 10px;
+}
+.todo-finish{
+  text-decoration: line-through;
+}
+.todo-edit-control{
+  position: relative;
+  width: 100%;
+  margin-right: 150px;
+  display: block;
+}
+.todo-edit-control textarea{
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 4px 0;
+  text-indent: .5em;
+}
+.divider-task{
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+.comments{
+  padding: 0px 0px;
+}
+.comment-li{
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  overflow: hidden;
+}
+.comment-li .avatar{
+  vertical-align: top;
+}
+.comment-li-mess{
+  margin-top: 10px;
+}
+.task-comment{
+  width: 100%;
+  height: 130px;
+}
+.task-comment-wrap{
+  width: 80%;
+  margin-left: 30px;
+}
+.comment-sub{
+  margin-right: 18px;
+  margin-top: 20px;
+}
+.form_datetime{
+  min-height: 300px;
+}
 //css for slide box end
