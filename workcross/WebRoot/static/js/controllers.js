@@ -520,7 +520,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                 controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
                     $scope.task = pop_data.task;
                     $scope.userpop = pop_data.member;
-                    var taskId = $scope.userpop.id;
+                    var userId = $scope.userpop.id;
                     $scope.deluser = function (e) {
                         var url = "/workcross/api/tasks/" + $scope.task.id + "/members/" + $scope.userpop.username + "/";
                         $.ajax({
@@ -528,17 +528,18 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                             method: "DELETE",
                             success: function (data, status) {
                                 var index = -1;
-                                var tasks = $scope.task;
-                                for (var i = 0; i < tasks.length; i++)
-                                    if (tasks[i].id == taskId)
+                                var members = $scope.task.members;
+                                for (var i = 0; i < members.length; i++)
+                                    if (members[i].id == userId)
                                         index = i;
                                 if (index != -1) {
-                                    tasks.splice(index, 1);
+                                    members.splice(index, 1);
                                     $scope.$apply();
                                 }
+
                             }
                         });
-
+                        popbox.close();
                     }
                 }],
                 resolve: {
