@@ -533,7 +533,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
             }).open();
         };
     }]);
-workxControllers.controller('dashboard-main', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox', '$http',
+workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox', '$http',
     function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox, $http) {
         console.log("in");
         $scope.task = {name: "Task"};
@@ -584,5 +584,9 @@ workxControllers.controller('dashboard-main', ['$scope', 'globel_settings', '$ro
                 feed.read = data.read;
                 $scope.$apply();
             });
+        }
+        $scope.js_open_task = function ($event,feed) {
+            $scope.js_set_feede_read($event,feed);
+            $rootScope.slidebox.show_task(feed.objectId);
         }
     }]);

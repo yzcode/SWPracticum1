@@ -14,7 +14,7 @@ var workx = angular.module('workx', [
 workx.config(['$resourceProvider', function ($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
 }]);
-workx.run(["$rootScope", function ($rootScope) {
+workx.run(["$rootScope", '$http', function ($rootScope, $http) {
     //slidebox
     var slidebox = $rootScope.slidebox = {
         show_slide: false,
@@ -26,9 +26,13 @@ workx.run(["$rootScope", function ($rootScope) {
         },
         task: {},
         show_task: function (task, project) {
-            $rootScope.$broadcast("slidebox_load_task",task,project);
+            if (!(task instanceof Object))
+                $http.get("/workcross/api/tasks/" + task + "/").success(function (data) {
+                    $rootScope.$broadcast("slidebox_load_task", data, project);
+                })
+            else
+                $rootScope.$broadcast("slidebox_load_task", task, project);
             this.show_box();
-
         }
     };
 
@@ -116,8 +120,8 @@ workxfilter.filter('timeformat', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        var day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
-        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
+        var day = nowt.getDay() < 10 ? ('0' + nowt.getDay().toString()) : (nowt.getDay().toString());
+        var mon = nowt.getMonth() < 10 ? ('0' + nowt.getMonth().toString()) : (nowt.getMonth().toString());
         return nowt.getFullYear() + '年' + mon + '月' + day + '日';
     };
 })
@@ -127,9 +131,9 @@ workxfilter.filter('timeformatYM', function () {
         if (timestamp == null) return "";
         var nowt = new Date();
         nowt.setTime(timestamp);
-        var day = nowt.getDay()<10?('0'+nowt.getDay().toString()):(nowt.getDay().toString());
-        var mon = nowt.getMonth()<10?('0'+nowt.getMonth().toString()):(nowt.getMonth().toString());
-        return mon+'月'+day+'日' ;
+        var day = nowt.getDay() < 10 ? ('0' + nowt.getDay().toString()) : (nowt.getDay().toString());
+        var mon = nowt.getMonth() < 10 ? ('0' + nowt.getMonth().toString()) : (nowt.getMonth().toString());
+        return mon + '月' + day + '日';
     };
 })
 
@@ -148,22 +152,22 @@ workxfilter.filter('usersign', function () {
         if (sign != null && sign != "") return sign
         return "他很懒 什么也没有留下";
     };
-}).filter('taskfiltername',function(){
-    return function(name){
-        if(name == 'default') return "团队";
+}).filter('taskfiltername', function () {
+    return function (name) {
+        if (name == 'default') return "团队";
         else return name + '的';
     }
-}).filter('taskfilter',function(){
-    return function(tasks,arg){
-        if(arg=='default') return tasks;
+}).filter('taskfilter', function () {
+    return function (tasks, arg) {
+        if (arg == 'default') return tasks;
         else {
             var res_task = [];
-            for(var i =0 ;i<tasks.length;i++){
+            for (var i = 0; i < tasks.length; i++) {
                 var tmp = false;
-                for(var j = 0;j<tasks[i].members.length;j++){
-                    if(tasks[i].members[j].username == arg) tmp =true;
+                for (var j = 0; j < tasks[i].members.length; j++) {
+                    if (tasks[i].members[j].username == arg) tmp = true;
                 }
-                if(tmp) res_task.push(tasks[i]);
+                if (tmp) res_task.push(tasks[i]);
             }
             return res_task;
         }

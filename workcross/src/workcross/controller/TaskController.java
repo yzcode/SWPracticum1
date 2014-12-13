@@ -86,7 +86,16 @@ public class TaskController {
 
 		return task;
 	}
-
+	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.GET)
+	@ResponseBody
+	Task getTask(HttpSession httpSession,
+			@PathVariable(value = "taskId") long taskId) {
+		Task task = taskService.getTaskById(taskId);
+		taskService.fillTaskCheckPoints(task);
+		taskService.fillTaskMember(task);
+		return task;
+	}
+	
 	@RequestMapping(value = "/api/tasks/{taskId}/", method = RequestMethod.DELETE)
 	@ResponseBody
 	Task deleteTask(HttpSession httpSession,

@@ -13,7 +13,7 @@
                            class="icon-envelope-alt mr_15 ng-scope ng-hide static-a" tooltip="消息已读"> </a>
                     </div>
                     <div ng-class="{true:'',false:'unread'}[feed.read]" class="disinline">
-                        <h4>{{feed.message}}</h4>
+                        <a class="static-a" href="" ng-click="js_open_task($event,feed)"><h4>{{feed.message}}</h4></a>
                     </div>
                 </div>
             </div>
