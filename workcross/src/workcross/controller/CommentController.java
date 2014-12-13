@@ -49,6 +49,7 @@ public class CommentController {
 		Task task = taskService.getTaskById(taskId);
 		User user = (User) httpSession.getAttribute("user");
 		Comment comment = commentService.addTaskComment(task, user, message);
+		commentService.fillCommentOwener(comment);
 		return comment;
 	}
 }

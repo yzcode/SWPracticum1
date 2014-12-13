@@ -44,14 +44,12 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
         $http.get("/workcross/api/feeds/").success(
             function (data) {
                 $rootScope.feeds = data.feeds;
-                $rootScope.$apply();
             }
-        )
+        );
         $scope.feed_unread_num = function () {
             var unread = 0;
             for (var i in $scope.feeds)
                 unread += ($scope.feeds[i].read == false);
-            console.log(unread);
             return unread;
         };
         $scope.master_new_menu = function ($event) {
@@ -634,6 +632,7 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
                 },function(data,status){
                     $scope.comments.push(data);
                     $scope.new_com = "";
+                    $scope.$apply();
                 })
             }
             $scope.settime = function(date){
