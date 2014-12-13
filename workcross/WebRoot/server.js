@@ -20,6 +20,7 @@ wx_test_remap("/workcross/api/teams/:teamId/tasks/","/static/json/testjson/team_
 wx_test_remap("/workcross/api/projects/:teamId/entries/","/static/json/testjson/entries.json");
 wx_test_remap("/workcross/api/tasks/:taskId/comments/","/static/json/testjson/comment.json");
 wx_test_remap("/workcross/api/projects/:projectId/","/static/json/testjson/project.json");
+wx_test_remap("/workcross/api/feeds/","/static/json/testjson/feeds.json");
 
 
 app.get("/workcross/api/teams/:teamId/", function (req, res) {

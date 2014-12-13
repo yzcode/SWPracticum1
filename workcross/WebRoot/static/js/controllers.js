@@ -41,6 +41,19 @@ workxControllers.controller('userMain', ['$scope', '$http', 'globel_settings', '
                 $rootScope.user = data;
             }
         )
+        $http.get("/workcross/api/feeds/").success(
+            function (data) {
+                $rootScope.feeds = data.feeds;
+                $rootScope.$apply();
+            }
+        )
+        $scope.feed_unread_num = function () {
+            var unread = 0;
+            for (var i in $scope.feeds)
+                unread += ($scope.feeds[i].read == false);
+            console.log(unread);
+            return unread;
+        };
         $scope.master_new_menu = function ($event) {
             $popbox.popbox({
                 target: $event,
@@ -305,18 +318,18 @@ workxControllers.controller('teamctr', ['$scope', 'globel_settings', '$routePara
                 templateUrl: "/workcross/static/template/user/newuserpopup.html",
                 controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
                     $scope.team = pop_data.$scope.team;
-                    $scope.js_close =function(){
+                    $scope.js_close = function () {
                         popbox.close();
                     }
-                    $scope.js_add = function(e,newuser){
-                        var url = '/workcross/api/teams/'+$scope.team.team.id+'/members/';
-                        $.post(url,{
-                            username:newuser
-                        },function(data,status){
+                    $scope.js_add = function (e, newuser) {
+                        var url = '/workcross/api/teams/' + $scope.team.team.id + '/members/';
+                        $.post(url, {
+                            username: newuser
+                        }, function (data, status) {
                             $scope.team.users.push(data.user);
                             $scope.$apply();
-                            $scope.js_close();
                         })
+                        $scope.js_close();
                     }
                 }],
                 resolve: {
@@ -488,7 +501,8 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                     }
                 }
             }).open();
-        };$scope.delpopup = function ($event, arg_task,arg_mem) {
+        };
+        $scope.delpopup = function ($event, arg_task, arg_mem) {
             $popbox.popbox({
                 target: $event,
                 placement: "top",
@@ -496,11 +510,11 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                 controller: ['$scope', 'popbox', '$http', 'pop_data', function ($scope, popbox, $http, pop_data) {
                     $scope.task = pop_data.task;
                     $scope.userpop = pop_data.member;
-                    $scope.deluser =function(e){
+                    $scope.deluser = function (e) {
                         var url = "";
-                        $.post(url,{
-                            username:$scope.userpop.username
-                        },function(data,status){
+                        $.post(url, {
+                            username: $scope.userpop.username
+                        }, function (data, status) {
                             popbox.close();
                         })
                     }
@@ -510,7 +524,7 @@ workxControllers.controller('project_taskctr', ['$scope', 'projectRes', 'globel_
                         return {
                             $scope: $scope,
                             task: arg_task,
-                            member:arg_mem
+                            member: arg_mem
                             //parameters: i,
                             //team: t.current_team
                         }
@@ -632,4 +646,17 @@ workxControllers.controller('entity_task_ctrl', ['$scope', 'globel_settings', '$
                 })
             }
         });
+    }]);
+workxControllers.controller('dashboard-main', ['$scope', 'globel_settings', '$routeParams', 'Teams', '$rootScope', '$route', '$popbox', '$http',
+    function ($scope, globel_settings, $routeParams, Teams, $rootScope, $route, $popbox, $http) {
+        $scope.js_set_feede_read = function ($event, feed) {
+            $.post("/workcross/api/feeds/" + feed.id + "/", {read: feed.read}, function (data, state) {
+                feed.read = data.read;
+                $scope.$apply();
+            });
+        }
+        $scope.js_open_task = function ($event,feed) {
+            $scope.js_set_feede_read($event,feed);
+            $rootScope.slidebox.show_task(feed.objectId);
+        }
     }]);
